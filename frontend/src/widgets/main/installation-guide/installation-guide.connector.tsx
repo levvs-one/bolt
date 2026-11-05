@@ -86,6 +86,11 @@ export const InstallationGuideConnector = ({ hasPlatformApps, platform }: IProps
         }
     }
 
+    // Главная кнопка на телефоне закреплена внизу экрана, под большим пальцем.
+    const dockButton = selectedApp?.blocks
+        .flatMap((block) => block.buttons)
+        .find((button) => button.type === 'subscriptionLink')
+
     const selectPlatform = (value: TSubscriptionPagePlatformKey) => {
         vibrate([80])
         setSelectedPlatform(value)
@@ -186,6 +191,7 @@ export const InstallationGuideConnector = ({ hasPlatformApps, platform }: IProps
                         )}
                         {primary.map((button, buttonIndex) => (
                             <Button
+                                className={classes.primaryInline}
                                 fullWidth
                                 h={48}
                                 key={buttonIndex}
@@ -199,6 +205,19 @@ export const InstallationGuideConnector = ({ hasPlatformApps, platform }: IProps
                     </div>
                 )
             })}
+
+            {dockButton && (
+                <div className={classes.dock}>
+                    <Button
+                        fullWidth
+                        h={50}
+                        onClick={() => handleButtonClick(dockButton)}
+                        variant="filled"
+                    >
+                        {t(dockButton.text)}
+                    </Button>
+                </div>
+            )}
         </>
     )
 }

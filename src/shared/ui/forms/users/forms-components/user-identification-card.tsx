@@ -155,7 +155,7 @@ export const UserIdentificationCard = memo((props: IProps) => {
                                 )}
                             </CopyButton>
                         }
-                        value={user.subscriptionUrl.replace(/^https?:\/\//, '')}
+                        value={user.shortUuid}
                     />
                 </BoltGroup>
 

@@ -1912,7 +1912,8 @@
       "language": "Language",
       "logout": "Log out",
       "more": "More",
-      "clients": "Users"
+      "clients": "Users",
+      "settings": "Settings"
     },
     "palette": {
       "placeholder": "Pages, users, actions",
@@ -1959,6 +1960,30 @@
       "last-node": "Last node",
       "copy-link": "Copy link",
       "subscription": "Subscription"
+    },
+    "home": {
+      "online-now": "online now",
+      "nodes-online": "nodes running",
+      "traffic-today": "traffic in 24 h",
+      "node-users": "{{count}} online",
+      "all-nodes": "All nodes",
+      "traffic-week": "Traffic, 7 days",
+      "traffic-30": "Traffic, 30 days",
+      "traffic-month": "Traffic this month",
+      "traffic-lifetime": "Traffic all time",
+      "online-day": "Online today",
+      "online-week": "Online this week",
+      "never-online": "Never connected",
+      "uptime": "Panel uptime",
+      "cpu": "CPU cores",
+      "memory": "Memory",
+      "traffic-day": "Traffic, 24 h"
+    },
+    "node-state": {
+      "online": "Online",
+      "offline": "No connection",
+      "connecting": "Connecting",
+      "disabled": "Disabled"
     }
   }
 }

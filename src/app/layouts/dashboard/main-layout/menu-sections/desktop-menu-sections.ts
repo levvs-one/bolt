@@ -51,12 +51,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                 ]
             },
             {
-                header: t('constants.users'),
+                header: t('bolt.users.title'),
                 id: 'users',
                 icon: TbUsers,
                 section: [
                     {
-                        name: t('constants.users'),
+                        name: t('bolt.users.title'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.USERS,
                         icon: TbUsers,
                         id: 'users'
@@ -253,12 +253,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                 ]
             },
             {
-                header: t('constants.remnawave-settings'),
+                header: t('bolt.shell.settings'),
                 id: 'settings',
                 icon: TbSettings,
                 section: [
                     {
-                        name: t('constants.remnawave-settings'),
+                        name: t('bolt.shell.settings'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.REMNAWAVE_SETTINGS,
                         icon: TbSettings,
                         id: 'remnawave-settings'

@@ -1,246 +1,163 @@
-import { ActionIcon, Box, Group, SimpleGrid, Stack, Title } from '@mantine/core'
 import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
-import { useRef, useState } from 'react'
+import { GetNodesCommand, USERS_STATUS } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
-import { TbCamera, TbInfoCircle } from 'react-icons/tb'
+import {
+    TbActivity,
+    TbCalendarMonth,
+    TbCalendarStats,
+    TbCalendarWeek,
+    TbClockHour4,
+    TbCpu,
+    TbDatabase,
+    TbServer,
+    TbServerOff,
+    TbSun,
+    TbUser,
+    TbUserCancel,
+    TbUserExclamation,
+    TbUserOff,
+    TbUsers
+} from 'react-icons/tb'
+import { useNavigate } from 'react-router'
 
+import { showModal } from '@shared/_modals/show-modal'
+import { useGetNodes } from '@shared/api/hooks'
+import { ROUTES } from '@shared/constants'
 import { useIsMobile } from '@shared/hooks'
 import { LoadingScreen } from '@shared/ui'
+import { BoltGroup, BoltRow } from '@shared/ui/bolt-list'
 import { DisclaimerOverlay } from '@shared/ui/disclaimer-overlay'
-import { MetricCardShared, MetricCardWithTrendShared } from '@shared/ui/metrics/metric-card'
-import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { Page } from '@shared/ui/page'
-import { copyScreenshotToClipboard } from '@shared/utils/copy-screenshot.util'
+import { compactBytesUtil } from '@shared/utils/bytes'
+import dayjs from 'dayjs'
 
 import classes from './home.module.css'
 import { IProps } from './interfaces'
-import {
-    getBandwidthMetrics,
-    getOnlineMetrics,
-    getRuntimeProcessMetrics,
-    getRuntimeSummaryMetrics,
-    getSimpleMetrics,
-    getUsersMetrics
-} from './metrics'
-import { RuntimeDetailCard } from './runtime-detail-card'
 import { RuntimeInfoModalContent } from './runtime-info-modal/runtime-info-modal'
 
-interface IAnimatedCardProps {
-    children: React.ReactNode
-    index: number
+type TNode = GetNodesCommand.Response['response'][number]
+
+function nodeState(node: TNode): 'connecting' | 'disabled' | 'offline' | 'online' {
+    if (node.isDisabled) return 'disabled'
+    if (node.isConnected) return 'online'
+    if (node.isConnecting) return 'connecting'
+    return 'offline'
 }
 
-const AnimatedCard = ({ children, index }: IAnimatedCardProps) => (
-    <Box className={classes.card} style={{ '--card-index': index } as React.CSSProperties}>
-        {children}
-    </Box>
-)
-
 export const HomePage = (props: IProps) => {
-    const { t } = useTranslation()
-
+    const { t, i18n } = useTranslation()
+    const navigate = useNavigate()
     const isMobile = useIsMobile()
-    const runtimeRef = useRef<HTMLDivElement>(null)
-    const [copying, setCopying] = useState(false)
+    const { data: nodes } = useGetNodes()
 
     const { systemInfo, bandwidthStats, remnawaveHealth } = props
-
-    const copyRuntimeScreenshot = async () => {
-        if (!runtimeRef.current || copying) return
-        setCopying(true)
-        try {
-            await copyScreenshotToClipboard(async () => {
-                await new Promise<void>((resolve) => {
-                    setTimeout(resolve, 100)
-                })
-                if (!runtimeRef.current) throw new Error('runtimeRef')
-                return runtimeRef.current
-            }, 'remnawave-runtime.png')
-        } catch (error) {
-            notifications.show({
-                color: 'red',
-                message: `${error instanceof Error ? error.message : 'Unknown error'}`,
-                title: 'Error'
-            })
-        } finally {
-            setCopying(false)
-        }
-    }
 
     if (!systemInfo || !bandwidthStats || !remnawaveHealth) {
         return <LoadingScreen />
     }
 
-    const bandwidthMetrics = getBandwidthMetrics(bandwidthStats, t)
-    const simpleMetrics = getSimpleMetrics(systemInfo, t)
-    const usersMetrics = getUsersMetrics(systemInfo.users, t)
-    const onlineMetrics = getOnlineMetrics(systemInfo.onlineStats, t)
-    const runtimeSummaryMetrics = getRuntimeSummaryMetrics(remnawaveHealth.runtimeMetrics, t)
-    const runtimeProcessMetrics = getRuntimeProcessMetrics(remnawaveHealth.runtimeMetrics)
+    const counts = systemInfo.users.statusCounts
+    const online = systemInfo.onlineStats
+    const nodeList = nodes ?? []
+    const onlineNodes = nodeList.filter((node) => nodeState(node) === 'online').length
+    const openUsers = () => navigate(ROUTES.DASHBOARD.MANAGEMENT.USERS)
+    const bytes = (value: string) => compactBytesUtil(Number(value))
+
+    const openRuntime = () =>
+        modals.open({
+            title: t('home.runtime-info.title'),
+            size: 'xl',
+            centered: true,
+            fullScreen: isMobile,
+            children: <RuntimeInfoModalContent />
+        })
 
     return (
         <Page title={t('constants.home')}>
-            <Stack gap="sm">
-                {runtimeSummaryMetrics.length > 0 && (
-                    <div className={classes.section}>
-                        <Title className={classes.title} m="xs" ml={0} order={4}>
-                            {t('home.page.remnawave-usage')}
-                        </Title>
-
-                        <SimpleGrid cols={{ base: 1, sm: 2, xl: 4 }} spacing="xs">
-                            {runtimeSummaryMetrics.map((metric, index) => (
-                                <AnimatedCard index={index} key={metric.title}>
-                                    <MetricCardShared {...metric} />
-                                </AnimatedCard>
-                            ))}
-                        </SimpleGrid>
-                    </div>
-                )}
-
-                {runtimeProcessMetrics.length > 0 && (
-                    <div className={classes.section}>
-                        <Title className={classes.title} m="xs" ml={0} order={4}>
-                            {t('home.page.process-details')}
-                        </Title>
-                        <SimpleGrid cols={{ base: 1, sm: 2, xl: 4 }} spacing="xs">
-                            {runtimeProcessMetrics.map((metric, index) => (
-                                <AnimatedCard index={index} key={metric.title}>
-                                    <MetricCardShared {...metric} />
-                                </AnimatedCard>
-                            ))}
-                        </SimpleGrid>
-                    </div>
-                )}
-
-                <div className={classes.section}>
-                    <Title className={classes.title} m="xs" ml={0} order={4}>
-                        {t('home.page.bandwidth')}
-                    </Title>
-                    <SimpleGrid cols={{ base: 1, sm: 2, xl: 3 }} spacing="xs">
-                        {bandwidthMetrics.map((metric, index) => (
-                            <AnimatedCard index={index} key={metric.title}>
-                                <MetricCardWithTrendShared {...metric} />
-                            </AnimatedCard>
-                        ))}
-                    </SimpleGrid>
+            <div className={classes.hero}>
+                <div className={classes.heroItem}>
+                    <span className={classes.heroValue}>{online.onlineNow}</span>
+                    <span className={classes.heroLabel}>{t('bolt.home.online-now')}</span>
                 </div>
+                <div className={classes.heroItem}>
+                    <span className={classes.heroValue}>
+                        {onlineNodes}
+                        <span className={classes.heroOf}>/{nodeList.length}</span>
+                    </span>
+                    <span className={classes.heroLabel}>{t('bolt.home.nodes-online')}</span>
+                </div>
+                <div className={classes.heroItem}>
+                    <span className={classes.heroValue}>{bytes(bandwidthStats.bandwidthLastTwoDays.current)}</span>
+                    <span className={classes.heroLabel}>{t('bolt.home.traffic-today')}</span>
+                </div>
+            </div>
 
-                <div className={classes.section}>
-                    <Title className={classes.title} m="xs" ml={0} order={4}>
-                        {t('home.page.online-stats')}
-                    </Title>
-                    <SimpleGrid cols={{ base: 1, sm: 2, xl: 4 }} spacing="xs">
-                        {onlineMetrics.map((metric, index) => (
-                            <AnimatedCard index={index} key={metric.title}>
-                                <MetricCardShared
-                                    iconColor={metric.iconColor}
-                                    IconComponent={metric.IconComponent}
-                                    iconVariant={metric.iconVariant}
-                                    isLoading={false}
-                                    title={metric.title}
-                                    value={metric.value}
+            <div className={classes.columns}>
+                <div className={classes.column}>
+                    <BoltGroup>
+                        {nodeList.map((node) => {
+                            const state = nodeState(node)
+
+                            return (
+                                <BoltRow
+                                    icon={state === 'online' ? TbServer : TbServerOff}
+                                    key={node.uuid}
+                                    label={node.name}
+                                    onClick={() =>
+                                        showModal('nodes_editNodeModal', { nodeUuid: node.uuid })
+                                    }
+                                    value={
+                                        state === 'online'
+                                            ? t('bolt.home.node-users', { count: node.usersOnline })
+                                            : t(`bolt.node-state.${state}`)
+                                    }
                                 />
-                            </AnimatedCard>
-                        ))}
-                    </SimpleGrid>
+                            )
+                        })}
+                        <BoltRow
+                            icon={TbServer}
+                            label={t('bolt.home.all-nodes')}
+                            onClick={() => navigate(ROUTES.DASHBOARD.MANAGEMENT.NODES)}
+                            value={nodeList.length}
+                        />
+                    </BoltGroup>
+
+                    <BoltGroup>
+                        <BoltRow icon={TbSun} label={t('bolt.home.traffic-day')} value={bytes(bandwidthStats.bandwidthLastTwoDays.current)} />
+                        <BoltRow icon={TbCalendarWeek} label={t('bolt.home.traffic-week')} value={bytes(bandwidthStats.bandwidthLastSevenDays.current)} />
+                        <BoltRow icon={TbCalendarStats} label={t('bolt.home.traffic-30')} value={bytes(bandwidthStats.bandwidthLast30Days.current)} />
+                        <BoltRow icon={TbCalendarMonth} label={t('bolt.home.traffic-month')} value={bytes(bandwidthStats.bandwidthCalendarMonth.current)} />
+                        <BoltRow icon={TbDatabase} label={t('bolt.home.traffic-lifetime')} value={bytes(systemInfo.nodes.totalBytesLifetime)} />
+                    </BoltGroup>
                 </div>
 
-                <div className={classes.section}>
-                    <Title className={classes.title} m="xs" ml={0} order={4}>
-                        {t('common.field.system')}
-                    </Title>
-                    <SimpleGrid cols={{ base: 1, sm: 2, xl: 4 }} spacing="xs">
-                        {simpleMetrics.map((metric, index) => (
-                            <AnimatedCard index={index} key={metric.title}>
-                                <MetricCardShared
-                                    iconColor={metric.iconColor}
-                                    IconComponent={metric.IconComponent}
-                                    iconVariant={metric.iconVariant}
-                                    isLoading={false}
-                                    title={metric.title}
-                                    value={metric.value}
-                                />
-                            </AnimatedCard>
-                        ))}
-                    </SimpleGrid>
+                <div className={classes.column}>
+                    <BoltGroup>
+                        <BoltRow icon={TbUsers} label={t('bolt.status-plural.ALL')} onClick={openUsers} value={systemInfo.users.totalUsers} />
+                        <BoltRow icon={TbUser} label={t('bolt.status-plural.ACTIVE')} onClick={openUsers} value={counts[USERS_STATUS.ACTIVE] ?? 0} />
+                        <BoltRow icon={TbUserExclamation} label={t('bolt.status-plural.EXPIRED')} onClick={openUsers} value={counts[USERS_STATUS.EXPIRED] ?? 0} />
+                        <BoltRow icon={TbUserCancel} label={t('bolt.status-plural.LIMITED')} onClick={openUsers} value={counts[USERS_STATUS.LIMITED] ?? 0} />
+                        <BoltRow icon={TbUserOff} label={t('bolt.status-plural.DISABLED')} onClick={openUsers} value={counts[USERS_STATUS.DISABLED] ?? 0} />
+                    </BoltGroup>
+
+                    <BoltGroup>
+                        <BoltRow icon={TbActivity} label={t('bolt.home.online-day')} value={online.lastDay} />
+                        <BoltRow icon={TbActivity} label={t('bolt.home.online-week')} value={online.lastWeek} />
+                        <BoltRow icon={TbUserOff} label={t('bolt.home.never-online')} value={online.neverOnline} />
+                    </BoltGroup>
+
+                    <BoltGroup>
+                        <BoltRow icon={TbClockHour4} label={t('bolt.home.uptime')} value={dayjs.duration(systemInfo.uptime, 'seconds').locale(i18n.language).humanize()} />
+                        <BoltRow icon={TbCpu} label={t('bolt.home.cpu')} value={systemInfo.cpu.cores} />
+                        <BoltRow
+                            icon={TbDatabase}
+                            label={t('bolt.home.memory')}
+                            value={`${compactBytesUtil(systemInfo.memory.used)} ${t('bolt.user.of-limit', { limit: compactBytesUtil(systemInfo.memory.total) })}`}
+                        />
+                        <BoltRow icon={TbActivity} label={t('home.runtime-info.title')} onClick={openRuntime} />
+                    </BoltGroup>
                 </div>
-
-                <div className={classes.section}>
-                    <Title className={classes.title} m="xs" ml={0} order={4}>
-                        {t('user-table.widget.table-title')}
-                    </Title>
-                    <SimpleGrid cols={{ base: 1, sm: 2, xl: 5 }} spacing="xs">
-                        {usersMetrics.map((metric, index) => (
-                            <AnimatedCard index={index} key={metric.title}>
-                                <MetricCardShared
-                                    iconColor={metric.iconColor}
-                                    IconComponent={metric.IconComponent}
-                                    iconVariant={metric.iconVariant}
-                                    isLoading={false}
-                                    title={metric.title}
-                                    value={metric.value}
-                                />
-                            </AnimatedCard>
-                        ))}
-                    </SimpleGrid>
-                </div>
-
-                {remnawaveHealth.runtimeMetrics && remnawaveHealth.runtimeMetrics.length > 0 && (
-                    <div className={classes.section}>
-                        <Group align="center" gap="xs" m="xs" ml={0}>
-                            <Title className={classes.title} order={4}>
-                                Runtime
-                            </Title>
-
-                            <ActionIcon
-                                color="gray"
-                                loading={copying}
-                                onClick={() => copyRuntimeScreenshot()}
-                                radius="md"
-                                size="sm"
-                                variant="transparent"
-                            >
-                                <TbCamera size={24} />
-                            </ActionIcon>
-
-                            <ActionIcon
-                                color="gray"
-                                onClick={() => {
-                                    modals.open({
-                                        title: (
-                                            <BaseOverlayHeader
-                                                iconColor="cyan"
-                                                IconComponent={TbInfoCircle}
-                                                iconSize={20}
-                                                iconVariant="soft"
-                                                subtitle={t('home.runtime-info.subtitle')}
-                                                title={t('home.runtime-info.title')}
-                                            />
-                                        ),
-                                        size: 'xl',
-                                        centered: true,
-                                        fullScreen: isMobile,
-                                        children: <RuntimeInfoModalContent />
-                                    })
-                                }}
-                                radius="md"
-                                size="sm"
-                                variant="transparent"
-                            >
-                                <TbInfoCircle size={24} />
-                            </ActionIcon>
-                        </Group>
-                        <SimpleGrid cols={{ base: 1, sm: 1, xl: 2 }} ref={runtimeRef} spacing="xs">
-                            {remnawaveHealth.runtimeMetrics.map((metric, index) => (
-                                <AnimatedCard index={index} key={metric.pid}>
-                                    <RuntimeDetailCard metric={metric} />
-                                </AnimatedCard>
-                            ))}
-                        </SimpleGrid>
-                    </div>
-                )}
-            </Stack>
+            </div>
             <DisclaimerOverlay />
         </Page>
     )

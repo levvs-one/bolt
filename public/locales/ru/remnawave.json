@@ -1912,7 +1912,8 @@
       "language": "Язык",
       "logout": "Выйти",
       "more": "Ещё",
-      "clients": "Клиенты"
+      "clients": "Клиенты",
+      "settings": "Настройки"
     },
     "palette": {
       "placeholder": "Разделы, клиенты, действия",
@@ -1959,6 +1960,30 @@
       "last-node": "Последняя нода",
       "copy-link": "Скопировать ссылку",
       "subscription": "Подписка"
+    },
+    "home": {
+      "online-now": "клиентов в сети",
+      "nodes-online": "нод работает",
+      "traffic-today": "трафик за сутки",
+      "node-users": "{{count}} в сети",
+      "all-nodes": "Все ноды",
+      "traffic-week": "Трафик за 7 дней",
+      "traffic-30": "Трафик за 30 дней",
+      "traffic-month": "Трафик за месяц",
+      "traffic-lifetime": "Трафик за всё время",
+      "online-day": "Были сегодня",
+      "online-week": "Были за неделю",
+      "never-online": "Ни разу не подключались",
+      "uptime": "Панель работает",
+      "cpu": "Ядер процессора",
+      "memory": "Память",
+      "traffic-day": "Трафик за сутки"
+    },
+    "node-state": {
+      "online": "Работает",
+      "offline": "Нет связи",
+      "connecting": "Подключается",
+      "disabled": "Отключена"
     }
   }
 }

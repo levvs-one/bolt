@@ -1902,5 +1902,54 @@
     "connections-title": "Сохранённые подключения",
     "connections-empty": "Сохранённых подключений пока нет",
     "connections-current": "Текущее"
+  },
+  "bolt": {
+    "shell": {
+      "search": "Поиск",
+      "theme": "Тема",
+      "theme-dark": "Тёмная",
+      "theme-light": "Светлая",
+      "language": "Язык",
+      "logout": "Выйти",
+      "more": "Ещё",
+      "clients": "Клиенты"
+    },
+    "palette": {
+      "placeholder": "Разделы, клиенты, действия",
+      "create-user": "Новый клиент",
+      "nothing-found": "Ничего не найдено"
+    },
+    "status": {
+      "ACTIVE": "Активен",
+      "EXPIRED": "Истёк",
+      "LIMITED": "Лимит",
+      "DISABLED": "Отключён"
+    },
+    "status-plural": {
+      "ALL": "Все",
+      "ACTIVE": "Активны",
+      "EXPIRED": "Истекли",
+      "LIMITED": "Лимит",
+      "DISABLED": "Отключены"
+    },
+    "users": {
+      "title": "Клиенты",
+      "search": "Поиск по имени",
+      "create": "Новый клиент",
+      "no-expiry": "Бессрочно",
+      "until": "До {{date}}",
+      "traffic": "{{used}} из {{limit}}",
+      "online": "В сети",
+      "empty": "Никого не нашлось",
+      "sort-created": "Сначала новые",
+      "sort-expire": "Скоро истекают",
+      "sort-traffic": "Больше трафика",
+      "sort-online": "Недавно в сети",
+      "range": "{{from}}–{{to}} из {{total}}",
+      "prev": "Назад",
+      "next": "Дальше",
+      "view-list": "Список",
+      "view-table": "Таблица"
+    }
   }
 }

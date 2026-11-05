@@ -1,49 +1,40 @@
-import { Stack } from '@mantine/core'
-import { useMediaQuery } from '@mantine/hooks'
-import { UsersMetrics } from '@widgets/dashboard/users/users-metrics'
+import { SegmentedControl, Stack } from '@mantine/core'
+import { useLocalStorage } from '@mantine/hooks'
+import { BoltUsersListWidget } from '@widgets/dashboard/users/bolt-users-list'
 import { UserTableWidget } from '@widgets/dashboard/users/users-table'
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LoadingScreen } from '@shared/ui'
-import { MobileWarningOverlay } from '@shared/ui/mobile-warning-overlay/mobile-warning-overlay'
 import { Page } from '@shared/ui/page'
 
-const DeferredUserTableWidget = () => {
-    const [shouldRender, setShouldRender] = useState(false)
+import classes from './users.page.module.css'
 
-    useEffect(() => {
-        const timer = setTimeout(() => setShouldRender(true), 300)
-        return () => clearTimeout(timer)
-    }, [])
+type TUsersView = 'list' | 'table'
 
-    if (!shouldRender) {
-        return <LoadingScreen height="80vh" />
-    }
-
-    return (
-        <motion.div
-            animate={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0, 0.71, 0.2, 1.01] }}
-        >
-            <UserTableWidget />
-        </motion.div>
-    )
-}
+const VIEW_STORAGE_KEY = 'bolt-users-view'
 
 export default function UsersPageComponent() {
     const { t } = useTranslation()
-    const isMobile = useMediaQuery('(max-width: 500px)')
+    const [view, setView] = useLocalStorage<TUsersView>({
+        key: VIEW_STORAGE_KEY,
+        defaultValue: 'list'
+    })
 
     return (
-        <Page title={t('constants.users')}>
-            <Stack>
-                {isMobile && <MobileWarningOverlay />}
-                <UsersMetrics />
-
-                <DeferredUserTableWidget />
+        <Page title={t('bolt.users.title')}>
+            <Stack gap={12}>
+                <div className={classes.header}>
+                    <h1 className={classes.title}>{t('bolt.users.title')}</h1>
+                    <SegmentedControl
+                        data={[
+                            { value: 'list', label: t('bolt.users.view-list') },
+                            { value: 'table', label: t('bolt.users.view-table') }
+                        ]}
+                        onChange={(value) => setView(value as TUsersView)}
+                        size="sm"
+                        value={view}
+                    />
+                </div>
+                {view === 'list' ? <BoltUsersListWidget /> : <UserTableWidget />}
             </Stack>
         </Page>
     )

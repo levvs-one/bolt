@@ -1902,5 +1902,54 @@
     "connections-title": "Saved connections",
     "connections-empty": "No saved connections yet",
     "connections-current": "Current"
+  },
+  "bolt": {
+    "shell": {
+      "search": "Search",
+      "theme": "Theme",
+      "theme-dark": "Dark",
+      "theme-light": "Light",
+      "language": "Language",
+      "logout": "Log out",
+      "more": "More",
+      "clients": "Users"
+    },
+    "palette": {
+      "placeholder": "Pages, users, actions",
+      "create-user": "Create user",
+      "nothing-found": "Nothing found"
+    },
+    "status": {
+      "ACTIVE": "Active",
+      "EXPIRED": "Expired",
+      "LIMITED": "Limited",
+      "DISABLED": "Disabled"
+    },
+    "status-plural": {
+      "ALL": "All",
+      "ACTIVE": "Active",
+      "EXPIRED": "Expired",
+      "LIMITED": "Limited",
+      "DISABLED": "Disabled"
+    },
+    "users": {
+      "title": "Users",
+      "search": "Search by username",
+      "create": "New user",
+      "no-expiry": "No expiry",
+      "until": "Until {{date}}",
+      "traffic": "{{used}} of {{limit}}",
+      "online": "Online",
+      "empty": "No users match",
+      "sort-created": "Newest first",
+      "sort-expire": "Expiring soon",
+      "sort-traffic": "Most traffic",
+      "sort-online": "Recently online",
+      "range": "{{from}}–{{to}} of {{total}}",
+      "prev": "Back",
+      "next": "Next",
+      "view-list": "List",
+      "view-table": "Table"
+    }
   }
 }

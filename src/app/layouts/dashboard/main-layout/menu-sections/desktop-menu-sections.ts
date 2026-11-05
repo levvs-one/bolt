@@ -1,10 +1,16 @@
 import { SUBSCRIPTION_TEMPLATE_TYPE } from '@remnawave/backend-contract'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { HiChartPie, HiServer } from 'react-icons/hi'
-import { PiArrowsInCardinalFill, PiChartLine, PiListChecks, PiUsers } from 'react-icons/pi'
 import {
+    TbAdjustmentsHorizontal,
     TbApi,
+    TbBrowser,
+    TbChartLine,
+    TbChartPie,
+    TbListDetails,
+    TbServer,
+    TbSettings,
+    TbUsers,
     TbLink,
     TbCirclesRelation,
     TbCreditCard,
@@ -16,13 +22,12 @@ import {
     TbRadar2,
     TbReportAnalytics,
     TbRoute,
-    TbStar,
+    TbHome,
     TbTools,
     TbWebhook
 } from 'react-icons/tb'
 
 import { ROUTES } from '@shared/constants'
-import { Logo } from '@shared/ui'
 import { MihomoLogo, SingboxLogo, StashLogo, XrayLogo } from '@shared/ui/logos'
 
 import { MenuItem } from './interfaces'
@@ -35,12 +40,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
             {
                 header: t('constants.home'),
                 id: 'home',
-                icon: TbStar,
+                icon: TbHome,
                 section: [
                     {
                         name: t('constants.home'),
                         href: ROUTES.DASHBOARD.HOME,
-                        icon: TbStar,
+                        icon: TbHome,
                         id: 'home'
                     }
                 ]
@@ -48,12 +53,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
             {
                 header: t('constants.users'),
                 id: 'users',
-                icon: PiUsers,
+                icon: TbUsers,
                 section: [
                     {
                         name: t('constants.users'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.USERS,
-                        icon: PiUsers,
+                        icon: TbUsers,
                         id: 'users'
                     },
                     {
@@ -73,12 +78,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
             {
                 header: t('constants.nodes'),
                 id: 'nodes',
-                icon: HiServer,
+                icon: TbServer,
                 section: [
                     {
                         name: t('constants.nodes'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.NODES,
-                        icon: HiServer,
+                        icon: TbServer,
                         id: 'nodes-management'
                     },
                     {
@@ -90,7 +95,7 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                     {
                         name: t('constants.nodes-statistics'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.NODES_STATS,
-                        icon: HiChartPie,
+                        icon: TbChartPie,
                         id: 'nodes-statistics'
                     },
                     {
@@ -102,7 +107,7 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                     {
                         name: t('constants.nodes-metrics'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.NODES_METRICS,
-                        icon: PiChartLine,
+                        icon: TbChartLine,
                         id: 'nodes-metrics'
                     }
                 ]
@@ -110,12 +115,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
             {
                 header: t('constants.config-profiles'),
                 id: 'profiles',
-                icon: XrayLogo,
+                icon: TbAdjustmentsHorizontal,
                 section: [
                     {
                         name: t('constants.config-profiles'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.CONFIG_PROFILES,
-                        icon: XrayLogo,
+                        icon: TbAdjustmentsHorizontal,
                         id: 'config-profiles'
                     }
                 ]
@@ -128,7 +133,7 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                     {
                         name: t('constants.hosts'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.HOSTS,
-                        icon: PiListChecks,
+                        icon: TbListDetails,
                         id: 'hosts'
                     },
                     {
@@ -199,7 +204,7 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                     {
                         name: 'Subscription Page',
                         href: ROUTES.DASHBOARD.SUBPAGE_CONFIGS.ROOT,
-                        icon: PiArrowsInCardinalFill,
+                        icon: TbBrowser,
                         id: 'subscription-page'
                     }
                 ]
@@ -248,14 +253,14 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                 ]
             },
             {
-                header: t('constants.subscription-settings'),
+                header: t('constants.remnawave-settings'),
                 id: 'settings',
-                icon: Logo,
+                icon: TbSettings,
                 section: [
                     {
                         name: t('constants.remnawave-settings'),
                         href: ROUTES.DASHBOARD.MANAGEMENT.REMNAWAVE_SETTINGS,
-                        icon: Logo,
+                        icon: TbSettings,
                         id: 'remnawave-settings'
                     }
                 ]

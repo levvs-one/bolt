@@ -53,3 +53,12 @@ export function prettySiRealtimeBytesUtil(
 
     return `${res}${withSeconds ? '/s' : ''}`
 }
+
+const COMPACT_FRACTION_DIGITS = 1
+
+// «70 GiB» вместо «70.00 GiB»: в списках важна читаемость, а не сотые доли.
+export function compactBytesUtil(bytesInput: null | number | undefined): string {
+    if (!bytesInput) return '0 B'
+
+    return xbytes(bytesInput, { iec: true, fixed: COMPACT_FRACTION_DIGITS }).replace(/\.0(?= )/, '')
+}

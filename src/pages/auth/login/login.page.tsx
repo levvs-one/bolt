@@ -2,13 +2,16 @@ import { LoginFormFeature } from '@features/auth/login-form'
 import { OAuth2LoginButtonsFeature } from '@features/auth/oauth2-login-button/oauth2-login-button.feature'
 import { PasskeyLoginButtonFeature } from '@features/auth/passkey-login-button'
 import { RegisterFormFeature } from '@features/auth/register-form'
-import { Badge, Box, Center, Divider, Group, Image, Stack, Text, Title } from '@mantine/core'
+import { Box, Center, Divider, Image, Stack, Text } from '@mantine/core'
 import { GetStatusCommand } from '@remnawave/backend-contract'
-import { useMemo } from 'react'
 
 import { useGetAuthStatus } from '@shared/api/hooks/auth/auth.query.hooks'
 import { Logo, Page } from '@shared/ui'
 import { parseColoredTextUtil } from '@shared/utils/misc'
+
+import classes from './login.module.css'
+
+const DEFAULT_TITLE = 'Bolt'
 
 const getAuthMethods = (authStatus: GetStatusCommand.Response['response'] | undefined) => {
     const isPasswordEnabled = authStatus?.authentication?.password?.enabled ?? false
@@ -26,43 +29,9 @@ const getAuthMethods = (authStatus: GetStatusCommand.Response['response'] | unde
 }
 
 const BrandLogo = ({ logoUrl }: { logoUrl?: null | string }) => {
-    if (!logoUrl) {
-        return <Logo c="cyan" w="3rem" />
-    }
+    if (!logoUrl) return <Logo className={classes.logo} />
 
-    return (
-        <Image
-            alt="logo"
-            fit="contain"
-            src={logoUrl}
-            style={{
-                maxWidth: '40px',
-                maxHeight: '40px',
-                width: '40px',
-                height: '40px'
-            }}
-        />
-    )
-}
-
-const BrandTitle = ({ titleParts }: { titleParts: Array<{ color: string; text: string }> }) => {
-    return (
-        <Title ff="Unbounded" order={1} pos="relative">
-            {titleParts.map((part, index) => (
-                <Text
-                    c={part.color || 'white'}
-                    component="span"
-                    fw="inherit"
-                    fz="inherit"
-                    inherit
-                    key={index}
-                    pos="relative"
-                >
-                    {part.text}
-                </Text>
-            ))}
-        </Title>
-    )
+    return <Image alt="" className={classes.logo} fit="contain" src={logoUrl} />
 }
 
 const AlternativeAuthMethods = ({
@@ -91,16 +60,12 @@ const AlternativeAuthMethods = ({
 export const LoginPage = () => {
     const { data: authStatus } = useGetAuthStatus()
 
-    const titleParts = useMemo(() => {
-        if (authStatus?.branding.title) {
-            return parseColoredTextUtil(authStatus.branding.title)
-        }
-
-        return [
-            { text: 'Remna', color: 'cyan' },
-            { text: 'wave', color: 'white' }
-        ]
-    }, [authStatus])
+    // Цветовая разметка заголовка из брендинга в Bolt не нужна: только текст.
+    const title = authStatus?.branding.title
+        ? parseColoredTextUtil(authStatus.branding.title)
+              .map((part) => part.text)
+              .join('')
+        : DEFAULT_TITLE
 
     const isRegister = !authStatus?.isLoginAllowed && authStatus?.isRegisterAllowed
     const authMethods = getAuthMethods(authStatus)
@@ -108,19 +73,15 @@ export const LoginPage = () => {
     return (
         <Page title="Login">
             <Stack align="center" gap="xs">
-                <Group align="center" gap={4} justify="center">
+                <div className={classes.brand}>
                     <BrandLogo logoUrl={authStatus?.branding.logoUrl} />
-                    <BrandTitle titleParts={titleParts} />
-                </Group>
+                    <span className={classes.title}>{title}</span>
+                </div>
 
-                {!authStatus && (
-                    <Badge color="cyan" mt={10} size="lg" variant="filled">
-                        Server is not responding. Check logs.
-                    </Badge>
-                )}
+                {!authStatus && <Text fw={600}>Server is not responding. Check logs.</Text>}
 
                 {!isRegister && authStatus && authStatus.authentication && (
-                    <Box maw={800} p={30} w={{ base: 440, sm: 500, md: 500 }}>
+                    <Box className={classes.form}>
                         <Stack gap="lg">
                             {authMethods.isPasswordEnabled && <LoginFormFeature />}
 
@@ -148,7 +109,7 @@ export const LoginPage = () => {
                 )}
 
                 {isRegister && (
-                    <Box maw={800} w={{ base: 440, sm: 500, md: 500 }}>
+                    <Box className={classes.form}>
                         <RegisterFormFeature />
                     </Box>
                 )}

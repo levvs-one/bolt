@@ -2,7 +2,6 @@ import { Button, Container, Paper, PasswordInput, TextInput } from '@mantine/cor
 import { useForm, schemaResolver } from '@mantine/form'
 import { LoginCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
-import { PiSignInDuotone } from 'react-icons/pi'
 
 import { useLogin } from '@shared/api/hooks'
 import { useAuth } from '@shared/hooks/use-auth'
@@ -40,8 +39,8 @@ export const LoginFormFeature = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Container size="100%">
-                <Paper>
+            <Container px={0} size="100%">
+                <Paper p={16}>
                     <TextInput
                         label={t('common.field.username')}
                         name="username"
@@ -57,14 +56,7 @@ export const LoginFormFeature = () => {
                         required
                         {...form.getInputProps('password')}
                     />
-                    <Button
-                        fullWidth
-                        leftSection={<PiSignInDuotone size="16px" />}
-                        loading={isLoading}
-                        mt="xl"
-                        type="submit"
-                        variant="default"
-                    >
+                    <Button fullWidth h={48} loading={isLoading} mt={20} type="submit" variant="filled">
                         {t('login-form.feature.sign-in')}
                     </Button>
                 </Paper>

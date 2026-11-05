@@ -10,12 +10,13 @@ export default {
         classNames: {
             root: classes.modalRoot,
             header: classes.modalHeader,
+            title: classes.modalTitle,
             body: classes.modalBody,
             content: classes.modalContent
         },
         defaultProps: {
             removeScrollProps: { shards: scrollLockShards },
-            transitionProps: { transition: 'fade', duration: 200 },
+            transitionProps: { transition: 'fade', duration: 180 },
             radius: 'md',
             centered: true
         }

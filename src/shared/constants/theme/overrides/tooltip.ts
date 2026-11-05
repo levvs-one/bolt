@@ -3,14 +3,14 @@ import { Tooltip } from '@mantine/core'
 export default {
     Tooltip: Tooltip.extend({
         defaultProps: {
-            radius: 'md',
-            withArrow: true,
-            transitionProps: { transition: 'scale-x', duration: 300 },
-            arrowSize: 2,
-            color: 'dark.6',
+            radius: 'sm',
+            withArrow: false,
+            transitionProps: { transition: 'fade', duration: 150 },
             styles: {
                 tooltip: {
-                    border: '1px solid var(--mantine-color-dark-4)'
+                    background: 'var(--bolt-accent)',
+                    color: 'var(--bolt-on-accent)',
+                    fontWeight: 600
                 }
             }
         }

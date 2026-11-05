@@ -5,8 +5,9 @@ export default {
         defaultProps: {
             zIndex: 1000,
             overlayProps: {
-                radius: 'sm',
-                blur: 4
+                radius: 'md',
+                blur: 0,
+                backgroundOpacity: 0.6
             }
         }
     })

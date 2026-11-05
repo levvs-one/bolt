@@ -10,6 +10,7 @@ export default {
         classNames: {
             content: classes.drawerContent,
             header: classes.drawerHeader,
+            title: classes.drawerTitle,
             body: classes.drawerBody
         },
         defaultProps: {
@@ -19,7 +20,7 @@ export default {
     }),
     DrawerOverlay: DrawerOverlay.extend({
         defaultProps: {
-            backgroundOpacity: 0.6,
+            backgroundOpacity: 0.55,
             blur: 0
         }
     })

@@ -1,17 +1,11 @@
 // oxlint-disable
-import { Breadcrumbs, px } from '@mantine/core'
-import { GoDotFill as BreadcrumbsSeparator } from 'react-icons/go'
+import { Breadcrumbs } from '@mantine/core'
+import { TbChevronRight as BreadcrumbsSeparator } from 'react-icons/tb'
 
 export default {
     Breadcrumbs: Breadcrumbs.extend({
         defaultProps: {
-            separator: (
-                <BreadcrumbsSeparator
-                    color="var(--mantine-color-dimmed)"
-                    opacity={0.4}
-                    size={px('0.5rem')}
-                />
-            )
+            separator: <BreadcrumbsSeparator size={14} strokeWidth={2} />
         }
     })
 }

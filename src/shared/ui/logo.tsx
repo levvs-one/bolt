@@ -1,5 +1,3 @@
-/* eslint-disable @stylistic/indent */
-
 import { Box, BoxProps, ElementProps } from '@mantine/core'
 
 interface LogoProps
@@ -7,22 +5,20 @@ interface LogoProps
     size?: number | string
 }
 
+const BOLT_GLYPH_PATH =
+    'M760 154L1080 154L900 520L1060 520Q1110 520 1080 551L540 1076L220 1076L400 710L240 710Q190 710 220 679Z'
+
 export function Logo({ size, style, ...props }: LogoProps) {
     return (
         <Box
             component="svg"
             fill="none"
             style={{ width: size, height: size, ...style }}
-            viewBox="0 0 16 16"
+            viewBox="190 154 920 922"
             xmlns="http://www.w3.org/2000/svg"
             {...props}
         >
-            <path
-                clipRule="evenodd"
-                d="M8 1a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-1.5 0V1.75A.75.75 0 0 1 8 1Zm6 2a.75.75 0 0 1 .75.75v8.5a.75.75 0 0 1-1.5 0v-8.5A.75.75 0 0 1 14 3ZM5 4a.75.75 0 0 1 .75.75v6.5a.75.75 0 0 1-1.5 0v-6.5A.75.75 0 0 1 5 4Zm6 1a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 11 5ZM2 6a.75.75 0 0 1 .75.75v2.5a.75.75 0 0 1-1.5 0v-2.5A.75.75 0 0 1 2 6Z"
-                fill="currentColor"
-                fillRule="evenodd"
-            />
+            <path d={BOLT_GLYPH_PATH} fill="currentColor" />
         </Box>
     )
 }

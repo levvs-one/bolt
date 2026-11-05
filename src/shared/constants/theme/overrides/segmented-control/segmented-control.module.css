@@ -1,24 +1,20 @@
 .root {
-    background-color: var(--mantine-color-default);
+    background-color: var(--bolt-surface);
 }
 
 .indicator {
-    background: color-mix(in srgb, var(--mantine-primary-color-6) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--mantine-primary-color-6) 30%, transparent);
+    background: var(--bolt-accent);
+    border: 0;
     box-shadow: none;
 }
 
 .label {
-    color: var(--mantine-color-dimmed);
-    font-weight: 500;
+    color: var(--bolt-text);
+    font-weight: 600;
     transition: color 150ms ease;
-}
-
-.label:hover {
-    color: var(--mantine-color-text);
 }
 
 .label[data-active],
 .label[data-active]:hover {
-    color: var(--mantine-primary-color-4);
+    color: var(--bolt-on-accent);
 }

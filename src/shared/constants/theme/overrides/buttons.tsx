@@ -5,17 +5,18 @@ export default {
     ActionIcon: ActionIcon.extend({
         defaultProps: {
             radius: 'md',
-            variant: 'outline'
+            variant: 'subtle'
         }
     }),
     Button: Button.extend({
         defaultProps: {
             radius: 'md',
-            variant: 'light'
+            variant: 'default'
         },
         styles: {
             root: {
-                transition: 'all 0.2s ease'
+                fontWeight: 600,
+                transition: 'background-color 150ms ease, opacity 150ms ease'
             }
         }
     }),
@@ -26,7 +27,8 @@ export default {
     }),
     Switch: Switch.extend({
         defaultProps: {
-            radius: 'md'
+            radius: 'xl',
+            color: 'gray'
         }
     })
 }

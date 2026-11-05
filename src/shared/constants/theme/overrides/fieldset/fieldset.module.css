@@ -1,4 +1,8 @@
 .root {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bolt-surface);
+    border: 0;
+}
+
+.legend {
+    font-weight: 700;
 }

@@ -3,22 +3,29 @@ import { Combobox, Menu } from '@mantine/core'
 export default {
     Menu: Menu.extend({
         defaultProps: {
-            shadow: 'lg',
             withArrow: false,
             radius: 'md',
             transitionProps: {
                 transition: 'fade',
-                duration: 180,
+                duration: 150,
                 timingFunction: 'ease-out'
             },
             styles: {
                 dropdown: {
-                    backgroundColor: 'var(--mantine-color-dark-6)',
-                    border: '1px solid var(--mantine-color-dark-4)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2)'
+                    backgroundColor: 'var(--bolt-surface-raised)',
+                    border: '1px solid var(--bolt-line)',
+                    padding: 4
+                },
+                item: {
+                    fontWeight: 500,
+                    minHeight: 36
+                },
+                label: {
+                    color: 'var(--bolt-text)',
+                    fontWeight: 700
                 },
                 divider: {
-                    borderColor: 'var(--mantine-color-dark-5)',
+                    borderColor: 'var(--bolt-line)',
                     margin: '4px 0'
                 }
             }
@@ -26,7 +33,7 @@ export default {
     }),
     Combobox: Combobox.extend({
         defaultProps: {
-            transitionProps: { transition: 'fade', duration: 200 }
+            transitionProps: { transition: 'fade', duration: 150 }
         }
     })
 }

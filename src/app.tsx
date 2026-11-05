@@ -23,7 +23,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { Suspense, useEffect } from 'react'
 import { I18nextProvider } from 'react-i18next'
 
-import { theme } from '@shared/constants'
+import { createBoltCssVariablesResolver, theme } from '@shared/constants'
 import { AuthProvider } from '@shared/hocs/auth-provider'
 // import { StrictMode } from 'react'
 import { IsMobileProvider } from '@shared/hocs/is-mobile-provider'
@@ -39,6 +39,8 @@ dayjs.extend(customParseFormat)
 polyfillCountryFlagEmojis()
 
 initConnectionWatchdog()
+
+const cssVariablesResolver = createBoltCssVariablesResolver(v8CssVariablesResolver)
 
 export function App() {
     const isDev = __NODE_ENV__ === 'development'
@@ -65,7 +67,7 @@ export function App() {
                     <IsMobileProvider>
                         <DirectionProvider>
                             <MantineProvider
-                                cssVariablesResolver={v8CssVariablesResolver}
+                                cssVariablesResolver={cssVariablesResolver}
                                 defaultColorScheme="dark"
                                 theme={theme}
                                 deduplicateInlineStyles

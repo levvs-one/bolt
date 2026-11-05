@@ -9,7 +9,7 @@ import { TbArrowsSort, TbPlus, TbSearch, TbUser, TbUserOff } from 'react-icons/t
 import { showModal } from '@shared/_modals/show-modal'
 import { QueryKeys, useGetSystemStats, useGetUsers } from '@shared/api/hooks'
 import { queryClient } from '@shared/api/query-client'
-import { useIsMobile } from '@shared/hooks'
+import { useIsMobile, useNow } from '@shared/hooks'
 import { compactBytesUtil } from '@shared/utils/bytes'
 import { getTimeAgoUtil, sToMs } from '@shared/utils/time-utils'
 
@@ -45,13 +45,14 @@ const STATUS_ORDER: TStatusFilter[] = [
     USERS_STATUS.DISABLED
 ]
 
-function isOnline(user: TUser) {
+function isOnline(user: TUser, now: number) {
     const onlineAt = user.userTraffic.onlineAt
-    return onlineAt !== null && Date.now() - onlineAt.getTime() < ONLINE_WINDOW_MS
+    return onlineAt !== null && now - onlineAt.getTime() < ONLINE_WINDOW_MS
 }
 
 function UserRow({ user, isSelected, onToggle }: { isSelected: boolean; onToggle: () => void; user: TUser }) {
     const { t, i18n } = useTranslation()
+    const now = useNow()
     const used = compactBytesUtil(user.userTraffic.usedTrafficBytes)
     const limit = user.trafficLimitBytes > 0 ? compactBytesUtil(user.trafficLimitBytes) : '∞'
     const expiresAt = dayjs(user.expireAt).locale(i18n.language)
@@ -96,7 +97,7 @@ function UserRow({ user, isSelected, onToggle }: { isSelected: boolean; onToggle
             <div className={classes.rowSide}>
                 <div className={classes.rowStatus}>{t(`bolt.status.${user.status}`)}</div>
                 <div className={classes.rowSeen}>
-                    {isOnline(user)
+                    {isOnline(user, now)
                         ? t('bolt.users.online')
                         : getTimeAgoUtil(user.userTraffic.onlineAt, t, i18n.language)}
                 </div>

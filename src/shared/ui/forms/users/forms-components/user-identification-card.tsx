@@ -28,6 +28,7 @@ import {
 
 import { showModal } from '@shared/_modals/show-modal'
 import { useGetUserMetadata } from '@shared/api/hooks'
+import { useNow } from '@shared/hooks'
 import { BoltGroup, BoltRow } from '@shared/ui/bolt-list'
 import { compactBytesUtil } from '@shared/utils/bytes'
 import { getTimeAgoUtil } from '@shared/utils/time-utils'
@@ -58,7 +59,8 @@ export const UserIdentificationCard = memo((props: IProps) => {
 
     const expireAt = dayjs(user.expireAt).locale(i18n.language)
     const onlineAt = user.userTraffic.onlineAt
-    const isOnline = onlineAt !== null && Date.now() - onlineAt.getTime() < ONLINE_WINDOW_MS
+    const now = useNow()
+    const isOnline = onlineAt !== null && now - onlineAt.getTime() < ONLINE_WINDOW_MS
 
     const openMetadata = () => {
         if (!metadata) return

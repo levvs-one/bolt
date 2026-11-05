@@ -145,3 +145,24 @@ body {
     scrollbar-width: thin;
     scrollbar-color: var(--bolt-line) transparent;
 }
+
+/* На сенсорных экранах всё нажимаемое не меньше 44 px: столько нужно пальцу, а не курсору. */
+@media (pointer: coarse) {
+    .mantine-Input-input:not(textarea) {
+        min-height: 44px;
+    }
+
+    .mantine-Button-root {
+        min-height: 44px;
+    }
+
+    .mantine-ActionIcon-root {
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .mantine-Menu-item,
+    .mantine-Combobox-option {
+        min-height: 44px;
+    }
+}

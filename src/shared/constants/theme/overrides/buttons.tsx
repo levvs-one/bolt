@@ -1,6 +1,8 @@
 // oxlint-disable
 import { ActionIcon, Button, CloseButton, Switch } from '@mantine/core'
 
+import classes from './buttons.module.css'
+
 export default {
     ActionIcon: ActionIcon.extend({
         defaultProps: {
@@ -8,7 +10,9 @@ export default {
             variant: 'subtle'
         }
     }),
+    // Кнопка — только текст: иконки по бокам скрываются во всём интерфейсе.
     Button: Button.extend({
+        classNames: { section: classes.section },
         defaultProps: {
             radius: 'md',
             variant: 'default'

@@ -1,7 +1,16 @@
-import { InputBase, PasswordInput, Select, TextInput } from '@mantine/core'
+import { Input, InputBase, InputWrapper, PasswordInput, Select, TextInput } from '@mantine/core'
 import { DateTimePicker } from '@mantine/dates'
 
+import classes from './inputs.module.css'
+
 export default {
+    // Пояснения под каждым полем в Bolt не показываются: подпись поля говорит сама за себя.
+    InputWrapper: InputWrapper.extend({
+        classNames: classes
+    }),
+    Input: Input.extend({
+        classNames: { input: classes.input }
+    }),
     InputBase: InputBase.extend({
         defaultProps: {
             radius: 'md'

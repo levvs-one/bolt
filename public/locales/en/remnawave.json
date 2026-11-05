@@ -1950,6 +1950,15 @@
       "next": "Next",
       "view-list": "List",
       "view-table": "Table"
+    },
+    "user": {
+      "metadata": "Metadata",
+      "of-limit": "of {{limit}}",
+      "expires": "Expires",
+      "lifetime": "All time",
+      "last-node": "Last node",
+      "copy-link": "Copy link",
+      "subscription": "Subscription"
     }
   }
 }

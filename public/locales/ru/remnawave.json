@@ -1950,6 +1950,15 @@
       "next": "Дальше",
       "view-list": "Список",
       "view-table": "Таблица"
+    },
+    "user": {
+      "metadata": "Метаданные",
+      "of-limit": "из {{limit}}",
+      "expires": "Истекает",
+      "lifetime": "За всё время",
+      "last-node": "Последняя нода",
+      "copy-link": "Скопировать ссылку",
+      "subscription": "Подписка"
     }
   }
 }

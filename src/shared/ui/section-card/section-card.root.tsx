@@ -14,7 +14,7 @@ export function SectionCardRoot({
     children,
     dividerOpacity = 0.3,
     onlyFirstDivider = false,
-    allDividers = true,
+    allDividers = false,
     gap = 'md',
     p = 'md',
     radius = 'md',
@@ -40,8 +40,8 @@ export function SectionCardRoot({
             radius={radius}
             ref={ref}
             style={{
-                background: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bolt-surface)',
+                border: 0,
                 ...style
             }}
             {...props}

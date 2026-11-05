@@ -10,9 +10,17 @@ export default {
             variant: 'transparent'
         }
     }),
+    // Подложек под иконками нет ни в одном варианте.
     ThemeIcon: ThemeIcon.extend({
         defaultProps: {
             variant: 'transparent'
+        },
+        styles: {
+            root: {
+                background: 'transparent',
+                border: 0,
+                color: 'var(--bolt-text)'
+            }
         }
     })
 }

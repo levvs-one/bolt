@@ -1,0 +1,25 @@
+.label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.description {
+    display: none;
+}
+
+.error {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.input {
+    border-color: transparent;
+    background: var(--bolt-surface-raised);
+    font-weight: 500;
+
+    &:focus,
+    &:focus-within {
+        border-color: var(--bolt-line);
+    }
+}

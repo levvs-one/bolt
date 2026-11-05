@@ -2,15 +2,13 @@ import { DeleteUserFeature } from '@features/ui/dashboard/users/delete-user'
 import { ResetUsageUserFeature } from '@features/ui/dashboard/users/reset-usage-user'
 import { RevokeSubscriptionUserFeature } from '@features/ui/dashboard/users/revoke-subscription-user'
 import { ToggleUserStatusButtonFeature } from '@features/ui/dashboard/users/toggle-user-status-button'
-import { Button, Group, Menu, px, Stack } from '@mantine/core'
+import { Button, Group, Menu, Stack } from '@mantine/core'
 import { useForm, schemaResolver } from '@mantine/form'
 import { UpdateUserCommand } from '@remnawave/backend-contract'
 import dayjs from 'dayjs'
 import { motion } from 'motion/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PiFloppyDiskDuotone } from 'react-icons/pi'
-import { TbDots } from 'react-icons/tb'
 import { z } from 'zod'
 
 import { queryClient } from '@shared/api'
@@ -242,7 +240,7 @@ export const ViewUserModalContent = (props: IProps) => {
                         animate="visible"
                         gap="md"
                         initial="hidden"
-                        style={{ flex: '1 1 450px' }}
+                        style={{ flex: '1 1 420px', minWidth: 0 }}
                         variants={containerVariants}
                     >
                         <UserIdentificationCard
@@ -268,7 +266,7 @@ export const ViewUserModalContent = (props: IProps) => {
                         animate="visible"
                         gap="md"
                         initial="hidden"
-                        style={{ flex: '1 1 450px' }}
+                        style={{ flex: '1 1 420px', minWidth: 0 }}
                         variants={containerVariants}
                     >
                         <TrafficLimitsCard
@@ -290,7 +288,7 @@ export const ViewUserModalContent = (props: IProps) => {
             <ModalFooter isMobile={isMobile}>
                 <Menu keepMounted position="top-end" shadow="md">
                     <Menu.Target>
-                        <Button color="gray" leftSection={<TbDots size={px('1.2rem')} />} size="md">
+                        <Button size="md">
                             {t('common.action.more-actions')}
                         </Button>
                     </Menu.Target>
@@ -308,14 +306,12 @@ export const ViewUserModalContent = (props: IProps) => {
                 </Menu>
 
                 <Button
-                    color="teal"
-                    leftSection={<PiFloppyDiskDuotone size="16px" />}
                     loading={isUpdateUserPending}
                     onClick={() => {
                         handleSubmit()
                     }}
                     size="md"
-                    variant="soft"
+                    variant="filled"
                 >
                     {t('common.action.save')}
                 </Button>

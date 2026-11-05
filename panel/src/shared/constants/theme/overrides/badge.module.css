@@ -1,0 +1,16 @@
+.root {
+    height: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--bolt-text);
+    font-size: var(--mantine-font-size-sm);
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+    overflow: visible;
+}
+
+.section {
+    margin-inline-end: 6px;
+}

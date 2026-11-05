@@ -1,0 +1,72 @@
+.group {
+    padding: 4px;
+    border-radius: var(--mantine-radius-md);
+    background: var(--bolt-surface);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 48px;
+    padding: 6px 12px;
+    border: 0;
+    border-radius: var(--mantine-radius-sm);
+    background: transparent;
+    color: var(--bolt-text);
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+}
+
+.row[data-interactive] {
+    cursor: pointer;
+    transition: background-color 150ms ease;
+
+    @mixin hover {
+        background: var(--bolt-surface-hover);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--bolt-accent);
+        outline-offset: -2px;
+    }
+}
+
+.icon {
+    flex-shrink: 0;
+}
+
+.label {
+    flex: 1;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.value {
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 60%;
+    font-size: 15px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chevron {
+    flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .row[data-interactive] {
+        transition: none;
+    }
+}

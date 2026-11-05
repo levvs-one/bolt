@@ -1,0 +1,49 @@
+.content {
+    background: var(--bolt-surface-raised);
+    border: 1px solid var(--bolt-line);
+}
+
+.body {
+    padding: 0;
+}
+
+.search {
+    height: 52px;
+    border: 0;
+    border-bottom: 1px solid var(--bolt-line);
+    border-radius: 0;
+    background: transparent;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.list {
+    padding: 6px;
+}
+
+.action {
+    min-height: 44px;
+    padding: 0 10px;
+    border-radius: var(--mantine-radius-sm);
+    color: var(--bolt-text);
+
+    &[data-selected] {
+        background: var(--bolt-surface-hover);
+    }
+}
+
+.label {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.meta {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.empty {
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 500;
+}

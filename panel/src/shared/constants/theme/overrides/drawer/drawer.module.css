@@ -1,0 +1,28 @@
+.drawerContent {
+    background: var(--bolt-body);
+    border-radius: var(--drawer-radius, var(--mantine-radius-md));
+}
+
+@media (max-width: $mantine-breakpoint-sm) {
+    .drawerContent {
+        border-radius: 0;
+    }
+}
+
+.drawerHeader {
+    background: var(--bolt-body);
+    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+
+    @supports (padding: env(safe-area-inset-top)) {
+        padding-top: max(var(--mantine-spacing-sm), env(safe-area-inset-top, 0px));
+    }
+}
+
+.drawerTitle {
+    font-size: var(--mantine-font-size-lg);
+    font-weight: 700;
+}
+
+.drawerBody {
+    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md) var(--mantine-spacing-md);
+}

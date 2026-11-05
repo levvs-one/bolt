@@ -1,0 +1,21 @@
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.logo {
+    width: 36px;
+    height: 36px;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.form {
+    width: min(400px, calc(100vw - 32px));
+}

@@ -1,0 +1,10 @@
+.stickyHeader {
+    position: sticky;
+    top: var(--drawer-sticky-offset, 60px);
+    z-index: 3;
+    margin-top: calc(var(--mantine-spacing-md) * -1);
+    padding-top: var(--mantine-spacing-md);
+    background-color: var(--bolt-body);
+    background-color: color-mix(in srgb, var(--mantine-color-body) 95%, transparent);
+    background: var(--bolt-surface);
+}

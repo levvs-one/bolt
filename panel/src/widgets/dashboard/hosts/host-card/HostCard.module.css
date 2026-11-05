@@ -1,0 +1,73 @@
+.row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    padding: 8px 14px 8px 12px;
+    border-radius: var(--mantine-radius-md);
+    background: var(--bolt-surface);
+    cursor: pointer;
+    transition: background-color 150ms ease;
+
+    @mixin hover {
+        background: var(--bolt-surface-hover);
+    }
+}
+
+.row[data-drag-overlay] {
+    background: var(--bolt-surface-raised);
+    border: 1px solid var(--bolt-line);
+}
+
+.rowSelected {
+    background: var(--bolt-surface-raised);
+}
+
+.rowDragging {
+    opacity: 0;
+}
+
+.handle {
+    display: flex;
+    flex-shrink: 0;
+    cursor: grab;
+    touch-action: none;
+}
+
+.icon {
+    flex-shrink: 0;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.facts {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.side {
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: end;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .row {
+        transition: none;
+    }
+}

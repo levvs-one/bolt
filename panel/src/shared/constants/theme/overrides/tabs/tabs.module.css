@@ -1,0 +1,33 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    width: fit-content;
+    max-width: 100%;
+    border-radius: var(--mantine-radius-md);
+    background: var(--bolt-surface);
+}
+
+.tab {
+    position: relative;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: var(--mantine-radius-sm);
+    color: var(--bolt-text);
+    transition: background-color 150ms ease;
+
+    @mixin hover {
+        background-color: var(--bolt-surface-hover);
+    }
+
+    &[data-active],
+    &[data-active]:hover {
+        background: var(--bolt-accent);
+        color: var(--bolt-on-accent);
+    }
+}
+
+.tabLabel {
+    font-weight: 600;
+}

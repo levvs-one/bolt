@@ -1,0 +1,210 @@
+.shell {
+    min-height: 100dvh;
+    background: var(--bolt-body);
+}
+
+.sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    width: var(--bolt-sidebar-width);
+    padding: 12px 10px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: var(--bolt-body);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0 10px;
+    color: var(--bolt-text);
+    text-decoration: none;
+}
+
+.brandMark {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.brandTitle {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav {
+    flex: 1;
+    min-height: 0;
+    margin-top: 8px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.group + .group {
+    margin-top: 2px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: var(--mantine-radius-sm);
+    background: transparent;
+    color: var(--bolt-text);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+
+    @mixin hover {
+        background: var(--bolt-surface-hover);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--bolt-accent);
+        outline-offset: -2px;
+    }
+}
+
+.row[data-active] {
+    background: var(--bolt-surface);
+    font-weight: 700;
+}
+
+.rowIcon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.rowLabel {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rowMeta {
+    flex-shrink: 0;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.chevron {
+    flex-shrink: 0;
+    transition: transform 180ms ease;
+}
+
+.chevron[data-open] {
+    transform: rotate(90deg);
+}
+
+.children {
+    padding: 2px 0 6px 18px;
+}
+
+.children .row {
+    height: 32px;
+    font-size: 13.5px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 8px;
+}
+
+.main {
+    min-width: 0;
+    padding: 20px 24px 40px calc(var(--bolt-sidebar-width) + 8px);
+}
+
+.mobileHeader {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: calc(52px + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) 8px 0 16px;
+    background: var(--bolt-body);
+}
+
+.mobileMain {
+    min-width: 0;
+    padding: 4px 16px calc(84px + env(safe-area-inset-bottom, 0px));
+}
+
+.tabBar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--bolt-body);
+    border-top: 1px solid var(--bolt-line);
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 0;
+    background: transparent;
+    color: var(--bolt-text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tab[data-active] {
+    font-weight: 700;
+}
+
+.sheetRow {
+    height: 48px;
+    padding: 0 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.sheetGroup {
+    padding: 4px;
+    border-radius: var(--mantine-radius-md);
+    background: var(--bolt-surface);
+}
+
+.sheetGroup + .sheetGroup {
+    margin-top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .row,
+    .chevron {
+        transition: none;
+    }
+}

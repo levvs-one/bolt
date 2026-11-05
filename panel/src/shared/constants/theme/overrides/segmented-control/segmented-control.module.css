@@ -1,0 +1,20 @@
+.root {
+    background-color: var(--bolt-surface);
+}
+
+.indicator {
+    background: var(--bolt-accent);
+    border: 0;
+    box-shadow: none;
+}
+
+.label {
+    color: var(--bolt-text);
+    font-weight: 600;
+    transition: color 150ms ease;
+}
+
+.label[data-active],
+.label[data-active]:hover {
+    color: var(--bolt-on-accent);
+}

@@ -1,0 +1,17 @@
+.saveButton {
+    background: var(--bolt-surface);
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    transition: all 0.2s ease;
+}
+
+.saveButton:hover {
+    background: var(--bolt-surface);
+    border-color: rgba(34, 211, 238, 0.6);
+    transform: translateY(-1px);
+}
+
+.headerCard {
+    border-radius: var(--mantine-radius-lg);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}

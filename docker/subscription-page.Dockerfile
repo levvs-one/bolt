@@ -2,7 +2,7 @@
 FROM node:24.22-trixie-slim AS frontend-build
 WORKDIR /opt/frontend
 
-COPY subscription-page/frontend/package*.json ./
+COPY subscription-page/frontend/package*.json subscription-page/frontend/.npmrc ./
 RUN npm ci --no-audit --no-fund
 
 COPY subscription-page/frontend/ .
@@ -11,7 +11,7 @@ RUN NODE_ENV=production npx vite build
 FROM node:24.22-trixie-slim AS backend-build
 WORKDIR /opt/app
 
-COPY subscription-page/backend/package*.json ./
+COPY subscription-page/backend/package*.json subscription-page/backend/.npmrc ./
 COPY subscription-page/backend/tsconfig.json ./
 COPY subscription-page/backend/tsconfig.build.json ./
 

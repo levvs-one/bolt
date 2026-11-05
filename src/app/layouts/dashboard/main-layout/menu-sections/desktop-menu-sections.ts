@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import {
     TbAdjustmentsHorizontal,
     TbApi,
+    TbBolt,
     TbBrowser,
     TbChartLine,
     TbChartPie,
@@ -122,6 +123,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                         href: ROUTES.DASHBOARD.MANAGEMENT.CONFIG_PROFILES,
                         icon: TbAdjustmentsHorizontal,
                         id: 'config-profiles'
+                    },
+                    {
+                        name: t('bolt.quick-setup.title'),
+                        href: ROUTES.DASHBOARD.MANAGEMENT.QUICK_SETUP,
+                        icon: TbBolt,
+                        id: 'quick-setup'
                     }
                 ]
             },

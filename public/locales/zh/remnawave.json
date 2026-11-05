@@ -1998,6 +1998,26 @@
       "state-active": "Active",
       "state-hidden": "Hidden",
       "state-disabled": "Disabled"
+    },
+    "quick-setup": {
+      "title": "Quick setup",
+      "profile-name": "Profile name",
+      "server-name": "Reality SNI",
+      "hidden": "Hidden XHTTP",
+      "create-hosts": "Create hosts for every node",
+      "squad": "Squad",
+      "step-keys": "Reality keys",
+      "step-profile": "Config profile",
+      "step-nodes": "Nodes",
+      "step-hosts": "Hosts",
+      "step-squads": "Squads",
+      "state-idle": "Waiting",
+      "state-running": "In progress",
+      "state-done": "Done",
+      "state-skipped": "Skipped",
+      "state-error": "Error",
+      "apply": "Apply",
+      "open-profile": "Open profile"
     }
   }
 }

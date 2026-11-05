@@ -1,6 +1,7 @@
 import { LoginPage } from '@pages/auth/login'
 import { Oauth2CallbackPage } from '@pages/auth/oauth2-callback/oauth2-callback.page'
 import { ConfigProfilesPageConnector } from '@pages/dashboard/config-profiles/connectors'
+import { QuickSetupPage } from '@pages/dashboard/quick-setup'
 import { ConfigProfileByUuidPageConnector } from '@pages/dashboard/config-profiles/connectors/config-profile-by-uuid.page.connector'
 import { InfraBillingPageConnector } from '@pages/dashboard/crm/infra-billing/connectors/infra-billing.page.connector'
 import { ExternalSquadsPageConnector } from '@pages/dashboard/external-squads/connectors'
@@ -94,6 +95,10 @@ const router = createBrowserRouter(
                         <Route
                             element={<ConfigProfileByUuidPageConnector />}
                             path={ROUTES.DASHBOARD.MANAGEMENT.CONFIG_PROFILE_BY_UUID}
+                        />
+                        <Route
+                            element={<QuickSetupPage />}
+                            path={ROUTES.DASHBOARD.MANAGEMENT.QUICK_SETUP}
                         />
                         <Route
                             element={<InternalSquadsPageConnector />}

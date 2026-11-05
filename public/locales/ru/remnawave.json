@@ -1998,6 +1998,26 @@
       "state-active": "Активен",
       "state-hidden": "Скрыт",
       "state-disabled": "Отключён"
+    },
+    "quick-setup": {
+      "title": "Быстрая настройка",
+      "profile-name": "Название профиля",
+      "server-name": "SNI для Reality",
+      "hidden": "Скрытый XHTTP",
+      "create-hosts": "Создать хосты для каждой ноды",
+      "squad": "Сквад",
+      "step-keys": "Ключи Reality",
+      "step-profile": "Профиль",
+      "step-nodes": "Ноды",
+      "step-hosts": "Хосты",
+      "step-squads": "Сквады",
+      "state-idle": "Ждёт",
+      "state-running": "Идёт",
+      "state-done": "Готово",
+      "state-skipped": "Пропущено",
+      "state-error": "Ошибка",
+      "apply": "Применить",
+      "open-profile": "Открыть профиль"
     }
   }
 }

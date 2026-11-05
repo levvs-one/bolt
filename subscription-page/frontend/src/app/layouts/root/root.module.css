@@ -1,0 +1,17 @@
+.root {
+    display: flex;
+    flex-grow: 1;
+    min-height: 100vh;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main {
+    width: 100%;
+    max-width: 560px;
+    align-self: center;
+}

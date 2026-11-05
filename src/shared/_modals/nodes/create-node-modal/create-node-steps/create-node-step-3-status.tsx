@@ -69,7 +69,7 @@ export const CreateNodeStep3Status = ({ nodeUuid, onClose }: IProps) => {
                 shadow="sm"
                 style={{
                     background:
-                        'linear-gradient(to top, var(--mantine-color-dark-6) 0%, var(--mantine-color-dark-7) 100%)'
+                        'var(--bolt-surface)'
                 }}
                 withBorder
             >

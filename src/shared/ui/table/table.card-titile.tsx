@@ -1,15 +1,4 @@
-import {
-    ActionIcon,
-    ActionIconProps,
-    Box,
-    CardSection,
-    CardSectionProps,
-    Group,
-    Stack,
-    Text,
-    Title
-} from '@mantine/core'
-import { motion } from 'motion/react'
+import { ActionIconProps, Box, CardSection, CardSectionProps, Title } from '@mantine/core'
 import { forwardRef, ReactNode } from 'react'
 
 import classes from './table.module.css'
@@ -17,101 +6,44 @@ import classes from './table.module.css'
 export interface CardTitleProps extends Omit<CardSectionProps, 'c' | 'fw' | 'size' | 'tt'> {
     actions?: ReactNode
     description?: string
-    icon: ReactNode
+    icon?: ReactNode
     iconProps?: ActionIconProps
     title: ReactNode
 }
 
+// Заголовок раздела Bolt: название и действия справа, без значка, пояснения и анимации.
 export const CardTitle = forwardRef<HTMLDivElement, CardTitleProps>(
-    ({ title, description, style, actions, withBorder = true, icon, iconProps, ...props }, ref) => (
-        <CardSection
-            className={classes.card}
-            data-orientation="vertical"
-            inheritPadding
-            py="md"
-            ref={ref}
-            style={{
-                ...style
-            }}
-            withBorder={withBorder}
-            {...props}
-        >
-            <motion.div
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: -10 }}
-                style={{ position: 'relative', zIndex: 1 }}
-                transition={{ duration: 0.5, ease: [0, 0.71, 0.2, 1.01] }}
+    (
+        {
+            title,
+            style,
+            actions,
+            withBorder = false,
+            description: _description,
+            icon: _icon,
+            iconProps: _iconProps,
+            ...sectionProps
+        },
+        ref
+    ) => {
+
+        return (
+            <CardSection
+                className={classes.card}
+                inheritPadding
+                py={12}
+                ref={ref}
+                style={style}
+                withBorder={withBorder}
+                {...sectionProps}
             >
                 <Box className={classes.headerWrapper}>
-                    <Box className={classes.contentSection}>
-                        <Group align="center" gap="md" wrap="nowrap">
-                            <motion.div
-                                animate={{ opacity: 1, y: 0 }}
-                                initial={{ opacity: 0, y: -10 }}
-                                transition={{
-                                    duration: 0.5,
-                                    ease: [0, 0.71, 0.2, 1.01]
-                                }}
-                            >
-                                <ActionIcon
-                                    className={classes.actionIcon}
-                                    color="cyan"
-                                    size="input-md"
-                                    variant="soft"
-                                    {...iconProps}
-                                >
-                                    {icon}
-                                </ActionIcon>
-                            </motion.div>
-
-                            <Stack gap={0}>
-                                <motion.div
-                                    animate={{ opacity: 1, y: 0 }}
-                                    initial={{ opacity: 0, y: -10 }}
-                                    transition={{
-                                        duration: 0.5,
-                                        ease: [0, 0.71, 0.2, 1.01]
-                                    }}
-                                >
-                                    <Title order={4} pt={0}>
-                                        {title}
-                                    </Title>
-                                </motion.div>
-                                {description && (
-                                    <motion.div
-                                        animate={{ opacity: 1, y: 0 }}
-                                        initial={{ opacity: 0, y: -10 }}
-                                        transition={{
-                                            duration: 0.5,
-                                            ease: [0, 0.71, 0.2, 1.01]
-                                        }}
-                                    >
-                                        <Text c="dimmed" fz="sm">
-                                            {description}
-                                        </Text>
-                                    </motion.div>
-                                )}
-                            </Stack>
-                        </Group>
-                    </Box>
-
-                    {actions && (
-                        <motion.div
-                            animate={{ opacity: 1, y: 0 }}
-                            className={classes.actionsSection}
-                            initial={{ opacity: 0, y: -10 }}
-                            transition={{
-                                duration: 0.5,
-                                ease: [0, 0.71, 0.2, 1.01]
-                            }}
-                        >
-                            <Group align="flex-end" gap="sm" wrap="nowrap">
-                                {actions}
-                            </Group>
-                        </motion.div>
-                    )}
+                    <Title className={classes.title} order={2}>
+                        {title}
+                    </Title>
+                    {actions && <Box className={classes.actionsSection}>{actions}</Box>}
                 </Box>
-            </motion.div>
-        </CardSection>
-    )
+            </CardSection>
+        )
+    }
 )

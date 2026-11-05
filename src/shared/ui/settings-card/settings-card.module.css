@@ -8,10 +8,6 @@
 }
 
 .container {
-    background: linear-gradient(
-        135deg,
-        var(--mantine-color-dark-6) 0%,
-        var(--mantine-color-dark-7) 100%
-    );
+    background: var(--bolt-surface);
     animation: fadeIn 200ms linear both;
 }

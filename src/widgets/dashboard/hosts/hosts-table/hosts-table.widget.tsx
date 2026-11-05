@@ -65,7 +65,7 @@ export const HostsTableWidget = memo((props: IProps) => {
 
     const virtualizer = useWindowVirtualizer({
         count: visibleState.length,
-        estimateSize: () => (isMobile ? 202 : 88),
+        estimateSize: () => (isMobile ? 92 : 68),
         overscan: 7,
         scrollMargin,
         getItemKey: (index) => visibleState[index].uuid
@@ -152,7 +152,7 @@ export const HostsTableWidget = memo((props: IProps) => {
                                 position: 'relative'
                             }}
                         >
-                            <Container fluid>
+                            <Container fluid px={0}>
                                 <Stack gap={0}>
                                     {virtualizer.getVirtualItems().map((virtualItem) => {
                                         const item = visibleState[virtualItem.index]
@@ -162,10 +162,10 @@ export const HostsTableWidget = memo((props: IProps) => {
                                             <Box
                                                 data-index={virtualItem.index}
                                                 key={item.uuid}
+                                                ref={virtualizer.measureElement}
                                                 style={{
                                                     position: 'absolute',
-                                                    marginLeft: isMobile ? '0px' : '16px',
-                                                    marginRight: isMobile ? '0px' : '16px',
+                                                    paddingBottom: 8,
                                                     top: 0,
                                                     left: 0,
                                                     right: 0,

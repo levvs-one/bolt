@@ -1,9 +1,5 @@
 .section {
-    background: linear-gradient(
-        135deg,
-        var(--mantine-color-dark-6) 0%,
-        var(--mantine-color-dark-7) 100%
-    );
+    background: var(--bolt-surface);
     border: 1px solid var(--mantine-color-dark-4);
     border-radius: var(--mantine-radius-md);
     padding: var(--mantine-spacing-md);
@@ -17,13 +13,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--section-accent, var(--mantine-color-cyan-6)) 50%,
-        transparent 100%
-    );
+    display: none;
 }
 
 .processCard {

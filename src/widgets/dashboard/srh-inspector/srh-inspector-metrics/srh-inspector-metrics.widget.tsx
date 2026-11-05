@@ -138,7 +138,7 @@ export function SrhInspectorMetrics() {
                     p="lg"
                     style={{
                         background:
-                            'linear-gradient(135deg, var(--mantine-color-dark-6) 0%, var(--mantine-color-dark-7) 100%)'
+                            'var(--bolt-surface)'
                     }}
                 >
                     <Group align="center" gap="sm" mb="lg" wrap="nowrap">
@@ -176,7 +176,7 @@ export function SrhInspectorMetrics() {
                     p="lg"
                     style={{
                         background:
-                            'linear-gradient(135deg, var(--mantine-color-dark-6) 0%, var(--mantine-color-dark-7) 100%)'
+                            'var(--bolt-surface)'
                     }}
                 >
                     <Group align="center" gap="sm" mb="lg" wrap="nowrap">

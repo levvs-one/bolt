@@ -4,7 +4,7 @@
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    background: rgba(22, 27, 35, 0.6);
+    background: var(--bolt-body);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--mantine-radius-md);
     font-family: var(--mantine-font-family-monospace);

@@ -8,7 +8,7 @@
 
     &[data-checked] {
         border-color: var(--mantine-primary-color-filled);
-        background-image: linear-gradient(135deg, rgba(34, 184, 207, 0.08) 0%, transparent 60%);
+        background: var(--bolt-surface);
     }
 
     @mixin hover {

@@ -114,7 +114,7 @@ export function SvgLibraryModal(props: IProps) {
             >
                 <Stack gap="md">
                     <Alert
-                        bg="linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%)"
+                        bg='var(--bolt-surface)'
                         color="violet.4"
                         icon={<IconBulb size={20} />}
                         radius="md"
@@ -191,7 +191,7 @@ export function SvgLibraryModal(props: IProps) {
                                                         radius="xl"
                                                         size={44}
                                                         style={{
-                                                            background: `linear-gradient(135deg, rgba(34, 211, 238, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%)`,
+                                                            background: 'var(--bolt-surface)',
                                                             border: '1px solid rgba(34, 211, 238, 0.3)',
                                                             flexShrink: 0
                                                         }}
@@ -303,7 +303,7 @@ export function SvgLibraryModal(props: IProps) {
                                                 radius="xl"
                                                 size={44}
                                                 style={{
-                                                    background: `linear-gradient(135deg, rgba(34, 211, 238, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%)`,
+                                                    background: 'var(--bolt-surface)',
                                                     border: '1px solid rgba(34, 211, 238, 0.3)',
                                                     flexShrink: 0
                                                 }}

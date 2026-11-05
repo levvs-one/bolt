@@ -6,11 +6,7 @@
     padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
     margin-bottom: var(--mantine-spacing-xs);
 
-    background: linear-gradient(
-        135deg,
-        var(--mantine-color-dark-6) 0%,
-        var(--mantine-color-dark-7) 100%
-    );
+    background: var(--bolt-surface);
     box-shadow: var(--mantine-shadow-sm);
     cursor: pointer !important;
 

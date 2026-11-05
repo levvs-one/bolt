@@ -13,9 +13,7 @@
 }
 
 .stickyNodeHeader {
-    background:
-        linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
-        var(--mantine-color-body);
+    background: var(--bolt-surface);
     box-shadow:
         1px 0 0 0 var(--mantine-color-body),
         -1px 0 0 0 var(--mantine-color-body),
@@ -25,11 +23,6 @@
 }
 
 .ipHighlight {
-    background: linear-gradient(
-        90deg,
-        rgba(45, 212, 191, 0.16) 0%,
-        rgba(45, 212, 191, 0.04) 60%,
-        rgba(45, 212, 191, 0) 100%
-    );
+    background: var(--bolt-surface);
     box-shadow: inset 2px 0 0 0 var(--mantine-color-teal-5);
 }

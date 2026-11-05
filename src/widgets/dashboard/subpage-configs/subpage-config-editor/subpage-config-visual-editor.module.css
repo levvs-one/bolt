@@ -106,7 +106,7 @@
 }
 
 .previewBadge {
-    background: linear-gradient(135deg, rgba(64, 192, 87, 0.15) 0%, rgba(55, 178, 77, 0.1) 100%);
+    background: var(--bolt-surface);
     border: 1px solid rgba(64, 192, 87, 0.3);
     padding: 2px 8px;
     border-radius: var(--mantine-radius-sm);
@@ -272,7 +272,7 @@
     width: 32px;
     height: 32px;
     border-radius: var(--mantine-radius-sm);
-    background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+    background: var(--bolt-surface);
     border: 1px solid rgba(34, 211, 238, 0.2);
     flex-shrink: 0;
 }
@@ -342,7 +342,7 @@
 }
 
 .iconSelectItem[data-selected='true'] {
-    background: linear-gradient(135deg, rgba(34, 211, 238, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
+    background: var(--bolt-surface);
     border-color: rgba(34, 211, 238, 0.5);
     box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);
 }
@@ -375,13 +375,13 @@
 }
 
 .saveButton {
-    background: linear-gradient(135deg, rgba(34, 211, 238, 0.2) 0%, rgba(6, 182, 212, 0.15) 100%);
+    background: var(--bolt-surface);
     border: 1px solid rgba(34, 211, 238, 0.4);
     transition: all 0.2s ease;
 }
 
 .saveButton:hover {
-    background: linear-gradient(135deg, rgba(34, 211, 238, 0.3) 0%, rgba(6, 182, 212, 0.25) 100%);
+    background: var(--bolt-surface);
     border-color: rgba(34, 211, 238, 0.6);
     transform: translateY(-1px);
 }

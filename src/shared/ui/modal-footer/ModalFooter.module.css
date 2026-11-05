@@ -2,7 +2,7 @@
     width: calc(100% + 2 * var(--mantine-spacing-sm));
     margin-left: calc(-1 * var(--mantine-spacing-sm));
     bottom: -1px;
-    background: rgba(22, 27, 35, 0.95);
+    background: var(--bolt-body);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: none;
     padding-left: var(--mantine-spacing-sm);

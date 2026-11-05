@@ -1,4 +1,4 @@
-import { Card, Group, Stack, Text, ThemeIcon, ThemeIconProps } from '@mantine/core'
+import { Card, Text, ThemeIconProps } from '@mantine/core'
 import { ReactNode } from 'react'
 
 import { ShimmerSkeleton } from '@shared/ui/shimmer-skeleton'
@@ -21,11 +21,8 @@ export interface IMetricCardProps {
 
 export function MetricCardShared(props: IMetricCardProps) {
     const {
-        iconColor,
-        themeIconProps,
         IconComponent,
-        iconSize = 24,
-        iconVariant,
+        iconSize = 20,
         isLoading,
         title,
         value,
@@ -34,34 +31,23 @@ export function MetricCardShared(props: IMetricCardProps) {
     } = props
 
     return (
-        <Card>
-            <Group gap="md" wrap="nowrap">
-                <ThemeIcon
-                    color={iconColor}
-                    radius="lg"
-                    size="xl"
-                    variant={iconVariant}
-                    {...themeIconProps}
-                >
-                    <IconComponent size={iconSize} />
-                </ThemeIcon>
-
-                <Stack gap={0} miw={0}>
-                    <Text className={classes.title} truncate="end">
-                        {title}
+        <Card className={classes.card}>
+            <IconComponent size={iconSize > 20 ? 20 : iconSize} />
+            <div className={classes.body}>
+                <Text className={classes.title} truncate="end">
+                    {title}
+                </Text>
+                {subtitle && <Text className={classes.subtitle}>{subtitle}</Text>}
+            </div>
+            {isLoading ? (
+                <ShimmerSkeleton height={22} width={64} />
+            ) : (
+                (rollingNumberComponent ?? (
+                    <Text className={classes.value} truncate="end">
+                        {typeof value === 'number' ? formatInt(value) : value}
                     </Text>
-                    {isLoading ? (
-                        <ShimmerSkeleton height={24} width={80} />
-                    ) : (
-                        (rollingNumberComponent ?? (
-                            <Text className={classes.value} truncate="end">
-                                {typeof value === 'number' ? formatInt(value) : value}
-                            </Text>
-                        ))
-                    )}
-                    {subtitle && <Text className={classes.subtitle}>{subtitle}</Text>}
-                </Stack>
-            </Group>
+                ))
+            )}
         </Card>
     )
 }

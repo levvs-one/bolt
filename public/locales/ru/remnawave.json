@@ -1983,7 +1983,21 @@
       "online": "Работает",
       "offline": "Нет связи",
       "connecting": "Подключается",
-      "disabled": "Отключена"
+      "disabled": "Отключена",
+      "misconfigured": "Нет профиля"
+    },
+    "nodes": {
+      "ram": "ОЗУ {{percent}}%"
+    },
+    "hosts": {
+      "mask": "Маска",
+      "template": "Шаблон",
+      "squads-only": "Только сквады",
+      "squads-except": "Кроме сквадов",
+      "no-profile": "Без профиля",
+      "state-active": "Активен",
+      "state-hidden": "Скрыт",
+      "state-disabled": "Отключён"
     }
   }
 }

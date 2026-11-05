@@ -146,17 +146,17 @@ export function UserTableWidget() {
         }),
         mantineTopToolbarProps: {
             style: {
-                '--mrt-base-background-color': '#1b2027'
+                '--mrt-base-background-color': 'var(--bolt-surface)'
             }
         },
         mantineTableHeadProps: {
             style: {
-                '--mrt-base-background-color': '#1b2027'
+                '--mrt-base-background-color': 'var(--bolt-surface)'
             }
         },
         mantineBottomToolbarProps: {
             style: {
-                '--mrt-base-background-color': '#1b2027'
+                '--mrt-base-background-color': 'var(--bolt-surface)'
             }
         },
         mantinePaperProps: {

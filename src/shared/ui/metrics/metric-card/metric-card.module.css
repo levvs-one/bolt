@@ -1,47 +1,49 @@
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 10px 16px;
+}
+
+.body {
+    flex: 1;
+    min-width: 0;
+}
+
 .title {
-    color: var(--mantine-color-dimmed);
-    font-size: var(--mantine-font-size-sm);
-    font-weight: 500;
-    line-height: 1.4;
-    letter-spacing: 0.01em;
-    max-width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.subtitle {
+    font-size: 13px;
+    font-weight: 500;
     white-space: nowrap;
 }
 
 .value {
+    flex-shrink: 0;
+    max-width: 50%;
+    font-size: 17px;
     font-weight: 700;
-    font-size: var(--mantine-font-size-xl);
-    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
     overflow: hidden;
-    font-family: var(--mantine-font-family-monospace);
     text-overflow: ellipsis;
-    color: var(--mantine-color-white-5);
 }
 
-.subtitle {
-    color: var(--mantine-color-dimmed);
-    font-size: var(--mantine-font-size-xs);
-    font-weight: 400;
-    white-space: nowrap;
-}
+@media (max-width: 48em) {
+    .card {
+        min-height: 48px;
+        padding: 8px 14px;
+    }
 
-.trendContainer {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 2px;
-}
-
-.trendValue {
-    font-size: var(--mantine-font-size-xs);
-    font-weight: 600;
-}
-
-.trendText {
-    color: var(--mantine-color-dimmed);
-    font-size: var(--mantine-font-size-xs);
-    font-weight: 400;
+    .value {
+        font-size: 16px;
+    }
 }

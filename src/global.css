@@ -57,7 +57,7 @@ body {
 }
 
 .mantine-Spotlight-action[data-selected] {
-    background-color: var(--mantine-color-dark-5) !important;
+    background-color: var(--bolt-surface-hover) !important;
 }
 
 @supports (padding: env(safe-area-inset-bottom)) {
@@ -68,7 +68,7 @@ body {
         bottom: 0px;
         width: 100%;
         height: 4px;
-        background: #161b23;
+        background: var(--bolt-surface);
         z-index: 0;
     }
 }
@@ -125,25 +125,23 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(22, 27, 35, 0.6);
-    border-radius: 4px;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #0d9488 0%, #06b6d4 100%);
+    background: var(--bolt-line);
     border-radius: 4px;
-    border: 1px solid rgba(22, 27, 35, 0.8);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #14b8a6 0%, #22d3ee 100%);
+    background: color-mix(in srgb, var(--bolt-text) 35%, transparent);
 }
 
 ::-webkit-scrollbar-corner {
-    background: rgba(22, 27, 35, 0.6);
+    background: transparent;
 }
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: #0d9488 rgba(22, 27, 35, 0.6);
+    scrollbar-color: var(--bolt-line) transparent;
 }

@@ -84,7 +84,7 @@ export const NodesTableWidget = memo((props: IProps) => {
 
     const virtualizer = useWindowVirtualizer({
         count: state.length,
-        estimateSize: () => (isMobile ? 190 : 90),
+        estimateSize: () => (isMobile ? 84 : 68),
         overscan: 7,
         scrollMargin,
         getItemKey: (index) => state[index].uuid
@@ -240,7 +240,7 @@ export const NodesTableWidget = memo((props: IProps) => {
                             position: 'relative'
                         }}
                     >
-                        <Container fluid>
+                        <Container fluid px={0}>
                             <Stack gap={0}>
                                 {virtualizer.getVirtualItems().map((virtualItem) => {
                                     const item = state[virtualItem.index]
@@ -252,10 +252,10 @@ export const NodesTableWidget = memo((props: IProps) => {
                                         <Box
                                             data-index={virtualItem.index}
                                             key={item.uuid}
+                                            ref={virtualizer.measureElement}
                                             style={{
                                                 position: 'absolute',
-                                                marginLeft: isMobile ? '0px' : '16px',
-                                                marginRight: isMobile ? '0px' : '16px',
+                                                paddingBottom: 8,
                                                 top: 0,
                                                 left: 0,
                                                 right: 0,

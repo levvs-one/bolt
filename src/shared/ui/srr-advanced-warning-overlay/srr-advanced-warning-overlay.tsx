@@ -32,7 +32,7 @@ export function SrrAdvancedWarningOverlay() {
                         size={80}
                         style={{
                             background:
-                                'linear-gradient(135deg, rgba(251, 146, 60, 0.15) 0%, rgba(251, 146, 60, 0.05) 100%)',
+                                'var(--bolt-surface)',
                             border: '3px solid rgba(251, 146, 60, 0.3)',
                             boxShadow: '0 8px 32px rgba(251, 146, 60, 0.2)'
                         }}

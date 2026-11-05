@@ -34,7 +34,7 @@ export function ConnectionStatusOverlay() {
                         style={{
                             ...transitionStyles,
                             background:
-                                'linear-gradient(135deg, rgba(30, 30, 35, 0.98) 0%, rgba(45, 25, 25, 0.98) 100%)',
+                                'var(--bolt-surface)',
                             border: '1px solid rgba(250, 82, 82, 0.35)',
                             pointerEvents: 'auto'
                         }}

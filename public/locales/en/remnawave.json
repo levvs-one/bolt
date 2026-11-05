@@ -1983,7 +1983,21 @@
       "online": "Online",
       "offline": "No connection",
       "connecting": "Connecting",
-      "disabled": "Disabled"
+      "disabled": "Disabled",
+      "misconfigured": "No config"
+    },
+    "nodes": {
+      "ram": "RAM {{percent}}%"
+    },
+    "hosts": {
+      "mask": "Mask",
+      "template": "Template",
+      "squads-only": "Squads only",
+      "squads-except": "Except squads",
+      "no-profile": "No profile",
+      "state-active": "Active",
+      "state-hidden": "Hidden",
+      "state-disabled": "Disabled"
     }
   }
 }

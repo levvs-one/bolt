@@ -14,6 +14,7 @@ import { HostsModule } from './hosts/hosts.module';
 import { HwidUserDevicesModule } from './hwid-user-devices/hwid-user-devices.module';
 import { InfraBillingModule } from './infra-billing/infra-billing.module';
 import { InternalSquadModule } from './internal-squads/internal-squad.module';
+import { BoltModule } from './bolt/bolt.module';
 import { KeygenModule } from './keygen/keygen.module';
 import { MetadataModule } from './metadata/metadata.module';
 import { NodeIntegrationModule } from './node-integrations';
@@ -45,6 +46,7 @@ import { UsersModule } from './users/users.module';
         ConfigProfileModule,
         InternalSquadModule,
         ExternalSquadModule,
+        BoltModule,
         KeygenModule,
         NodesModule,
         NodePluginModule,

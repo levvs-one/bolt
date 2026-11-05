@@ -101,6 +101,11 @@ export const CONTROLLERS_INFO = {
         description: '',
         resource: 'system',
     },
+    BOLT: {
+        tag: 'Bolt Controller',
+        description: 'Bolt tools: Reality key generation for config profile presets.',
+        resource: 'bolt',
+    },
     KEYGEN: {
         tag: 'Keygen Controller',
         description: 'Generation of SECRET_KEY for Remnawave Node.',

@@ -8,6 +8,7 @@ export * from './hwid';
 export * from './infra-billing';
 export * from './internal-squads';
 export * from './connections';
+export * from './bolt';
 export * from './keygen';
 export * from './metadata';
 export * from './node-integrations';

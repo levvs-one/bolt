@@ -1,0 +1,39 @@
+.group {
+    padding: 4px;
+    border-radius: var(--mantine-radius-md);
+    background: var(--bolt-surface);
+}
+
+.group:empty {
+    display: none;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 50px;
+    padding: 6px 12px;
+    border-radius: var(--mantine-radius-sm);
+    color: var(--bolt-text);
+    text-decoration: none;
+    transition: background-color 150ms ease;
+
+    @mixin hover {
+        background: var(--bolt-surface-hover);
+    }
+}
+
+.label {
+    flex: 1;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.qr {
+    width: 100%;
+    max-width: 280px;
+    border-radius: var(--mantine-radius-md);
+}

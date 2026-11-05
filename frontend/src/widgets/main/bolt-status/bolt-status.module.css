@@ -1,0 +1,75 @@
+.group {
+    padding: 14px 16px 16px;
+    border-radius: var(--mantine-radius-md);
+    background: var(--bolt-surface);
+}
+
+.top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.name {
+    min-width: 0;
+    font-size: 17px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status {
+    flex-shrink: 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.key {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 10px;
+    margin-top: 10px;
+}
+
+.keyValue {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+.keyLabel {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 14px;
+    font-variant-numeric: tabular-nums;
+}
+
+.rowLabel {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.rowValue {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.bar {
+    margin-top: 8px;
+    background: var(--bolt-line);
+}
+
+.barFill {
+    background: var(--bolt-accent);
+}

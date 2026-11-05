@@ -1,13 +1,18 @@
-import { createTheme } from '@mantine/core'
+import { createTheme, rem } from '@mantine/core'
 
+import { variantColorResolver } from './colors-resolver'
 import components from './overrides'
+import { BOLT_TOKENS } from './tokens'
+
+const FONT_STACK =
+    '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", Roboto, system-ui, Vazirmatn, "Noto Sans SC", "Twemoji Country Flags", sans-serif'
 
 export const theme = createTheme({
+    variantColorResolver,
     components,
     cursorType: 'pointer',
-    fontFamily:
-        'Montserrat, Vazirmatn, Apple Color Emoji, Noto Sans SC, Twemoji Country Flags, sans-serif',
-    fontFamilyMonospace: 'Fira Mono, monospace',
+    fontFamily: FONT_STACK,
+    fontFamilyMonospace: FONT_STACK,
     breakpoints: {
         xs: '25em',
         sm: '30em',
@@ -20,79 +25,56 @@ export const theme = createTheme({
     },
     scale: 1,
     fontSmoothing: true,
-    focusRing: 'never',
-    white: '#ffffff',
-    black: '#24292f',
+    focusRing: 'auto',
+    white: BOLT_TOKENS.light.surface,
+    black: BOLT_TOKENS.light.text,
     colors: {
         dark: [
-            '#c9d1d9',
-            '#b1bac4',
-            '#8b949e',
-            '#6e7681',
-            '#484f58',
-            '#30363d',
-            '#21262d',
-            '#161b22',
-            '#0d1117',
-            '#010409'
+            BOLT_TOKENS.dark.text,
+            BOLT_TOKENS.dark.text,
+            '#e6e6e9',
+            '#3a3a40',
+            BOLT_TOKENS.dark.line,
+            BOLT_TOKENS.dark.surfaceHover,
+            BOLT_TOKENS.dark.surface,
+            BOLT_TOKENS.dark.body,
+            '#070708',
+            '#000000'
         ],
-
-        blue: [
-            '#ddf4ff',
-            '#b6e3ff',
-            '#80ccff',
-            '#54aeff',
-            '#218bff',
-            '#0969da',
-            '#0550ae',
-            '#033d8b',
-            '#0a3069',
-            '#002155'
-        ],
-        green: [
-            '#dafbe1',
-            '#aceebb',
-            '#6fdd8b',
-            '#4ac26b',
-            '#2da44e',
-            '#1a7f37',
-            '#116329',
-            '#044f1e',
-            '#003d16',
-            '#002d11'
-        ],
-        yellow: [
-            '#fff8c5',
-            '#fae17d',
-            '#eac54f',
-            '#d4a72c',
-            '#bf8700',
-            '#9a6700',
-            '#7d4e00',
-            '#633c01',
-            '#4d2d00',
-            '#3b2300'
-        ],
-        orange: [
-            '#fff1e5',
-            '#ffd8b5',
-            '#ffb77c',
-            '#fb8f44',
-            '#e16f24',
-            '#bc4c00',
-            '#953800',
-            '#762c00',
-            '#5c2200',
-            '#471700'
+        gray: [
+            BOLT_TOKENS.light.surfaceRaised,
+            BOLT_TOKENS.light.body,
+            BOLT_TOKENS.light.surfaceHover,
+            BOLT_TOKENS.light.line,
+            '#d6d6da',
+            '#c8c8cd',
+            BOLT_TOKENS.light.text,
+            BOLT_TOKENS.light.text,
+            BOLT_TOKENS.light.text,
+            BOLT_TOKENS.light.text
         ]
     },
-    primaryShade: 8,
-    primaryColor: 'cyan',
-    autoContrast: true,
-    luminanceThreshold: 0.3,
+    primaryShade: { light: 6, dark: 4 },
+    primaryColor: 'gray',
+    autoContrast: false,
+    fontSizes: {
+        xs: rem(13),
+        sm: rem(14),
+        md: rem(16),
+        lg: rem(17),
+        xl: rem(20)
+    },
+    radius: {
+        xs: rem(6),
+        sm: rem(8),
+        md: rem(12),
+        lg: rem(14),
+        xl: rem(16)
+    },
+    shadows: { xs: 'none', sm: 'none', md: 'none', lg: 'none', xl: 'none' },
     headings: {
-        fontFamily: 'Unbounded, Vazirmatn, Apple Color Emoji, Noto Sans SC, sans-serif',
-        fontWeight: '600'
+        fontFamily: FONT_STACK,
+        fontWeight: '700'
     },
     defaultRadius: 'md'
 })

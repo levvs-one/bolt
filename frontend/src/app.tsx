@@ -14,7 +14,7 @@ import { ModalsProvider } from '@mantine/modals'
 import { useMediaQuery } from '@mantine/hooks'
 
 import { initDayjs } from '@shared/utils/time-utils'
-import { theme } from '@shared/constants'
+import { createBoltCssVariablesResolver, theme } from '@shared/constants'
 
 import { Router } from './app/router/router'
 
@@ -24,14 +24,16 @@ enableMainThreadBlocking(false)
 
 initDayjs()
 
+const cssVariablesResolver = createBoltCssVariablesResolver(v8CssVariablesResolver)
+
 export function App() {
     const mq = useMediaQuery('(min-width: 40em)')
 
     return (
         <DirectionProvider>
             <MantineProvider
-                cssVariablesResolver={v8CssVariablesResolver}
-                defaultColorScheme="dark"
+                cssVariablesResolver={cssVariablesResolver}
+                defaultColorScheme="auto"
                 theme={theme}
             >
                 <ModalsProvider>

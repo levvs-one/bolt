@@ -11,7 +11,7 @@
 }
 
 .main {
-    max-width: 800px;
     width: 100%;
+    max-width: 560px;
     align-self: center;
 }

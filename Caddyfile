@@ -1,0 +1,11 @@
+# Домены приходят из .env. Сертификаты Let's Encrypt Caddy выпускает сам.
+
+{$PANEL_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy bolt:{$APP_PORT}
+}
+
+{$SUBSCRIPTION_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy bolt-subscription-page:3010
+}

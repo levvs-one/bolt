@@ -1,0 +1,129 @@
+# Bolt целиком: панель, база, Valkey, страница подписки и Caddy с HTTPS.
+# Настройки берутся из .env рядом с этим файлом (образец — .env.example).
+
+x-common: &common
+  ulimits:
+    nofile:
+      soft: 1048576
+      hard: 1048576
+  restart: always
+  networks:
+    - bolt-network
+
+x-logging: &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: 100m
+      max-file: 5
+
+services:
+  bolt:
+    image: ghcr.io/levvs-one/bolt:latest
+    container_name: bolt
+    hostname: bolt
+    <<: [*common, *logging]
+    env_file: .env
+    volumes:
+      - valkey-socket:/var/run/valkey
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -f http://localhost:${METRICS_PORT:-3001}/health']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      bolt-db:
+        condition: service_healthy
+      bolt-valkey:
+        condition: service_healthy
+
+  bolt-db:
+    image: postgres:18.4
+    container_name: bolt-db
+    hostname: bolt-db
+    shm_size: 512mb
+    <<: [*common, *logging]
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - TZ=UTC # Панель считает время в UTC, часовой пояс базы менять нельзя.
+    volumes:
+      - bolt-db-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
+      interval: 3s
+      timeout: 10s
+      retries: 3
+
+  bolt-valkey:
+    image: valkey/valkey:9-alpine
+    container_name: bolt-valkey
+    hostname: bolt-valkey
+    <<: [*common, *logging]
+    volumes:
+      - valkey-socket:/var/run/valkey
+    command: >
+      valkey-server
+      --save ""
+      --appendonly no
+      --maxmemory-policy noeviction
+      --loglevel warning
+      --unixsocket /var/run/valkey/valkey.sock
+      --unixsocketperm 777
+      --port 0
+    healthcheck:
+      test: ['CMD', 'valkey-cli', '-s', '/var/run/valkey/valkey.sock', 'ping']
+      interval: 3s
+      timeout: 3s
+      retries: 3
+
+  # Запускается после того, как в панели выпущен API-токен: docker compose --profile subscription up -d
+  bolt-subscription-page:
+    image: ghcr.io/levvs-one/bolt-subscription-page:latest
+    container_name: bolt-subscription-page
+    hostname: bolt-subscription-page
+    <<: [*common, *logging]
+    profiles: [subscription]
+    environment:
+      - APP_PORT=3010
+      - REMNAWAVE_PANEL_URL=http://bolt:${APP_PORT:-3000}
+      - REMNAWAVE_API_TOKEN=${SUBSCRIPTION_PAGE_API_TOKEN}
+      - INTERNAL_JWT_SECRET=${SUBSCRIPTION_PAGE_JWT_SECRET}
+      - TRUST_PROXY=1
+    depends_on:
+      bolt:
+        condition: service_healthy
+
+  caddy:
+    image: caddy:2.10
+    container_name: bolt-caddy
+    <<: [*common, *logging]
+    environment:
+      - PANEL_DOMAIN=${PANEL_DOMAIN}
+      - SUBSCRIPTION_DOMAIN=${SUBSCRIPTION_DOMAIN}
+      - APP_PORT=${APP_PORT:-3000}
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+networks:
+  bolt-network:
+    name: bolt-network
+    driver: bridge
+
+volumes:
+  bolt-db-data:
+    name: bolt-db-data
+  valkey-socket:
+    name: bolt-valkey-socket
+  caddy-data:
+    name: bolt-caddy-data
+  caddy-config:
+    name: bolt-caddy-config

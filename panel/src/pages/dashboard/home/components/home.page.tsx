@@ -87,7 +87,7 @@ export const HomePage = (props: IProps) => {
                     <span className={classes.heroLabel}>{t('bolt.home.nodes-online')}</span>
                 </div>
                 <div className={classes.heroItem}>
-                    <span className={classes.heroValue}>{bytes(bandwidthStats.bandwidthLastTwoDays.current)}</span>
+                    <span className={classes.heroValue}>{bandwidthStats.bandwidthLastTwoDays.current}</span>
                     <span className={classes.heroLabel}>{t('bolt.home.traffic-today')}</span>
                 </div>
             </div>
@@ -123,10 +123,10 @@ export const HomePage = (props: IProps) => {
                     </BoltGroup>
 
                     <BoltGroup>
-                        <BoltRow icon={TbSun} label={t('bolt.home.traffic-day')} value={bytes(bandwidthStats.bandwidthLastTwoDays.current)} />
-                        <BoltRow icon={TbCalendarWeek} label={t('bolt.home.traffic-week')} value={bytes(bandwidthStats.bandwidthLastSevenDays.current)} />
-                        <BoltRow icon={TbCalendarStats} label={t('bolt.home.traffic-30')} value={bytes(bandwidthStats.bandwidthLast30Days.current)} />
-                        <BoltRow icon={TbCalendarMonth} label={t('bolt.home.traffic-month')} value={bytes(bandwidthStats.bandwidthCalendarMonth.current)} />
+                        <BoltRow icon={TbSun} label={t('bolt.home.traffic-day')} value={bandwidthStats.bandwidthLastTwoDays.current} />
+                        <BoltRow icon={TbCalendarWeek} label={t('bolt.home.traffic-week')} value={bandwidthStats.bandwidthLastSevenDays.current} />
+                        <BoltRow icon={TbCalendarStats} label={t('bolt.home.traffic-30')} value={bandwidthStats.bandwidthLast30Days.current} />
+                        <BoltRow icon={TbCalendarMonth} label={t('bolt.home.traffic-month')} value={bandwidthStats.bandwidthCalendarMonth.current} />
                         <BoltRow icon={TbDatabase} label={t('bolt.home.traffic-lifetime')} value={bytes(systemInfo.nodes.totalBytesLifetime)} />
                     </BoltGroup>
                 </div>

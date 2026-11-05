@@ -59,7 +59,7 @@ export const BaseOverlayHeader = (props: IProps) => {
 
             <Stack gap="0" style={truncateTitle ? { overflow: 'hidden' } : undefined}>
                 <Title
-                    c="white"
+                   
                     onClick={() => withCopy && copy(title)}
                     order={titleOrder}
                     style={{

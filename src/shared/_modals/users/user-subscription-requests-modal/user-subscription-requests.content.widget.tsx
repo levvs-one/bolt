@@ -60,7 +60,7 @@ export const UserSubscriptionRequestsModalContent = (props: IProps) => {
                                 {isLoading ? (
                                     <Loader color="cyan" size="sm" type="oval" />
                                 ) : (
-                                    <Text c="white" fw={700} size="xl">
+                                    <Text fw={700} size="xl">
                                         {records?.total ?? 0}
                                     </Text>
                                 )}

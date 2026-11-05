@@ -52,7 +52,7 @@ export const SessionIpRowWidget = ({ ip, onDrop }: IProps) => {
                             color="dark.6"
                             label={
                                 <Stack gap={2} p={4}>
-                                    <Text c="white" fw={600} size="xs">
+                                    <Text fw={600} size="xs">
                                         {formatRelativeDateUtil(ip.lastSeen, t, i18n.language)}
                                     </Text>
                                     <Text c="dimmed" ff="monospace" size="xs">

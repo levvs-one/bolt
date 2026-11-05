@@ -97,7 +97,7 @@ export const NodeActiveSessionItem = (props: IProps) => {
                                     <Tooltip
                                         label={
                                             <Stack gap={2} p={4}>
-                                                <Text c="white" fw={600} size="xs">
+                                                <Text fw={600} size="xs">
                                                     {formatRelativeDateUtil(
                                                         item.lastSeen,
                                                         t,

@@ -80,7 +80,7 @@ export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IPr
             <Stack gap="xs" mih={400}>
                 <Text c="dimmed" size="sm">
                     {t('create-node-step-1-connection.copy-the')}{' '}
-                    <Code c="white" color="gray.8">
+                    <Code color="gray.8">
                         docker-compose.yml
                     </Code>{' '}
                     {t('create-node-step-1-connection.content-for-the-remnawave-node-below')}{' '}

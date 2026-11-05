@@ -15,7 +15,7 @@ export function DisclaimerOverlay() {
     }
 
     const highlightComponents = {
-        highlight: <Text c="gray.1" component="span" fw={700} />,
+        highlight: <Text component="span" fw={700} />,
         warning: <Text c="yellow.4" component="span" fw={700} />
     }
 
@@ -48,7 +48,7 @@ export function DisclaimerOverlay() {
                         {t('disclaimer-overlay.title')}
                     </Title>
 
-                    <Text c="gray.4" fw={700} size="sm" ta="center">
+                    <Text fw={700} size="sm" ta="center">
                         {t('disclaimer-overlay.subtitle')}
                     </Text>
                 </Stack>
@@ -56,7 +56,7 @@ export function DisclaimerOverlay() {
                 <Divider color="yellow.4" opacity={0.3} variant="dashed" w="100%" />
 
                 <Stack gap="md" w="100%">
-                    <Text c="gray.3" size="sm">
+                    <Text size="sm">
                         <Trans
                             components={highlightComponents}
                             i18nKey="disclaimer-overlay.intro"
@@ -74,7 +74,7 @@ export function DisclaimerOverlay() {
                         spacing="sm"
                     >
                         <List.Item>
-                            <Text c="gray.3" size="sm">
+                            <Text size="sm">
                                 <Trans
                                     components={highlightComponents}
                                     i18nKey="disclaimer-overlay.responsibility"
@@ -82,7 +82,7 @@ export function DisclaimerOverlay() {
                             </Text>
                         </List.Item>
                         <List.Item>
-                            <Text c="gray.3" size="sm">
+                            <Text size="sm">
                                 <Trans
                                     components={highlightComponents}
                                     i18nKey="disclaimer-overlay.compliance"
@@ -90,7 +90,7 @@ export function DisclaimerOverlay() {
                             </Text>
                         </List.Item>
                         <List.Item>
-                            <Text c="gray.3" size="sm">
+                            <Text size="sm">
                                 <Trans
                                     components={highlightComponents}
                                     i18nKey="disclaimer-overlay.liability"
@@ -99,7 +99,7 @@ export function DisclaimerOverlay() {
                         </List.Item>
                     </List>
 
-                    <Text c="gray.5" size="xs" ta="center">
+                    <Text size="xs" ta="center">
                         <Trans
                             components={{
                                 anchor: (

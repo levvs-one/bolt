@@ -90,7 +90,7 @@ export const NodeDetailsCard = memo(
                                     </Text>
 
                                     <Text
-                                        c="white"
+                                       
                                         fw={600}
                                         size="md"
                                         style={{
@@ -105,7 +105,7 @@ export const NodeDetailsCard = memo(
                                 </Group>
                                 {node.providerName !== 'unknown' ? (
                                     <Text
-                                        c="gray.4"
+                                       
                                         size="sm"
                                         style={{
                                             overflow: 'hidden',
@@ -116,7 +116,7 @@ export const NodeDetailsCard = memo(
                                         {node.providerName}
                                     </Text>
                                 ) : (
-                                    <Text c="gray.4" size="sm">
+                                    <Text size="sm">
                                         ㅤ
                                     </Text>
                                 )}
@@ -217,7 +217,7 @@ export const NodeDetailsCard = memo(
                                                         >
                                                             Up
                                                         </Text>
-                                                        <Text c="gray.3" ff="monospace" size="xs">
+                                                        <Text ff="monospace" size="xs">
                                                             {stat.upload === '0'
                                                                 ? '0 B'
                                                                 : stat.upload}
@@ -240,7 +240,7 @@ export const NodeDetailsCard = memo(
                                                         >
                                                             Down
                                                         </Text>
-                                                        <Text c="gray.3" ff="monospace" size="xs">
+                                                        <Text ff="monospace" size="xs">
                                                             {stat.download === '0'
                                                                 ? '0 B'
                                                                 : stat.download}
@@ -256,7 +256,7 @@ export const NodeDetailsCard = memo(
                                             <ThemeIcon color="gray" size="sm" variant="light">
                                                 <PiProhibitDuotone size="1.0rem" />
                                             </ThemeIcon>
-                                            <Text c="gray.5" size="xs" ta="center">
+                                            <Text size="xs" ta="center">
                                                 {t('node-details-card.no-inbound-traffic-data')}
                                             </Text>
                                         </Stack>
@@ -321,7 +321,7 @@ export const NodeDetailsCard = memo(
                                                         >
                                                             Up
                                                         </Text>
-                                                        <Text c="gray.3" ff="monospace" size="xs">
+                                                        <Text ff="monospace" size="xs">
                                                             {stat.upload === '0'
                                                                 ? '0 B'
                                                                 : stat.upload}
@@ -344,7 +344,7 @@ export const NodeDetailsCard = memo(
                                                         >
                                                             Down
                                                         </Text>
-                                                        <Text c="gray.3" ff="monospace" size="xs">
+                                                        <Text ff="monospace" size="xs">
                                                             {stat.download === '0'
                                                                 ? '0 B'
                                                                 : stat.download}
@@ -360,7 +360,7 @@ export const NodeDetailsCard = memo(
                                             <ThemeIcon color="gray" size="sm" variant="light">
                                                 <PiProhibitDuotone size="1.0rem" />
                                             </ThemeIcon>
-                                            <Text c="gray.5" size="xs" ta="center">
+                                            <Text size="xs" ta="center">
                                                 {t('node-details-card.no-outbound-traffic-data')}
                                             </Text>
                                         </Stack>

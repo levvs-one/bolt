@@ -54,17 +54,17 @@ export function MobileWarningOverlay() {
                             {t('mobile-warning-overlay.mobile-device-detected')}
                         </Title>
 
-                        <Text c="gray.4" fw={800} size="sm" ta="center">
+                        <Text fw={800} size="sm" ta="center">
                             {t('mobile-warning-overlay.description-line-1')}
                         </Text>
 
-                        <Text c="gray.4" size="sm" ta="center">
+                        <Text size="sm" ta="center">
                             {t('mobile-warning-overlay.description-line-2')}
                         </Text>
 
                         <Group gap="xs">
                             <TbColumns color="var(--mantine-color-gray-4)" size={px('1.2rem')} />
-                            <Text c="gray.4" size="xs">
+                            <Text size="xs">
                                 {t('mobile-warning-overlay.show-or-hide-columns')}
                             </Text>
                         </Group>
@@ -74,14 +74,14 @@ export function MobileWarningOverlay() {
                                 color="var(--mantine-color-gray-4)"
                                 size={px('1.2rem')}
                             />
-                            <Text c="gray.4" size="xs">
+                            <Text size="xs">
                                 {t('mobile-warning-overlay.adjust-row-spacing-density')}
                             </Text>
                         </Group>
 
                         <Group gap="xs">
                             <TbMaximize color="var(--mantine-color-gray-4)" size={px('1.2rem')} />
-                            <Text c="gray.4" size="xs">
+                            <Text size="xs">
                                 {t('mobile-warning-overlay.toggle-fullscreen-table-view')}
                             </Text>
                         </Group>
@@ -101,7 +101,7 @@ export function MobileWarningOverlay() {
                                 </Text>
                             </Group>
 
-                            <Text c="gray.5" size="xs">
+                            <Text size="xs">
                                 {t('mobile-warning-overlay.or')}
                             </Text>
 

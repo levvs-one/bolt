@@ -62,7 +62,7 @@ export function LocalizedTextEditor(props: IProps) {
                                 {label}
                             </Text>
                             <Text
-                                c="white"
+                               
                                 className={styles.localizedTextPreview}
                                 size="sm"
                                 truncate="end"

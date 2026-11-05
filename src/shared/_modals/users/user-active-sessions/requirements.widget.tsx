@@ -8,7 +8,7 @@ const DOCKER_SNIPPET = `
       - NET_ADMIN
 `
 
-const HIGHLIGHT_SPAN = <Text c="white" component="span" fw={600} size="sm" />
+const HIGHLIGHT_SPAN = <Text component="span" fw={600} size="sm" />
 
 export const RequirementsWidget = () => {
     const { t } = useTranslation()

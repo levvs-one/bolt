@@ -76,7 +76,7 @@ export const NodeMetricsWidget = () => {
                         <ThemeIcon color="gray" size="xl" variant="light">
                             <PiProhibitDuotone size="32px" />
                         </ThemeIcon>
-                        <Text c="gray.5" size="lg">
+                        <Text size="lg">
                             No nodes metrics available
                         </Text>
                     </Stack>
@@ -196,7 +196,7 @@ export const NodeMetricsWidget = () => {
                             }}
                             visibleFrom="xs"
                         />
-                        <Text c="gray.4" size="xs">
+                        <Text size="xs">
                             Live updates from /metrics endpoint
                         </Text>
                     </Group>

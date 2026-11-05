@@ -9,5 +9,5 @@
 
 .container {
     background: var(--bolt-surface);
-    animation: fadeIn 200ms linear both;
+
 }

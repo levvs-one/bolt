@@ -13,7 +13,11 @@ interface IGroupProps {
 }
 
 export function BoltGroup({ children, className }: IGroupProps) {
-    return <div className={className ? `${classes.group} ${className}` : classes.group}>{children}</div>
+    return (
+        <div className={className ? `${classes.group} ${className}` : classes.group}>
+            {children}
+        </div>
+    )
 }
 
 interface IRowProps {
@@ -43,4 +47,26 @@ export function BoltRow({ icon: Icon, label, onClick, rightSection, value }: IRo
             {content}
         </button>
     )
+}
+
+interface IFieldProps {
+    children: ReactNode
+    icon?: IRowProps['icon']
+    label: ReactNode
+}
+
+// Строка-поле, как в настройках macOS: подпись слева, поле ввода без рамки справа.
+export function BoltField({ children, icon: Icon, label }: IFieldProps) {
+    return (
+        <label className={classes.field}>
+            {Icon && <Icon className={classes.icon} size={ICON_SIZE} strokeWidth={ICON_STROKE} />}
+            <span className={classes.fieldLabel}>{label}</span>
+            <span className={classes.fieldControl}>{children}</span>
+        </label>
+    )
+}
+
+// Выбор из пресетов под строкой со значением: сегменты на всю ширину группы.
+export function BoltPicker({ children }: { children: ReactNode }) {
+    return <div className={classes.picker}>{children}</div>
 }

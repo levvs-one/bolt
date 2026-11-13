@@ -1,4 +1,4 @@
-.modalContent {
+.modalRoot .modalContent {
     background: var(--bolt-body);
 }
 
@@ -20,4 +20,17 @@
 
 .modalBody {
     padding: var(--mantine-spacing-sm) var(--mantine-spacing-md) var(--mantine-spacing-md);
+}
+
+/* На телефоне модалка во весь экран: тело тянется до низа, чтобы главная кнопка вставала в зону большого пальца. */
+.modalRoot[data-full-screen] .modalContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalRoot[data-full-screen] .modalBody {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding-bottom: max(var(--mantine-spacing-md), env(safe-area-inset-bottom, 0px));
 }

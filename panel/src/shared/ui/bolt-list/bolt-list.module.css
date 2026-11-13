@@ -65,6 +65,42 @@
     flex-shrink: 0;
 }
 
+.field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+    padding: 0 12px;
+    cursor: text;
+}
+
+.fieldLabel {
+    flex-shrink: 0;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.fieldControl {
+    flex: 1;
+    min-width: 0;
+}
+
+.fieldControl :global(.mantine-Input-input) {
+    height: 40px;
+    min-height: 40px;
+    padding-inline: 0;
+    border: 0;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: end;
+}
+
+.picker {
+    padding: 0 8px 8px;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .row[data-interactive] {
         transition: none;

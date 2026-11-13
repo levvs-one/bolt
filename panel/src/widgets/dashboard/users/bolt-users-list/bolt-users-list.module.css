@@ -123,11 +123,17 @@
 
 .rowFacts {
     display: flex;
-    flex-wrap: wrap;
     column-gap: 16px;
     font-size: 13px;
     font-weight: 500;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.rowFacts > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .rowSide {

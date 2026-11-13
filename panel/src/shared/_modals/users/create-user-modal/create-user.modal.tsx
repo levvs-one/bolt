@@ -1,273 +1,250 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { Button, Group, Modal, Stack } from '@mantine/core'
-import { useForm, schemaResolver } from '@mantine/form'
+import { Button, Checkbox, Modal, SegmentedControl, TextInput } from '@mantine/core'
+import { useClipboard } from '@mantine/hooks'
+import { notifications } from '@mantine/notifications'
 import { CreateUserCommand, USERS_STATUS } from '@remnawave/backend-contract'
 import dayjs from 'dayjs'
-import { motion } from 'motion/react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PiFloppyDiskDuotone } from 'react-icons/pi'
-import { TbUser } from 'react-icons/tb'
+import { TbCalendar, TbChartArcs, TbCirclesRelation, TbLink, TbUser } from 'react-icons/tb'
+import { renderSVG } from 'uqr'
 
+import { showModal } from '@shared/_modals/show-modal'
 import { useNiceMantineModal } from '@shared/_modals/use-nice-modal'
 import { queryClient } from '@shared/api'
-import {
-    QueryKeys,
-    useCreateUser,
-    useGetExternalSquads,
-    useGetInternalSquads,
-    useGetUserTags
-} from '@shared/api/hooks'
-import { useIsMobile } from '@shared/hooks'
-import {
-    AccessSettingsCard,
-    ContactInformationCard,
-    DeviceTagSettingsCard,
-    TrafficLimitsCard,
-    UserIdentityCreationCard
-} from '@shared/ui/forms/users/forms-components'
-import { LoaderModalShared } from '@shared/ui/loader-modal'
-import { ModalFooter } from '@shared/ui/modal-footer'
-import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
-import { handleFormErrors } from '@shared/utils/misc'
+import { QueryKeys, useCreateUser, useGetInternalSquads } from '@shared/api/hooks'
+import { BoltField, BoltGroup, BoltPicker, BoltRow } from '@shared/ui/bolt-list'
+import { compactBytesUtil } from '@shared/utils/bytes'
 
-const MotionWrapper = motion.div
-const MotionStack = motion.create(Stack)
+import classes from './create-user.module.css'
 
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.1
-        }
-    }
-}
+type TCreatedUser = NonNullable<ReturnType<typeof useCreateUser>['data']>
 
-const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.3 }
-    }
-}
+const GIB = 1024 ** 3
+const UNLIMITED = 0
+const UNLIMITED_MARK = '∞'
+const UNLIMITED_EXPIRE_YEAR = 2099
+const MODAL_WIDTH = 440
+const USERNAME_MAX_LENGTH = 36
+
+const TERMS = [
+    { days: 30, label: 'bolt.create.term-1m' },
+    { days: 90, label: 'bolt.create.term-3m' },
+    { days: 180, label: 'bolt.create.term-6m' },
+    { days: 365, label: 'bolt.create.term-1y' }
+] as const
+
+const LIMITS_GIB = [50, 100, 300, 1024]
+
+const DEFAULT_TERM_DAYS = 30
+const DEFAULT_LIMIT_GIB = UNLIMITED
+
+const expireAtFor = (days: number) =>
+    days === UNLIMITED
+        ? dayjs().year(UNLIMITED_EXPIRE_YEAR).endOf('year')
+        : dayjs().add(days, 'day')
 
 export const CreateUserModal = NiceModal.create(() => {
-    const { t } = useTranslation()
-
+    const { t, i18n } = useTranslation()
     const modal = useModal()
+    const clipboard = useClipboard()
+
     const { modalProps, hide } = useNiceMantineModal({
         modal,
         onClose: () => {
-            queryClient.refetchQueries({
-                queryKey: QueryKeys.users.getAllUsers._def
-            })
-            queryClient.refetchQueries({
-                queryKey: QueryKeys.users.getUserTags.queryKey
-            })
-            queryClient.refetchQueries({
-                queryKey: QueryKeys.system.getSystemStats.queryKey
-            })
+            queryClient.refetchQueries({ queryKey: QueryKeys.users.getAllUsers._def })
+            queryClient.refetchQueries({ queryKey: QueryKeys.system.getSystemStats.queryKey })
         }
     })
 
-    const { data: internalSquads, isLoading: isInternalSquadsLoading } = useGetInternalSquads()
-    const { data: externalSquads } = useGetExternalSquads()
-    const { data: tags, isLoading: isTagsLoading } = useGetUserTags()
-    const isMobile = useIsMobile()
+    const { data: squads } = useGetInternalSquads()
+    const squadList = squads?.internalSquads ?? []
 
-    const { mutate: createUser, isPending: isDataSubmitting } = useCreateUser({
-        mutationFns: {
-            onSuccess: hide
-        }
+    const [username, setUsername] = useState('')
+    const [termDays, setTermDays] = useState(DEFAULT_TERM_DAYS)
+    const [limitGib, setLimitGib] = useState(DEFAULT_LIMIT_GIB)
+    // Пока сквады не выбирали вручную, отмечен единственный сквад панели.
+    const [pickedSquads, setPickedSquads] = useState<null | string[]>(null)
+    const [created, setCreated] = useState<null | TCreatedUser>(null)
+
+    const selectedSquads = pickedSquads ?? (squadList.length === 1 ? [squadList[0].uuid] : [])
+
+    const { mutate: createUser, isPending } = useCreateUser({
+        mutationFns: { onSuccess: (user) => setCreated(user) }
     })
 
-    const form = useForm<CreateUserCommand.RequestBody>({
-        name: 'create-user-form',
-        mode: 'uncontrolled',
-        validateInputOnBlur: true,
+    const expireAt = expireAtFor(termDays).locale(i18n.language)
+    const termValue =
+        termDays === UNLIMITED
+            ? t('bolt.users.no-expiry')
+            : t('bolt.users.until', { date: expireAt.format('D MMM YYYY') })
+    const limitValue =
+        limitGib === UNLIMITED ? t('bolt.create.no-limit') : compactBytesUtil(limitGib * GIB)
 
-        onValuesChange: (values) => {
-            if (typeof values.telegramId === 'string' && values.telegramId === '') {
-                form.setFieldValue('telegramId', null)
-            }
-            if (typeof values.email === 'string' && values.email === '') {
-                form.setFieldValue('email', null)
-            }
-        },
-        validate: schemaResolver(
-            CreateUserCommand.RequestBodySchema.omit({
-                expireAt: true,
-                hwidDeviceLimit: true
-            })
-        ),
-
-        initialValues: {
-            status: USERS_STATUS.ACTIVE,
-            username: '',
-            trafficLimitStrategy: 'NO_RESET',
-            expireAt: dayjs().add(1, 'day').toDate(),
-            trafficLimitBytes: 0,
-            description: '',
-            telegramId: undefined,
-            email: undefined,
-            hwidDeviceLimit: undefined,
-            tag: undefined,
-            activeInternalSquads: []
-        }
-    })
-
-    const handleSubmit = form.onSubmit(async (values) => {
-        createUser(
-            {
-                variables: {
-                    username: values.username,
-                    trafficLimitStrategy: values.trafficLimitStrategy,
-                    trafficLimitBytes: values.trafficLimitBytes,
-                    // @ts-expect-error - TODO: fix ZOD schema
-                    expireAt: dayjs(values.expireAt).toISOString(),
-                    status: values.status,
-                    description: values.description,
-                    // @ts-expect-error - TODO: fix ZOD schema
-                    telegramId: values.telegramId === '' ? undefined : values.telegramId,
-                    email: values.email === '' ? undefined : values.email,
-                    // @ts-expect-error - TODO: fix ZOD schema
-                    hwidDeviceLimit: values.hwidDeviceLimit === '' ? null : values.hwidDeviceLimit,
-                    tag: values.tag,
-                    activeInternalSquads: values.activeInternalSquads,
-                    externalSquadUuid: values.externalSquadUuid
-                }
-            },
-            {
-                onError: (error) => handleFormErrors(form, error)
-            }
+    const toggleSquad = (uuid: string) =>
+        setPickedSquads(
+            selectedSquads.includes(uuid)
+                ? selectedSquads.filter((item) => item !== uuid)
+                : [...selectedSquads, uuid]
         )
-    })
+
+    const submit = () => {
+        const name = username.trim()
+        if (!CreateUserCommand.RequestBodySchema.shape.username.safeParse(name).success) {
+            notifications.show({ message: t('bolt.create.name-invalid') })
+            return
+        }
+
+        createUser({
+            variables: {
+                username: name,
+                status: USERS_STATUS.ACTIVE,
+                trafficLimitBytes: limitGib * GIB,
+                trafficLimitStrategy: 'NO_RESET',
+                // @ts-expect-error - схема контракта принимает строку ISO и сама делает из неё Date
+                expireAt: expireAt.toISOString(),
+                activeInternalSquads: selectedSquads
+            }
+        })
+    }
+
+    const copyLink = () => {
+        if (!created) return
+        clipboard.copy(created.subscriptionUrl)
+        notifications.show({ message: t('bolt.create.copied') })
+    }
+
+    const openUser = () => {
+        if (!created) return
+        hide()
+        showModal('users_viewUserModal', { userId: created.id })
+    }
+
+    if (created) {
+        return (
+            <Modal {...modalProps} size={MODAL_WIDTH} title={created.username}>
+                <div className={classes.stack}>
+                    <BoltGroup className={classes.qr}>
+                        <div
+                            className={classes.qrImage}
+                            // SVG собирает uqr из ссылки подписки: чужой разметки в нём нет.
+                            dangerouslySetInnerHTML={{
+                                __html: renderSVG(created.subscriptionUrl, {
+                                    blackColor: 'var(--bolt-text)',
+                                    whiteColor: 'var(--bolt-surface)'
+                                })
+                            }}
+                        />
+                    </BoltGroup>
+
+                    <BoltGroup>
+                        <BoltRow
+                            icon={TbLink}
+                            label={t('bolt.create.link')}
+                            value={created.subscriptionUrl.replace(/^https?:\/\//, '')}
+                        />
+                        <BoltRow
+                            icon={TbCalendar}
+                            label={t('bolt.create.term')}
+                            value={termValue}
+                        />
+                        <BoltRow
+                            icon={TbChartArcs}
+                            label={t('bolt.create.traffic')}
+                            value={limitValue}
+                        />
+                    </BoltGroup>
+
+                    <div className={classes.actions}>
+                        <Button fullWidth onClick={copyLink} size="lg" variant="filled">
+                            {t('bolt.user.copy-link')}
+                        </Button>
+                        <Button fullWidth onClick={openUser} size="lg">
+                            {t('bolt.create.open')}
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
+        )
+    }
 
     return (
-        <Modal
-            {...modalProps}
-            size="1000px"
-            title={
-                <BaseOverlayHeader
-                    iconColor="teal"
-                    IconComponent={TbUser}
-                    iconVariant="soft"
-                    title={t('create-user-modal.widget.create-user')}
-                />
-            }
-        >
-            {(isInternalSquadsLoading || isTagsLoading) && (
-                <motion.div
-                    animate={{ opacity: 1 }}
-                    initial={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    <LoaderModalShared mih="70vh" />
-                </motion.div>
-            )}
+        <Modal {...modalProps} size={MODAL_WIDTH} title={t('bolt.users.create')}>
+            <div className={classes.stack}>
+                <BoltGroup>
+                    <BoltField icon={TbUser} label={t('bolt.create.name')}>
+                        <TextInput
+                            autoComplete="off"
+                            data-autofocus
+                            maxLength={USERNAME_MAX_LENGTH}
+                            onChange={(event) => setUsername(event.currentTarget.value)}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') submit()
+                            }}
+                            placeholder="ivan_petrov"
+                            value={username}
+                        />
+                    </BoltField>
+                </BoltGroup>
 
-            {!isInternalSquadsLoading && !isTagsLoading && isMobile && (
-                <MotionStack
-                    animate="visible"
-                    gap="md"
-                    initial="hidden"
-                    variants={containerVariants}
-                >
-                    <UserIdentityCreationCard
-                        cardVariants={cardVariants}
-                        form={form}
-                        motionWrapper={MotionWrapper}
-                    />
-                    <TrafficLimitsCard
-                        cardVariants={cardVariants}
-                        form={form}
-                        motionWrapper={MotionWrapper}
-                    />
-                    <AccessSettingsCard
-                        cardVariants={cardVariants}
-                        externalSquads={externalSquads}
-                        form={form}
-                        internalSquads={internalSquads}
-                        motionWrapper={MotionWrapper}
-                    />
-                    <ContactInformationCard
-                        cardVariants={cardVariants}
-                        form={form}
-                        motionWrapper={MotionWrapper}
-                    />
-                    <DeviceTagSettingsCard
-                        cardVariants={cardVariants}
-                        form={form}
-                        motionWrapper={MotionWrapper}
-                        tags={tags}
-                    />
-                </MotionStack>
-            )}
+                <BoltGroup>
+                    <BoltRow icon={TbCalendar} label={t('bolt.create.term')} value={termValue} />
+                    <BoltPicker>
+                        <SegmentedControl
+                            data={[
+                                ...TERMS.map((term) => ({
+                                    label: t(term.label),
+                                    value: String(term.days)
+                                })),
+                                { label: UNLIMITED_MARK, value: String(UNLIMITED) }
+                            ]}
+                            fullWidth
+                            onChange={(value) => setTermDays(Number(value))}
+                            value={String(termDays)}
+                        />
+                    </BoltPicker>
+                </BoltGroup>
 
-            {!isInternalSquadsLoading && !isTagsLoading && !isMobile && (
-                <Group align="flex-start" gap="md" wrap="wrap">
-                    <MotionStack
-                        animate="visible"
-                        gap="md"
-                        initial="hidden"
-                        style={{ flex: '1 1 450px' }}
-                        variants={containerVariants}
-                    >
-                        <UserIdentityCreationCard
-                            cardVariants={cardVariants}
-                            form={form}
-                            motionWrapper={MotionWrapper}
+                <BoltGroup>
+                    <BoltRow
+                        icon={TbChartArcs}
+                        label={t('bolt.create.traffic')}
+                        value={limitValue}
+                    />
+                    <BoltPicker>
+                        <SegmentedControl
+                            data={[
+                                ...LIMITS_GIB.map((gib) => ({
+                                    label: compactBytesUtil(gib * GIB),
+                                    value: String(gib)
+                                })),
+                                { label: UNLIMITED_MARK, value: String(UNLIMITED) }
+                            ]}
+                            fullWidth
+                            onChange={(value) => setLimitGib(Number(value))}
+                            value={String(limitGib)}
                         />
-                        <ContactInformationCard
-                            cardVariants={cardVariants}
-                            form={form}
-                            motionWrapper={MotionWrapper}
-                        />
-                        <DeviceTagSettingsCard
-                            cardVariants={cardVariants}
-                            form={form}
-                            motionWrapper={MotionWrapper}
-                            tags={tags}
-                        />
-                    </MotionStack>
+                    </BoltPicker>
+                </BoltGroup>
 
-                    <MotionStack
-                        animate="visible"
-                        gap="md"
-                        initial="hidden"
-                        style={{ flex: '1 1 450px' }}
-                        variants={containerVariants}
-                    >
-                        <TrafficLimitsCard
-                            cardVariants={cardVariants}
-                            form={form}
-                            motionWrapper={MotionWrapper}
-                        />
-                        <AccessSettingsCard
-                            cardVariants={cardVariants}
-                            externalSquads={externalSquads}
-                            form={form}
-                            internalSquads={internalSquads}
-                            motionWrapper={MotionWrapper}
-                        />
-                    </MotionStack>
-                </Group>
-            )}
+                {squadList.length > 0 && (
+                    <BoltGroup>
+                        {squadList.map((squad) => (
+                            <BoltField icon={TbCirclesRelation} key={squad.uuid} label={squad.name}>
+                                <Checkbox
+                                    checked={selectedSquads.includes(squad.uuid)}
+                                    className={classes.check}
+                                    onChange={() => toggleSquad(squad.uuid)}
+                                />
+                            </BoltField>
+                        ))}
+                    </BoltGroup>
+                )}
 
-            <ModalFooter isMobile={isMobile}>
-                <Button
-                    color="teal"
-                    leftSection={<PiFloppyDiskDuotone size="16px" />}
-                    loading={isDataSubmitting}
-                    onClick={() => {
-                        handleSubmit()
-                    }}
-                    size="md"
-                    variant="light"
-                >
+                <Button fullWidth loading={isPending} onClick={submit} size="lg" variant="filled">
                     {t('common.action.create')}
                 </Button>
-            </ModalFooter>
+            </div>
         </Modal>
     )
 })

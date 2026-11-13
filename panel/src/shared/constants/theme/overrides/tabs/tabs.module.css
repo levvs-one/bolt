@@ -6,7 +6,7 @@
     width: fit-content;
     max-width: 100%;
     border-radius: var(--mantine-radius-md);
-    background: var(--bolt-surface);
+    background: var(--bolt-track);
 }
 
 .tab {
@@ -23,8 +23,8 @@
 
     &[data-active],
     &[data-active]:hover {
-        background: var(--bolt-accent);
-        color: var(--bolt-on-accent);
+        background: var(--bolt-selected);
+        color: var(--bolt-text);
     }
 }
 

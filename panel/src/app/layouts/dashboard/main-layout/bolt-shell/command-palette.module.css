@@ -28,13 +28,20 @@
     color: var(--bolt-text);
 
     &[data-selected] {
-        background: var(--bolt-surface-hover);
+        background: color-mix(in srgb, var(--bolt-text) 10%, transparent);
     }
 }
 
 .label {
     font-size: 15px;
     font-weight: 600;
+}
+
+.section,
+.section[data-dimmed] {
+    display: flex;
+    color: var(--bolt-text);
+    opacity: 1;
 }
 
 .meta {

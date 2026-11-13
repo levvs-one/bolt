@@ -11,7 +11,8 @@
     flex-direction: column;
     width: var(--bolt-sidebar-width);
     padding: 12px 10px calc(12px + env(safe-area-inset-bottom, 0px));
-    background: var(--bolt-body);
+    background: var(--bolt-sidebar);
+    border-right: 1px solid var(--bolt-line);
 }
 
 .brand {
@@ -71,7 +72,7 @@
     transition: background-color 150ms ease;
 
     @mixin hover {
-        background: var(--bolt-surface-hover);
+        background: color-mix(in srgb, var(--bolt-text) 6%, transparent);
     }
 
     &:focus-visible {
@@ -81,7 +82,7 @@
 }
 
 .row[data-active] {
-    background: var(--bolt-surface);
+    background: color-mix(in srgb, var(--bolt-text) 11%, transparent);
     font-weight: 700;
 }
 
@@ -132,7 +133,7 @@
 
 .main {
     min-width: 0;
-    padding: 20px 24px 40px calc(var(--bolt-sidebar-width) + 8px);
+    padding: 20px 24px 40px calc(var(--bolt-sidebar-width) + 24px);
 }
 
 .mobileHeader {
@@ -161,7 +162,7 @@
     grid-template-columns: repeat(5, 1fr);
     height: calc(60px + env(safe-area-inset-bottom, 0px));
     padding-bottom: env(safe-area-inset-bottom, 0px);
-    background: var(--bolt-body);
+    background: var(--bolt-sidebar);
     border-top: 1px solid var(--bolt-line);
 }
 

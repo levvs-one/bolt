@@ -1,5 +1,5 @@
-import { createSpotlight, Spotlight } from '@mantine/spotlight'
 import { useDebouncedValue } from '@mantine/hooks'
+import { createSpotlight, Spotlight } from '@mantine/spotlight'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbSearch, TbUser, TbUserPlus } from 'react-icons/tb'
@@ -21,6 +21,7 @@ const USER_SEARCH_LIMIT = 8
 const USER_SEARCH_DEBOUNCE_MS = 200
 const ICON_SIZE = 18
 const ICON_STROKE = 1.75
+const OVERLAY_OPACITY = 0.35
 
 interface IProps {
     groups: MenuItem[]
@@ -70,8 +71,14 @@ export function CommandPalette({ groups }: IProps) {
 
     return (
         <Spotlight.Root
-            classNames={{ content: classes.content, body: classes.body }}
+            classNames={{
+                content: classes.content,
+                body: classes.body,
+                actionLabel: classes.label,
+                actionSection: classes.section
+            }}
             onQueryChange={setQuery}
+            overlayProps={{ backgroundOpacity: OVERLAY_OPACITY, blur: 0 }}
             query={query}
             scrollable
             shortcut={SHORTCUT}
@@ -87,28 +94,27 @@ export function CommandPalette({ groups }: IProps) {
                     <Spotlight.Action
                         className={classes.action}
                         key={user.shortUuid}
+                        label={user.username}
                         leftSection={<TbUser size={ICON_SIZE} strokeWidth={ICON_STROKE} />}
                         onClick={() => showModal('users_viewUserModal', { userId: user.id })}
                         rightSection={<span className={classes.meta}>{user.status}</span>}
-                    >
-                        <span className={classes.label}>{user.username}</span>
-                    </Spotlight.Action>
+                    />
                 ))}
 
                 {!normalizedQuery && (
                     <Spotlight.Action
                         className={classes.action}
+                        label={t('bolt.palette.create-user')}
                         leftSection={<TbUserPlus size={ICON_SIZE} strokeWidth={ICON_STROKE} />}
                         onClick={createUser}
-                    >
-                        <span className={classes.label}>{t('bolt.palette.create-user')}</span>
-                    </Spotlight.Action>
+                    />
                 )}
 
                 {matchedPages.map(({ Icon, ...page }) => (
                     <Spotlight.Action
                         className={classes.action}
                         key={page.id}
+                        label={page.label}
                         leftSection={<Icon size={ICON_SIZE} strokeWidth={ICON_STROKE} />}
                         onClick={() => navigate(page.href)}
                         rightSection={
@@ -116,9 +122,7 @@ export function CommandPalette({ groups }: IProps) {
                                 <span className={classes.meta}>{page.group}</span>
                             ) : undefined
                         }
-                    >
-                        <span className={classes.label}>{page.label}</span>
-                    </Spotlight.Action>
+                    />
                 ))}
 
                 {users.length === 0 && matchedPages.length === 0 && (

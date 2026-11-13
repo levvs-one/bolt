@@ -1,9 +1,9 @@
 .root {
-    background-color: var(--bolt-surface);
+    background-color: var(--bolt-track);
 }
 
 .indicator {
-    background: var(--bolt-accent);
+    background: var(--bolt-selected);
     border: 0;
     box-shadow: none;
 }
@@ -16,5 +16,6 @@
 
 .label[data-active],
 .label[data-active]:hover {
-    color: var(--bolt-on-accent);
+    color: var(--bolt-text);
+    font-weight: 700;
 }

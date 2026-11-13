@@ -24,7 +24,7 @@
     gap: 4px;
     padding: 4px;
     border-radius: var(--mantine-radius-md);
-    background: var(--bolt-surface);
+    background: var(--bolt-track);
 }
 
 @media (max-width: 48em) {
@@ -60,8 +60,8 @@
 }
 
 .summaryCell[data-active] {
-    background: var(--bolt-accent);
-    color: var(--bolt-on-accent);
+    background: var(--bolt-selected);
+    font-weight: 700;
 }
 
 .summaryValue {

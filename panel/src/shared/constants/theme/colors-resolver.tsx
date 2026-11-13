@@ -42,7 +42,7 @@ export const variantColorResolver: VariantColorsResolver = (input) => {
                 background: 'var(--bolt-surface-raised)',
                 hover: 'var(--bolt-surface-hover)',
                 color: TEXT,
-                border: '1px solid transparent'
+                border: '1px solid var(--bolt-line)'
             }
     }
 }
@@ -96,6 +96,9 @@ function schemeVariables(scheme: BoltScheme) {
         '--bolt-surface': tokens.surface,
         '--bolt-surface-raised': tokens.surfaceRaised,
         '--bolt-surface-hover': tokens.surfaceHover,
+        '--bolt-sidebar': tokens.sidebar,
+        '--bolt-track': tokens.track,
+        '--bolt-selected': tokens.selected,
         '--bolt-line': tokens.line,
         '--bolt-text': tokens.text,
         '--bolt-accent': tokens.accent,

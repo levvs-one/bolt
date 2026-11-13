@@ -1,4 +1,4 @@
-import { Card, Text, ThemeIconProps } from '@mantine/core'
+import { Text, ThemeIconProps } from '@mantine/core'
 import { ReactNode } from 'react'
 
 import { ShimmerSkeleton } from '@shared/ui/shimmer-skeleton'
@@ -31,7 +31,7 @@ export function MetricCardShared(props: IMetricCardProps) {
     } = props
 
     return (
-        <Card className={classes.card}>
+        <div className={classes.card}>
             <IconComponent size={iconSize > 20 ? 20 : iconSize} />
             <div className={classes.body}>
                 <Text className={classes.title} truncate="end">
@@ -48,6 +48,6 @@ export function MetricCardShared(props: IMetricCardProps) {
                     </Text>
                 ))
             )}
-        </Card>
+        </div>
     )
 }

@@ -87,9 +87,7 @@ export default function NodesPageComponent(props: IProps) {
         <Page title={t('constants.nodes')}>
             <Grid>
                 <Grid.Col span={12}>
-                    <Stack>
-                        <NodesRealtimeUsageMetrics isLoading={isLoading} nodes={nodes} />
-
+                    <Stack gap={12} mb={12}>
                         <PageHeaderShared
                             actions={
                                 <NodesHeaderActionButtonsFeature
@@ -98,8 +96,11 @@ export default function NodesPageComponent(props: IProps) {
                                 />
                             }
                             icon={<HiServer size={24} />}
+                            mb={0}
                             title={t('constants.nodes')}
                         />
+
+                        <NodesRealtimeUsageMetrics isLoading={isLoading} nodes={nodes} />
                     </Stack>
 
                     {isLoading ? (

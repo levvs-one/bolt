@@ -1,11 +1,11 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { RollingNumber, SimpleGrid, Stack } from '@mantine/core'
+import { RollingNumber, Stack } from '@mantine/core'
 import { GetHttpStatsCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { TbDivide, TbFlame, TbRoute, TbTrendingUp } from 'react-icons/tb'
 
 import { EmptyPageLayout } from '@shared/ui/layouts/empty-page'
-import { MetricCardShared } from '@shared/ui/metrics/metric-card'
+import { MetricCardShared, MetricGridShared } from '@shared/ui/metrics/metric-card'
 import { SectionCard } from '@shared/ui/section-card'
 
 import { HttpStatRow } from './http-stat-row'
@@ -25,7 +25,7 @@ export const HttpStatsTableWidget = ({ httpStats }: IProps) => {
 
     return (
         <Stack gap="md">
-            <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="md">
+            <MetricGridShared>
                 <MetricCardShared
                     iconColor="cyan"
                     IconComponent={TbTrendingUp}
@@ -70,7 +70,7 @@ export const HttpStatsTableWidget = ({ httpStats }: IProps) => {
                         <RollingNumber value={avgPerRoute} thousandSeparator fw={700} />
                     }
                 />
-            </SimpleGrid>
+            </MetricGridShared>
 
             <SectionCard.Root>
                 <SectionCard.Section>

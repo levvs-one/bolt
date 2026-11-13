@@ -5,7 +5,6 @@ import {
     Button,
     Center,
     Group,
-    SimpleGrid,
     Stack,
     Text,
     TextInput,
@@ -35,7 +34,7 @@ import { VirtuosoGrid, VirtuosoGridHandle } from 'react-virtuoso'
 
 import { useGetNodes } from '@shared/api/hooks'
 import { EmptyPageLayout } from '@shared/ui/layouts/empty-page'
-import { MetricCardShared } from '@shared/ui/metrics/metric-card'
+import { MetricCardShared, MetricGridShared } from '@shared/ui/metrics/metric-card'
 import { PageHeaderShared } from '@shared/ui/page-header'
 import { SectionCard } from '@shared/ui/section-card'
 
@@ -135,7 +134,7 @@ export function SessionsExplorerWidget() {
     const renderCompletedState = () => (
         <Stack gap="md">
             {stats && (
-                <SimpleGrid cols={{ xs: 2, sm: 2, md: 4 }} spacing="xs">
+                <MetricGridShared>
                     <MetricCardShared
                         iconColor="blue"
                         IconComponent={TbNetwork}
@@ -164,7 +163,7 @@ export function SessionsExplorerWidget() {
                         title={t('sessions-explorer.widget.total-users')}
                         value={stats.totalUsers}
                     />
-                </SimpleGrid>
+                </MetricGridShared>
             )}
 
             {aggregatedUsers.length > 0 && (

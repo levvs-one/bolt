@@ -8,7 +8,6 @@ import {
     Loader,
     Paper,
     px,
-    SimpleGrid,
     Stack,
     Text,
     ThemeIcon
@@ -28,7 +27,7 @@ import { TbServer } from 'react-icons/tb'
 import { showModal } from '@shared/_modals/show-modal'
 import { useGetNodesMetrics } from '@shared/api/hooks'
 import { useIsMobile } from '@shared/hooks'
-import { MetricCardShared } from '@shared/ui/metrics/metric-card'
+import { MetricCardShared, MetricGridShared } from '@shared/ui/metrics/metric-card'
 
 import { NodeDetailsCard } from './node-details-card'
 import styles from './NodeDetails.module.css'
@@ -76,9 +75,7 @@ export const NodeMetricsWidget = () => {
                         <ThemeIcon color="gray" size="xl" variant="light">
                             <PiProhibitDuotone size="32px" />
                         </ThemeIcon>
-                        <Text size="lg">
-                            No nodes metrics available
-                        </Text>
+                        <Text size="lg">No nodes metrics available</Text>
                     </Stack>
                 </Center>
             </Card>
@@ -106,7 +103,7 @@ export const NodeMetricsWidget = () => {
 
     return (
         <Stack gap="md">
-            <SimpleGrid cols={{ sm: 1, md: 2, lg: 4 }} spacing="xs">
+            <MetricGridShared>
                 <MetricCardShared
                     iconColor="indigo"
                     IconComponent={TbServer}
@@ -139,7 +136,7 @@ export const NodeMetricsWidget = () => {
                     title="Total Inbounds"
                     value={overallStats?.totalInbounds || 0}
                 />
-            </SimpleGrid>
+            </MetricGridShared>
 
             <Paper
                 p="md"
@@ -196,9 +193,7 @@ export const NodeMetricsWidget = () => {
                             }}
                             visibleFrom="xs"
                         />
-                        <Text size="xs">
-                            Live updates from /metrics endpoint
-                        </Text>
+                        <Text size="xs">Live updates from /metrics endpoint</Text>
                     </Group>
                 </Group>
             </Paper>

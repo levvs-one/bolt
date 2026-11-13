@@ -1,4 +1,4 @@
-import { Card, Text, ThemeIconProps } from '@mantine/core'
+import { Text, ThemeIconProps } from '@mantine/core'
 import { PiTrendDown, PiTrendUp } from 'react-icons/pi'
 
 import { ShimmerSkeleton } from '@shared/ui/shimmer-skeleton'
@@ -65,20 +65,12 @@ const getTrendData = (difference: number | string) => {
 }
 
 export function MetricCardWithTrendShared(props: IMetricCardWithTrendProps) {
-    const {
-        IconComponent,
-        iconSize = 20,
-        isLoading,
-        title,
-        value,
-        difference,
-        period
-    } = props
+    const { IconComponent, iconSize = 20, isLoading, title, value, difference, period } = props
 
     const { valuePrinted } = getTrendData(difference)
 
     return (
-        <Card className={classes.card}>
+        <div className={classes.card}>
             <IconComponent size={iconSize > 20 ? 20 : iconSize} />
             <div className={classes.body}>
                 <Text className={classes.title} truncate="end">
@@ -95,6 +87,6 @@ export function MetricCardWithTrendShared(props: IMetricCardWithTrendProps) {
                     {value}
                 </Text>
             )}
-        </Card>
+        </div>
     )
 }

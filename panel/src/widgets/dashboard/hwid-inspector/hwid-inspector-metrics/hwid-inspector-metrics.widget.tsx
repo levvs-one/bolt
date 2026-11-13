@@ -10,7 +10,11 @@ import { TbChartArcs3 } from 'react-icons/tb'
 
 import { useGetHwidDevicesStats } from '@shared/api/hooks'
 import { useIsMobile } from '@shared/hooks'
-import { IMetricCardProps, MetricCardShared } from '@shared/ui/metrics/metric-card'
+import {
+    IMetricCardProps,
+    MetricCardShared,
+    MetricGridShared
+} from '@shared/ui/metrics/metric-card'
 
 import { buildPlatformData } from './hwid-inspector-metrics.utils'
 import { PlatformRow } from './platform-row'
@@ -50,11 +54,11 @@ export function HwidInspectorMetrics() {
 
     return (
         <Stack gap="md" mb={0}>
-            <SimpleGrid cols={{ base: 1, sm: 2, xl: 3 }}>
+            <MetricGridShared>
                 {metricCards.map((card) => (
                     <MetricCardShared key={card.title} {...card} />
                 ))}
-            </SimpleGrid>
+            </MetricGridShared>
 
             <Card
                 p="lg"

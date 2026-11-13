@@ -1,5 +1,6 @@
 import { modals } from '@mantine/modals'
 import { GetNodesCommand, USERS_STATUS } from '@remnawave/backend-contract'
+import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
 import {
     TbActivity,
@@ -16,7 +17,8 @@ import {
     TbUserCancel,
     TbUserExclamation,
     TbUserOff,
-    TbUsers
+    TbUsers,
+    TbWifi
 } from 'react-icons/tb'
 import { useNavigate } from 'react-router'
 
@@ -29,7 +31,6 @@ import { BoltGroup, BoltRow } from '@shared/ui/bolt-list'
 import { DisclaimerOverlay } from '@shared/ui/disclaimer-overlay'
 import { Page } from '@shared/ui/page'
 import { compactBytesUtil } from '@shared/utils/bytes'
-import dayjs from 'dayjs'
 
 import classes from './home.module.css'
 import { IProps } from './interfaces'
@@ -74,24 +75,6 @@ export const HomePage = (props: IProps) => {
 
     return (
         <Page title={t('constants.home')}>
-            <div className={classes.hero}>
-                <div className={classes.heroItem}>
-                    <span className={classes.heroValue}>{online.onlineNow}</span>
-                    <span className={classes.heroLabel}>{t('bolt.home.online-now')}</span>
-                </div>
-                <div className={classes.heroItem}>
-                    <span className={classes.heroValue}>
-                        {onlineNodes}
-                        <span className={classes.heroOf}>/{nodeList.length}</span>
-                    </span>
-                    <span className={classes.heroLabel}>{t('bolt.home.nodes-online')}</span>
-                </div>
-                <div className={classes.heroItem}>
-                    <span className={classes.heroValue}>{bandwidthStats.bandwidthLastTwoDays.current}</span>
-                    <span className={classes.heroLabel}>{t('bolt.home.traffic-today')}</span>
-                </div>
-            </div>
-
             <div className={classes.columns}>
                 <div className={classes.column}>
                     <BoltGroup>
@@ -118,43 +101,120 @@ export const HomePage = (props: IProps) => {
                             icon={TbServer}
                             label={t('bolt.home.all-nodes')}
                             onClick={() => navigate(ROUTES.DASHBOARD.MANAGEMENT.NODES)}
-                            value={nodeList.length}
+                            value={`${onlineNodes} ${t('bolt.user.of-limit', { limit: nodeList.length })}`}
                         />
                     </BoltGroup>
 
                     <BoltGroup>
-                        <BoltRow icon={TbSun} label={t('bolt.home.traffic-day')} value={bandwidthStats.bandwidthLastTwoDays.current} />
-                        <BoltRow icon={TbCalendarWeek} label={t('bolt.home.traffic-week')} value={bandwidthStats.bandwidthLastSevenDays.current} />
-                        <BoltRow icon={TbCalendarStats} label={t('bolt.home.traffic-30')} value={bandwidthStats.bandwidthLast30Days.current} />
-                        <BoltRow icon={TbCalendarMonth} label={t('bolt.home.traffic-month')} value={bandwidthStats.bandwidthCalendarMonth.current} />
-                        <BoltRow icon={TbDatabase} label={t('bolt.home.traffic-lifetime')} value={bytes(systemInfo.nodes.totalBytesLifetime)} />
+                        <BoltRow
+                            icon={TbSun}
+                            label={t('bolt.home.traffic-day')}
+                            value={bandwidthStats.bandwidthLastTwoDays.current}
+                        />
+                        <BoltRow
+                            icon={TbCalendarWeek}
+                            label={t('bolt.home.traffic-week')}
+                            value={bandwidthStats.bandwidthLastSevenDays.current}
+                        />
+                        <BoltRow
+                            icon={TbCalendarStats}
+                            label={t('bolt.home.traffic-30')}
+                            value={bandwidthStats.bandwidthLast30Days.current}
+                        />
+                        <BoltRow
+                            icon={TbCalendarMonth}
+                            label={t('bolt.home.traffic-month')}
+                            value={bandwidthStats.bandwidthCalendarMonth.current}
+                        />
+                        <BoltRow
+                            icon={TbDatabase}
+                            label={t('bolt.home.traffic-lifetime')}
+                            value={bytes(systemInfo.nodes.totalBytesLifetime)}
+                        />
                     </BoltGroup>
                 </div>
 
                 <div className={classes.column}>
                     <BoltGroup>
-                        <BoltRow icon={TbUsers} label={t('bolt.status-plural.ALL')} onClick={openUsers} value={systemInfo.users.totalUsers} />
-                        <BoltRow icon={TbUser} label={t('bolt.status-plural.ACTIVE')} onClick={openUsers} value={counts[USERS_STATUS.ACTIVE] ?? 0} />
-                        <BoltRow icon={TbUserExclamation} label={t('bolt.status-plural.EXPIRED')} onClick={openUsers} value={counts[USERS_STATUS.EXPIRED] ?? 0} />
-                        <BoltRow icon={TbUserCancel} label={t('bolt.status-plural.LIMITED')} onClick={openUsers} value={counts[USERS_STATUS.LIMITED] ?? 0} />
-                        <BoltRow icon={TbUserOff} label={t('bolt.status-plural.DISABLED')} onClick={openUsers} value={counts[USERS_STATUS.DISABLED] ?? 0} />
+                        <BoltRow
+                            icon={TbWifi}
+                            label={t('bolt.home.online-now')}
+                            value={online.onlineNow}
+                        />
+                        <BoltRow
+                            icon={TbActivity}
+                            label={t('bolt.home.online-day')}
+                            value={online.lastDay}
+                        />
+                        <BoltRow
+                            icon={TbActivity}
+                            label={t('bolt.home.online-week')}
+                            value={online.lastWeek}
+                        />
+                        <BoltRow
+                            icon={TbUserOff}
+                            label={t('bolt.home.never-online')}
+                            value={online.neverOnline}
+                        />
                     </BoltGroup>
 
                     <BoltGroup>
-                        <BoltRow icon={TbActivity} label={t('bolt.home.online-day')} value={online.lastDay} />
-                        <BoltRow icon={TbActivity} label={t('bolt.home.online-week')} value={online.lastWeek} />
-                        <BoltRow icon={TbUserOff} label={t('bolt.home.never-online')} value={online.neverOnline} />
+                        <BoltRow
+                            icon={TbUsers}
+                            label={t('bolt.status-plural.ALL')}
+                            onClick={openUsers}
+                            value={systemInfo.users.totalUsers}
+                        />
+                        <BoltRow
+                            icon={TbUser}
+                            label={t('bolt.status-plural.ACTIVE')}
+                            onClick={openUsers}
+                            value={counts[USERS_STATUS.ACTIVE] ?? 0}
+                        />
+                        <BoltRow
+                            icon={TbUserExclamation}
+                            label={t('bolt.status-plural.EXPIRED')}
+                            onClick={openUsers}
+                            value={counts[USERS_STATUS.EXPIRED] ?? 0}
+                        />
+                        <BoltRow
+                            icon={TbUserCancel}
+                            label={t('bolt.status-plural.LIMITED')}
+                            onClick={openUsers}
+                            value={counts[USERS_STATUS.LIMITED] ?? 0}
+                        />
+                        <BoltRow
+                            icon={TbUserOff}
+                            label={t('bolt.status-plural.DISABLED')}
+                            onClick={openUsers}
+                            value={counts[USERS_STATUS.DISABLED] ?? 0}
+                        />
                     </BoltGroup>
 
                     <BoltGroup>
-                        <BoltRow icon={TbClockHour4} label={t('bolt.home.uptime')} value={dayjs.duration(systemInfo.uptime, 'seconds').locale(i18n.language).humanize()} />
-                        <BoltRow icon={TbCpu} label={t('bolt.home.cpu')} value={systemInfo.cpu.cores} />
+                        <BoltRow
+                            icon={TbClockHour4}
+                            label={t('bolt.home.uptime')}
+                            value={dayjs
+                                .duration(systemInfo.uptime, 'seconds')
+                                .locale(i18n.language)
+                                .humanize()}
+                        />
+                        <BoltRow
+                            icon={TbCpu}
+                            label={t('bolt.home.cpu')}
+                            value={systemInfo.cpu.cores}
+                        />
                         <BoltRow
                             icon={TbDatabase}
                             label={t('bolt.home.memory')}
                             value={`${compactBytesUtil(systemInfo.memory.used)} ${t('bolt.user.of-limit', { limit: compactBytesUtil(systemInfo.memory.total) })}`}
                         />
-                        <BoltRow icon={TbActivity} label={t('home.runtime-info.title')} onClick={openRuntime} />
+                        <BoltRow
+                            icon={TbActivity}
+                            label={t('home.runtime-info.title')}
+                            onClick={openRuntime}
+                        />
                     </BoltGroup>
                 </div>
             </div>

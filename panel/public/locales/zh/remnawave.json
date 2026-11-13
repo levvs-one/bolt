@@ -642,8 +642,8 @@
   },
   "nodes-realtime-metrics": {
     "widget": {
-      "download-speed": "下载速度",
-      "upload-speed": "上传速度"
+      "download-speed": "Download",
+      "upload-speed": "Upload"
     }
   },
   "internal-squads-usage-drawer": {
@@ -1962,9 +1962,7 @@
       "subscription": "Subscription"
     },
     "home": {
-      "online-now": "online now",
-      "nodes-online": "nodes running",
-      "traffic-today": "traffic in 24 h",
+      "online-now": "Online now",
       "node-users": "{{count}} online",
       "all-nodes": "All nodes",
       "traffic-week": "Traffic, 7 days",
@@ -2018,6 +2016,14 @@
       "state-error": "Error",
       "apply": "Apply",
       "open-profile": "Open profile"
+    },
+    "errors": {
+      "not-found-title": "Page not found",
+      "not-found-text": "The address is mistyped or the page has moved.",
+      "go-home": "Go home",
+      "crash-title": "Something broke",
+      "crash-text": "Reload the page. If that doesn't help, details are below.",
+      "reload": "Reload"
     }
   }
 }

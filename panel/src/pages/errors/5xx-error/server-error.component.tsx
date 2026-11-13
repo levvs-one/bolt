@@ -1,17 +1,18 @@
 import { CodeHighlight } from '@mantine/code-highlight'
-import { Box, Button, Container, Group, Title } from '@mantine/core'
+import { Button } from '@mantine/core'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
 import { ErrorBoundaryFallbackProps } from '@shared/hocs/error-boundary'
+import { Logo } from '@shared/ui/logo'
 
 import classes from './ServerError.module.css'
 
-export function ErrorPageComponent({ componentStack, error }: Partial<ErrorBoundaryFallbackProps>) {
-    const navigate = useNavigate()
+const LOGO_SIZE = 40
 
-    const handleRefresh = () => {
-        navigate(0)
-    }
+export function ErrorPageComponent({ componentStack, error }: Partial<ErrorBoundaryFallbackProps>) {
+    const { t } = useTranslation()
+    const navigate = useNavigate()
 
     const details = [
         error instanceof Error ? (error.stack ?? '') : '',
@@ -21,29 +22,32 @@ export function ErrorPageComponent({ componentStack, error }: Partial<ErrorBound
         .join('\n\n')
 
     return (
-        <div className={classes.root}>
-            <Container>
-                <div className={classes.label}>500</div>
-                <Title className={classes.title}>Something bad just happened...</Title>
-                <Group justify="center" mt="xl">
-                    <Button onClick={handleRefresh} size="md" variant="soft">
-                        Refresh the page
-                    </Button>
-                </Group>
+        <main className={classes.root}>
+            <div className={classes.inner}>
+                <Logo className={classes.logo} size={LOGO_SIZE} />
+                <h1 className={classes.title}>{t('bolt.errors.crash-title')}</h1>
+                <p className={classes.description}>{t('bolt.errors.crash-text')}</p>
+                <Button
+                    className={classes.action}
+                    fullWidth
+                    size="lg"
+                    onClick={() => navigate(0)}
+                    variant="filled"
+                >
+                    {t('bolt.errors.reload')}
+                </Button>
                 {details && (
-                    <Box mt="xl">
-                        <CodeHighlight
-                            defaultExpanded={false}
-                            radius="md"
-                            background="rgba(255, 255, 255, 0.02)"
-                            withLineNumbers
-                            code={details}
-                            expandCodeLabel=""
-                            collapseCodeLabel=""
-                        />
-                    </Box>
+                    <CodeHighlight
+                        className={classes.details}
+                        code={details}
+                        collapseCodeLabel=""
+                        defaultExpanded={false}
+                        expandCodeLabel=""
+                        radius="md"
+                        withLineNumbers
+                    />
                 )}
-            </Container>
-        </div>
+            </div>
+        </main>
     )
 }

@@ -1,42 +1,43 @@
 .root {
-    padding-top: rem(80px);
-    padding-bottom: rem(80px);
-    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100dvh;
+    padding: 16px;
 }
 
-.label {
+.inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 340px;
     text-align: center;
-    font-weight: 900;
-    font-size: rem(220px);
-    line-height: 1;
-    margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
-    color: var(--mantine-color-blue-3);
+}
 
-    @media (max-width: $mantine-breakpoint-sm) {
-        font-size: rem(120px);
-    }
+.logo {
+    margin-bottom: 16px;
 }
 
 .title {
-    text-align: center;
-    font-weight: 900;
-    font-size: rem(38px);
-    color: var(--mantine-color-white);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+}
 
-    @media (max-width: $mantine-breakpoint-sm) {
-        font-size: rem(32px);
-    }
+.description {
+    margin-top: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.action {
+    margin-top: 24px;
 }
 
 .details {
-    max-width: rem(720px);
-    max-height: rem(240px);
-    margin: auto;
-    overflow: auto;
-    text-align: left;
-    white-space: pre-wrap;
-    word-break: break-word;
+    width: 100%;
+    max-width: 720px;
+    margin-top: 24px;
 }

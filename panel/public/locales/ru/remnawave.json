@@ -642,8 +642,8 @@
   },
   "nodes-realtime-metrics": {
     "widget": {
-      "download-speed": "Скорость скачивания",
-      "upload-speed": "Скорость отдачи"
+      "download-speed": "Загрузка",
+      "upload-speed": "Отдача"
     }
   },
   "internal-squads-usage-drawer": {
@@ -1498,8 +1498,8 @@
   },
   "nodes-quick-stats": {
     "widget": {
-      "users-online": "Пользователей онлайн",
-      "online-nodes": "Нод онлайн"
+      "users-online": "Клиентов в сети",
+      "online-nodes": "Нод в сети"
     }
   },
   "template-info-popover": {
@@ -1962,9 +1962,7 @@
       "subscription": "Подписка"
     },
     "home": {
-      "online-now": "клиентов в сети",
-      "nodes-online": "нод работает",
-      "traffic-today": "трафик за сутки",
+      "online-now": "В сети сейчас",
       "node-users": "{{count}} в сети",
       "all-nodes": "Все ноды",
       "traffic-week": "Трафик за 7 дней",
@@ -2053,6 +2051,14 @@
       "state-error": "Ошибка",
       "apply": "Применить",
       "open-profile": "Открыть профиль"
+    },
+    "errors": {
+      "not-found-title": "Страница не найдена",
+      "not-found-text": "Адрес набран с ошибкой или страница переехала.",
+      "go-home": "На главную",
+      "crash-title": "Что-то сломалось",
+      "crash-text": "Обновите страницу. Если не поможет — подробности ниже.",
+      "reload": "Обновить"
     }
   }
 }

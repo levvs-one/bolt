@@ -20,7 +20,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { Suspense, useEffect } from 'react'
+import { Suspense } from 'react'
 import { I18nextProvider } from 'react-i18next'
 
 import { createBoltCssVariablesResolver, theme } from '@shared/constants'
@@ -44,15 +44,6 @@ const cssVariablesResolver = createBoltCssVariablesResolver(v8CssVariablesResolv
 
 export function App() {
     const isDev = __NODE_ENV__ === 'development'
-
-    useEffect(() => {
-        const root = document.getElementById('root')
-        if (root) {
-            const bottomBar = document.createElement('div')
-            bottomBar.className = 'safe-area-bottom'
-            root.appendChild(bottomBar)
-        }
-    }, [])
 
     // useEffect(() => {
     //     hideSplashScreen()

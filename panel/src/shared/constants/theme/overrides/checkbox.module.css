@@ -1,0 +1,20 @@
+/* Пустой флажок виден контуром на любой поверхности; отмеченный — сплошной цвет акцента. */
+.input {
+    border: 1.5px solid color-mix(in srgb, var(--bolt-text) 35%, transparent);
+    background: transparent;
+    cursor: pointer;
+
+    &:checked {
+        border-color: var(--bolt-accent);
+        background: var(--bolt-accent);
+    }
+}
+
+.icon {
+    color: var(--bolt-on-accent);
+}
+
+.label {
+    font-size: 15px;
+    font-weight: 500;
+}

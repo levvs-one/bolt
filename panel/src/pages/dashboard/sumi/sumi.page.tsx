@@ -262,7 +262,7 @@ export function SumiPage() {
                                 checked={draft.meteredNodes.includes(node.uuid)}
                                 color="gray"
                                 key={node.uuid}
-                                label={`${t('bolt.sumi.metered-node')} ${node.name}`}
+                                label={t('bolt.sumi.metered-node', { node: node.name })}
                                 onChange={() =>
                                     set({ meteredNodes: toggle(draft.meteredNodes, node.uuid) })
                                 }
@@ -288,7 +288,7 @@ export function SumiPage() {
                         {nodeList.map((node) => (
                             <TextInput
                                 key={node.uuid}
-                                label={`${t('bolt.sumi.node-dns')} ${node.name}`}
+                                label={t('bolt.sumi.node-dns', { node: node.name })}
                                 onChange={(event) =>
                                     setNodeDns(node.uuid, event.currentTarget.value)
                                 }

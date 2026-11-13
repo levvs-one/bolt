@@ -4,6 +4,7 @@ import breadcrumbs from './breadcrumbs'
 import buttons from './buttons'
 import card from './card'
 import charts from './charts'
+import checkbox from './checkbox'
 import choiceCards from './choice-cards'
 import drawer from './drawer'
 import fieldset from './fieldset'
@@ -22,6 +23,7 @@ import tooltip from './tooltip'
 export default {
     ...fieldset,
     ...card,
+    ...checkbox,
     ...choiceCards,
     ...drawer,
     ...modal,

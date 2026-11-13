@@ -1,5 +1,6 @@
+/* Дорожка — полупрозрачный оттенок текста: видна и на фоне окна, и внутри группы. */
 .root {
-    background-color: var(--bolt-track);
+    background-color: color-mix(in srgb, var(--bolt-text) 8%, transparent);
 }
 
 .indicator {

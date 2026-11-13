@@ -2120,6 +2120,10 @@
       "users-expiration-date-extended": "Users expiration date extended",
       "all-users-expiration-date-extended": "All users expiration date extended",
       "unknown-error": "Request failed"
+    },
+    "sumi": {
+      "metered-node": "Mobile quota on {{node}}",
+      "node-dns": "Ad-free DNS on {{node}}"
     }
   }
 }

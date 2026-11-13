@@ -54,10 +54,10 @@ export function InternalSquadCardWidget(props: IProps) {
             id={internalSquad.uuid}
             isDragOverlay={isDragOverlay}
         >
-            <EntityCardShared.Root isActive={isActive} onClick={handleOpenInbounds}>
+            <EntityCardShared.Root onClick={handleOpenInbounds}>
                 <EntityCardShared.Header>
-                    <EntityCardShared.Icon highlight={isActive}>
-                        <TbCirclesRelation size={22} />
+                    <EntityCardShared.Icon>
+                        <TbCirclesRelation size={20} strokeWidth={1.75} />
                     </EntityCardShared.Icon>
                     <EntityCardShared.Content
                         tags={internalSquad.tags}

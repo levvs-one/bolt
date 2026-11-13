@@ -2,10 +2,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    min-height: 60px;
+    min-height: 56px;
     padding: 8px 14px 8px 10px;
-    border-radius: var(--mantine-radius-md);
-    background: var(--bolt-surface);
+    border-radius: var(--mantine-radius-sm);
+    background: transparent;
     cursor: pointer;
     transition: background-color 150ms ease;
 
@@ -57,10 +57,17 @@
 
 .facts {
     display: flex;
-    flex-wrap: wrap;
     column-gap: 16px;
     font-size: 13px;
     font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Факты строки — в одну линию: не влезает — обрезается многоточием, а не переносится. */
+.facts > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .metric {

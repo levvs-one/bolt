@@ -26,3 +26,23 @@
 .actions[data-wrap] {
     flex-wrap: wrap;
 }
+
+/* Кнопки шапки — как в панели инструментов macOS: голая иконка 20 px, подложка только при наведении. */
+.actions :global(.mantine-ActionIcon-root) {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    border-color: transparent;
+    background: transparent;
+    color: var(--bolt-text);
+
+    @mixin hover {
+        background: var(--bolt-surface-hover);
+    }
+}
+
+.actions :global(.mantine-ActionIcon-root) svg {
+    width: 20px;
+    height: 20px;
+}

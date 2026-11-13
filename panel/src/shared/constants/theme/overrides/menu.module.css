@@ -1,0 +1,4 @@
+/* Пункты меню — только текст, как в меню macOS: иконки из разных наборов не смешиваются. */
+.itemSection[data-position='left'] {
+    display: none;
+}

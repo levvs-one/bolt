@@ -1,16 +1,14 @@
-import { Box, Card } from '@mantine/core'
-import clsx from 'clsx'
+import { Card } from '@mantine/core'
 
 import classes from './entity-card.module.css'
 
 interface EntityCardProps {
     children: React.ReactNode
-    isActive?: boolean
     onClick?: () => void
 }
 
 export function EntityCardRoot(props: EntityCardProps) {
-    const { children, isActive = true, onClick } = props
+    const { children, onClick } = props
 
     return (
         <Card
@@ -29,14 +27,13 @@ export function EntityCardRoot(props: EntityCardProps) {
                       }
                     : undefined
             }
-            pb={6}
+            pb={4}
             pl={12}
-            pr={10}
-            pt={6}
+            pr={8}
+            pt={4}
             role={onClick ? 'button' : undefined}
             tabIndex={onClick ? 0 : undefined}
         >
-            <Box className={clsx(classes.rail, { [classes.railInactive]: !isActive })} />
             {children}
         </Card>
     )

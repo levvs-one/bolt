@@ -2,10 +2,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    min-height: 60px;
+    min-height: 56px;
     padding: 8px 14px 8px 12px;
-    border-radius: var(--mantine-radius-md);
-    background: var(--bolt-surface);
+    border-radius: var(--mantine-radius-sm);
+    background: transparent;
     cursor: pointer;
     transition: background-color 150ms ease;
 
@@ -53,10 +53,17 @@
 
 .facts {
     display: flex;
-    flex-wrap: wrap;
     column-gap: 16px;
     font-size: 13px;
     font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Факты строки — в одну линию: не влезает — обрезается многоточием, а не переносится. */
+.facts > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .side {
@@ -64,6 +71,13 @@
     font-size: 14px;
     font-weight: 700;
     text-align: end;
+}
+
+/* На телефоне в строке остаётся только адрес: профиль и нода видны в карточке хоста. */
+@media (max-width: 48em) {
+    .facts > span:not(:first-child) {
+        display: none;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

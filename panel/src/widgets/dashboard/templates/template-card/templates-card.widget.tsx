@@ -1,9 +1,8 @@
 import { CopyButton, Menu } from '@mantine/core'
 import { GetSubscriptionTemplatesCommand } from '@remnawave/backend-contract'
-import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy, PiPencil, PiTrashDuotone } from 'react-icons/pi'
-import { TbTags } from 'react-icons/tb'
+import { TbFileText, TbTags } from 'react-icons/tb'
 import { generatePath, useNavigate } from 'react-router'
 
 import { showModal } from '@shared/_modals/show-modal'
@@ -16,14 +15,12 @@ interface IProps {
     handleDeleteTemplate: (templateUuid: string) => void
     isDragOverlay?: boolean
     template: GetSubscriptionTemplatesCommand.Response['response']['templates'][number]
-    themeLogo: ReactNode
 }
 
 export function TemplatesCardWidget(props: IProps) {
     const {
         disableReordering = false,
         template,
-        themeLogo,
         handleDeleteTemplate,
         isDragOverlay = false
     } = props
@@ -47,13 +44,10 @@ export function TemplatesCardWidget(props: IProps) {
             id={template.uuid}
             isDragOverlay={isDragOverlay}
         >
-            <EntityCardShared.Root
-                isActive={template.name === 'Default'}
-                onClick={openTemplateEditor}
-            >
+            <EntityCardShared.Root onClick={openTemplateEditor}>
                 <EntityCardShared.Header>
-                    <EntityCardShared.Icon highlight={template.name === 'Default'}>
-                        {themeLogo}
+                    <EntityCardShared.Icon>
+                        <TbFileText size={20} strokeWidth={1.75} />
                     </EntityCardShared.Icon>
                     <EntityCardShared.Content tags={template.tags} title={template.name} />
                 </EntityCardShared.Header>

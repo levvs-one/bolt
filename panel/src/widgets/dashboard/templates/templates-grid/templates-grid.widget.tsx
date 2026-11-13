@@ -1,6 +1,5 @@
 import { modals } from '@mantine/modals'
 import { useMemo } from 'react'
-import { PiBracketsAngle } from 'react-icons/pi'
 
 import {
     QueryKeys,
@@ -9,10 +8,6 @@ import {
 } from '@shared/api/hooks'
 import { queryClient } from '@shared/api/query-client'
 import { filterByTag, TagFilterBar } from '@shared/ui'
-import { MihomoLogo } from '@shared/ui/logos/mihomo-logo'
-import { SingboxLogo } from '@shared/ui/logos/singbox-logo'
-import { StashLogo } from '@shared/ui/logos/stash-logo'
-import { XrayLogo } from '@shared/ui/logos/xray-logo'
 import { VirtualizedDndGrid } from '@shared/ui/virtualized-dnd-grid'
 
 import {
@@ -87,22 +82,6 @@ export function TemplatesGridWidget(props: IProps) {
         })
     }
 
-    const themeLogo = useMemo(() => {
-        switch (type) {
-            case 'CLASH':
-            case 'MIHOMO':
-                return <MihomoLogo size={22} />
-            case 'SINGBOX':
-                return <SingboxLogo size={22} />
-            case 'STASH':
-                return <StashLogo size={22} />
-            case 'XRAY_JSON':
-                return <XrayLogo size={22} />
-            default:
-                return <PiBracketsAngle size={22} />
-        }
-    }, [type])
-
     return (
         <VirtualizedDndGrid
             enableDnd={activeTag === null}
@@ -121,7 +100,6 @@ export function TemplatesGridWidget(props: IProps) {
                     handleDeleteTemplate={handleDeleteTemplate}
                     isDragOverlay
                     template={template}
-                    themeLogo={themeLogo}
                 />
             )}
             renderItem={(template) => (
@@ -129,7 +107,6 @@ export function TemplatesGridWidget(props: IProps) {
                     disableReordering={activeTag !== null}
                     handleDeleteTemplate={handleDeleteTemplate}
                     template={template}
-                    themeLogo={themeLogo}
                 />
             )}
             useWindowScroll={true}

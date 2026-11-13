@@ -1,7 +1,10 @@
 import { Combobox, Menu } from '@mantine/core'
 
+import classes from './menu.module.css'
+
 export default {
     Menu: Menu.extend({
+        classNames: { itemSection: classes.itemSection },
         defaultProps: {
             withArrow: false,
             radius: 'md',

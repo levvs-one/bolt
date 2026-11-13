@@ -232,7 +232,7 @@ export const NodesTableWidget = memo((props: IProps) => {
                 onDragOver={handleDragOver}
                 onDragStart={handleDragStart}
             >
-                <div ref={listRef}>
+                <div className={styles.group} ref={listRef}>
                     <div
                         style={{
                             height: `${virtualizer.getTotalSize()}px`,
@@ -255,7 +255,6 @@ export const NodesTableWidget = memo((props: IProps) => {
                                             ref={virtualizer.measureElement}
                                             style={{
                                                 position: 'absolute',
-                                                paddingBottom: 8,
                                                 top: 0,
                                                 left: 0,
                                                 right: 0,
@@ -266,19 +265,17 @@ export const NodesTableWidget = memo((props: IProps) => {
                                                 willChange: 'transform'
                                             }}
                                         >
-                                            <div className={styles.nodeFadeIn}>
-                                                <NodeCardWidget
-                                                    disableReordering={activeTag !== null}
-                                                    handleViewNode={handleViewNode}
-                                                    index={virtualItem.index}
-                                                    isMobile={isMobile}
-                                                    node={item}
-                                                    integrationsNames={
-                                                        names?.integrationsNames ?? EMPTY_NAMES
-                                                    }
-                                                    pluginsName={names?.pluginsName}
-                                                />
-                                            </div>
+                                            <NodeCardWidget
+                                                disableReordering={activeTag !== null}
+                                                handleViewNode={handleViewNode}
+                                                index={virtualItem.index}
+                                                isMobile={isMobile}
+                                                node={item}
+                                                integrationsNames={
+                                                    names?.integrationsNames ?? EMPTY_NAMES
+                                                }
+                                                pluginsName={names?.pluginsName}
+                                            />
                                         </Box>
                                     )
                                 })}

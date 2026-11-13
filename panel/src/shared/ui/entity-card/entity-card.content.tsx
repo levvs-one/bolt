@@ -16,7 +16,7 @@ export function EntityCardContent(props: ContentProps) {
 
     return (
         <div className={classes.content}>
-            <Text className={classes.title} ff="monospace" fw={600} title={title}>
+            <Text className={classes.title} title={title}>
                 {title}
             </Text>
 

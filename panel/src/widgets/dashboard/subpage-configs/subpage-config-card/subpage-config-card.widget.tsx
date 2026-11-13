@@ -48,10 +48,10 @@ export function SubpageConfigCardWidget(props: IProps) {
             id={subpageConfig.uuid}
             isDragOverlay={isDragOverlay}
         >
-            <EntityCardShared.Root isActive={isDefault} onClick={navigateToConfig}>
+            <EntityCardShared.Root onClick={navigateToConfig}>
                 <EntityCardShared.Header>
-                    <EntityCardShared.Icon highlight={isDefault}>
-                        <TbFile size={22} />
+                    <EntityCardShared.Icon>
+                        <TbFile size={20} strokeWidth={1.75} />
                     </EntityCardShared.Icon>
 
                     <EntityCardShared.Content

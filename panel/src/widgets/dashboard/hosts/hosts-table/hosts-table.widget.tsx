@@ -144,7 +144,7 @@ export const HostsTableWidget = memo((props: IProps) => {
                     onDragOver={handleDragOver}
                     onDragStart={handleDragStart}
                 >
-                    <div ref={listRef}>
+                    <div className={classes.group} ref={listRef}>
                         <div
                             style={{
                                 height: `${virtualizer.getTotalSize()}px`,
@@ -165,7 +165,6 @@ export const HostsTableWidget = memo((props: IProps) => {
                                                 ref={virtualizer.measureElement}
                                                 style={{
                                                     position: 'absolute',
-                                                    paddingBottom: 8,
                                                     top: 0,
                                                     left: 0,
                                                     right: 0,
@@ -176,21 +175,15 @@ export const HostsTableWidget = memo((props: IProps) => {
                                                     willChange: 'transform'
                                                 }}
                                             >
-                                                <div className={classes.hostFadeIn}>
-                                                    <HostCardWidget
-                                                        disableReordering={activeTag !== null}
-                                                        configProfiles={configProfiles}
-                                                        index={virtualItem.index}
-                                                        isSelected={selectedHosts.includes(
-                                                            item.uuid
-                                                        )}
-                                                        item={item}
-                                                        nodesByUuid={nodesByUuid}
-                                                        onSelect={() =>
-                                                            toggleHostSelection(item.uuid)
-                                                        }
-                                                    />
-                                                </div>
+                                                <HostCardWidget
+                                                    disableReordering={activeTag !== null}
+                                                    configProfiles={configProfiles}
+                                                    index={virtualItem.index}
+                                                    isSelected={selectedHosts.includes(item.uuid)}
+                                                    item={item}
+                                                    nodesByUuid={nodesByUuid}
+                                                    onSelect={() => toggleHostSelection(item.uuid)}
+                                                />
                                             </Box>
                                         )
                                     })}

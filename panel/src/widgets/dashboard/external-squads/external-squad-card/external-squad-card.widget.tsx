@@ -53,10 +53,10 @@ export function ExternalSquadCardWidget(props: IProps) {
             id={externalSquad.uuid}
             isDragOverlay={isDragOverlay}
         >
-            <EntityCardShared.Root isActive={isActive} onClick={openExternalSquad}>
+            <EntityCardShared.Root onClick={openExternalSquad}>
                 <EntityCardShared.Header>
-                    <EntityCardShared.Icon highlight={isActive}>
-                        <TbWebhook size={22} />
+                    <EntityCardShared.Icon>
+                        <TbWebhook size={20} strokeWidth={1.75} />
                     </EntityCardShared.Icon>
                     <EntityCardShared.Content
                         tags={externalSquad.tags}

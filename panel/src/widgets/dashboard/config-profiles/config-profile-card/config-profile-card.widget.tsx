@@ -5,7 +5,7 @@ import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy, PiCpu, PiPencil, PiTag, PiTrashDuotone } from 'react-icons/pi'
-import { TbCheck, TbCpu2, TbDownload, TbEye, TbTags } from 'react-icons/tb'
+import { TbAdjustmentsHorizontal, TbCheck, TbCpu2, TbDownload, TbEye, TbTags } from 'react-icons/tb'
 import { generatePath, useNavigate } from 'react-router'
 
 import { showModal } from '@shared/_modals/show-modal'
@@ -13,7 +13,6 @@ import { useGetComputedConfigProfile } from '@shared/api/hooks/config-profiles/c
 import { ROUTES } from '@shared/constants'
 import { WithDndSortable } from '@shared/hocs/with-dnd-sortable'
 import { EntityCardShared } from '@shared/ui/entity-card'
-import { XrayLogo } from '@shared/ui/logos'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { formatInt } from '@shared/utils/misc'
 
@@ -143,10 +142,10 @@ export function ConfigProfileCardWidget(props: IProps) {
             id={configProfile.uuid}
             isDragOverlay={isDragOverlay}
         >
-            <EntityCardShared.Root isActive={isActive} onClick={handleEditConfigProfile}>
+            <EntityCardShared.Root onClick={handleEditConfigProfile}>
                 <EntityCardShared.Header>
-                    <EntityCardShared.Icon highlight={isActive}>
-                        <XrayLogo size={22} />
+                    <EntityCardShared.Icon>
+                        <TbAdjustmentsHorizontal size={20} strokeWidth={1.75} />
                     </EntityCardShared.Icon>
                     <EntityCardShared.Content
                         tags={configProfile.tags}

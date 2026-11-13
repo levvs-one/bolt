@@ -9,6 +9,7 @@ import {
     MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
+import { MRT_Localization_RU } from '@kastov/mantine-react-table-open/locales/ru/index.esm.mjs'
 import { ActionIcon, ActionIconGroup, Badge, Tooltip } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { useState } from 'react'
@@ -36,7 +37,7 @@ import {
 import { useUsersTableStore } from '@entities/dashboard/users/users-table-store'
 
 export function UserTableWidget() {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     const { data: internalSquads } = useGetInternalSquads()
     const { data: externalSquads } = useGetExternalSquads()
@@ -94,6 +95,7 @@ export function UserTableWidget() {
     })
 
     const table = useMantineReactTable({
+        localization: i18n.language.startsWith('ru') ? MRT_Localization_RU : undefined,
         columns: tableColumns,
         data: usersResponse?.users ?? [],
         enableFacetedValues: true,

@@ -226,6 +226,7 @@ export const HostsDataTableWidget = memo((props: IProps) => {
     return (
         <>
             <DataTable
+                noRecordsText={t('common.message.no-data-available')}
                 borderRadius="sm"
                 columns={effectiveColumns}
                 defaultColumnProps={{

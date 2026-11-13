@@ -7,6 +7,7 @@ import {
     MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
+import { MRT_Localization_RU } from '@kastov/mantine-react-table-open/locales/ru/index.esm.mjs'
 import { ActionIcon, ActionIconGroup, Tooltip } from '@mantine/core'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -31,7 +32,7 @@ import {
 } from '@entities/dashboard/srh-inspector/srh-inspector-table-store'
 
 export function SrhInspectorTableWidget() {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     const actions = useSrhInspectorTableStoreActions()
     const tableColumns = useSrhInspectorTableColumns()
@@ -67,6 +68,7 @@ export function SrhInspectorTableWidget() {
     })
 
     const table = useMantineReactTable({
+        localization: i18n.language.startsWith('ru') ? MRT_Localization_RU : undefined,
         columns: tableColumns,
         data: usersResponse?.records ?? [],
         enableFullScreenToggle: true,

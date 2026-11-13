@@ -2,6 +2,7 @@
 import { ActionIcon, Button, CloseButton, Switch } from '@mantine/core'
 
 import classes from './buttons.module.css'
+import switchClasses from './switch.module.css'
 
 export default {
     ActionIcon: ActionIcon.extend({
@@ -29,10 +30,20 @@ export default {
             size: 'lg'
         }
     }),
+    // Переключатель как в macOS: сплошная дорожка и круглый бегунок без точки внутри.
     Switch: Switch.extend({
+        classNames: {
+            body: switchClasses.body,
+            input: switchClasses.input,
+            labelWrapper: switchClasses.labelWrapper,
+            root: switchClasses.root,
+            thumb: switchClasses.thumb,
+            track: switchClasses.track
+        },
         defaultProps: {
+            labelPosition: 'left',
             radius: 'xl',
-            color: 'gray'
+            withThumbIndicator: false
         }
     })
 }

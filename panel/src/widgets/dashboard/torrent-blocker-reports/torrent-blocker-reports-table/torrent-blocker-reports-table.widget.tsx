@@ -6,6 +6,7 @@ import {
     MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
+import { MRT_Localization_RU } from '@kastov/mantine-react-table-open/locales/ru/index.esm.mjs'
 import { ActionIcon, ActionIconGroup, Box, Tooltip } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
@@ -43,7 +44,7 @@ import {
 import { useTbReportsTableColumns } from './use-tb-reports-table-columns'
 
 export function TorrentBlockerReportsTableWidget() {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     const { data: nodes } = useGetNodes()
     const { refetch: refetchTorrentBlockerStats } = useGetTorrentBlockerStats()
@@ -90,6 +91,7 @@ export function TorrentBlockerReportsTableWidget() {
     usePreventTableBackScroll()
 
     const table = useMantineReactTable({
+        localization: i18n.language.startsWith('ru') ? MRT_Localization_RU : undefined,
         columns: tableColumns,
         data: tbReportsResponse?.records ?? [],
         enableFullScreenToggle: true,

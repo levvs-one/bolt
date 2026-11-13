@@ -44,6 +44,7 @@ export function HwidInspectorLeaderboardWidget() {
 
     return (
         <DataTable
+            noRecordsText={t('common.message.no-data-available')}
             borderRadius="sm"
             columns={getHwidInspectorLeaderboardColumns(t, async (userId) => {
                 showModal('users_viewUserModal', { userId })

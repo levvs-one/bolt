@@ -8,6 +8,7 @@ import {
     MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
+import { MRT_Localization_RU } from '@kastov/mantine-react-table-open/locales/ru/index.esm.mjs'
 import { ActionIcon, ActionIconGroup, Tooltip } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -32,7 +33,7 @@ import {
 } from '@entities/dashboard/hwid-inspector/hwid-inspector-table-store'
 
 export function HwidInspectorTableWidget() {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     const actions = useHwidInspectorTableStoreActions()
     const tableColumns = useHwidInspectorTableColumns()
@@ -71,6 +72,7 @@ export function HwidInspectorTableWidget() {
     usePreventTableBackScroll()
 
     const table = useMantineReactTable({
+        localization: i18n.language.startsWith('ru') ? MRT_Localization_RU : undefined,
         columns: tableColumns,
         data: filteredData?.devices ?? [],
         enableFullScreenToggle: true,

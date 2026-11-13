@@ -1,0 +1,22 @@
+.item,
+.item[data-active] {
+    border: 0;
+    border-radius: var(--mantine-radius-sm);
+    background: transparent;
+}
+
+.control {
+    min-height: 48px;
+    padding-inline: 12px;
+    border-radius: var(--mantine-radius-sm);
+    font-size: 15px;
+    font-weight: 600;
+
+    @mixin hover {
+        background: var(--bolt-surface-hover);
+    }
+}
+
+.content {
+    padding: 4px 12px 12px;
+}

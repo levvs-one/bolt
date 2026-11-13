@@ -1,0 +1,32 @@
+/* Подпись слева, переключатель у правого края строки — как в настройках macOS. */
+.root:has(.labelWrapper:not(:empty)) {
+    width: 100%;
+}
+
+.body {
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.labelWrapper {
+    min-width: 0;
+}
+
+.track {
+    border: 0;
+    background: var(--bolt-surface-raised);
+    cursor: pointer;
+}
+
+.thumb {
+    --switch-thumb-bg: var(--bolt-text);
+    border: 0;
+}
+
+.input:checked + .track {
+    background: var(--bolt-accent);
+}
+
+.input:checked + * > .thumb {
+    --switch-thumb-bg: var(--bolt-on-accent);
+}

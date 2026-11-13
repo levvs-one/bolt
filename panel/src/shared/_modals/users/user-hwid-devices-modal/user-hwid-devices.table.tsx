@@ -248,6 +248,7 @@ export const UserHwidDevicesTable = (props: IProps) => {
     return (
         <>
             <DataTable<TDevice>
+                noRecordsText={t('common.message.no-data-available')}
                 borderRadius="sm"
                 pinFirstColumn
                 columns={effectiveColumns}

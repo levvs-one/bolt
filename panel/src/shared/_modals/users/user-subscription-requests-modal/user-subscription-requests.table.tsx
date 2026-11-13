@@ -166,6 +166,7 @@ export const UserSubscriptionRequestsTable = (props: IProps) => {
     return (
         <>
             <DataTable<TRecord>
+                noRecordsText={t('common.message.no-data-available')}
                 borderRadius="sm"
                 columns={effectiveColumns}
                 columnResizeMode="expand"

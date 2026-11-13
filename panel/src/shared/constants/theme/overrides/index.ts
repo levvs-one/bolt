@@ -1,3 +1,4 @@
+import accordion from './accordion'
 import badge from './badge'
 import breadcrumbs from './breadcrumbs'
 import buttons from './buttons'
@@ -24,6 +25,7 @@ export default {
     ...choiceCards,
     ...drawer,
     ...modal,
+    ...accordion,
     ...badge,
     ...breadcrumbs,
     ...buttons,

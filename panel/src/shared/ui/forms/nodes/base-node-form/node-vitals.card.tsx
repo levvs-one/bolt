@@ -37,7 +37,7 @@ import { TagInputPill } from '@shared/ui/tag-input-pill'
 
 import { useExperimentalFeature } from '@entities/dashboard/view-preferences-store'
 
-import { COUNTRIES } from './constants'
+import { getCountryOptions } from './constants'
 import integrationsClasses from './integrations-select.module.css'
 
 interface IProps<T extends CreateNodeCommand.RequestBody | UpdateNodeCommand.RequestBody> {
@@ -55,7 +55,7 @@ export const NodeVitalsCard = <
 >(
     props: IProps<T>
 ) => {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
     const {
         cardVariants,
         form,
@@ -90,7 +90,7 @@ export const NodeVitalsCard = <
                             key={form.key('countryCode')}
                             label={t('base-node-form.country')}
                             {...form.getInputProps('countryCode')}
-                            data={COUNTRIES}
+                            data={getCountryOptions(i18n.language, t('bolt.text.unknown-country'))}
                             leftSection={<TbMapPin size={16} />}
                             placeholder={t('base-node-form.select-country')}
                             required

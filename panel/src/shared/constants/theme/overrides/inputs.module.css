@@ -29,11 +29,13 @@
     }
 }
 
-/* Иконка слева внутри поля — украшение: подпись поля уже говорит, что в нём. Остаётся только у поиска. */
-.wrapper[data-with-left-section]:not(:has(input[type='search'])) {
+/* Иконка слева внутри поля — украшение: подпись поля уже говорит, что в нём. Остаётся у поиска и у кнопок-степперов. */
+.wrapper[data-with-left-section]:not(
+        :has(input[type='search'], > .section[data-position='left'] button)
+    ) {
     --input-padding-inline-start: var(--input-padding);
 }
 
-.wrapper:not(:has(input[type='search'])) > .section[data-position='left'] {
+.wrapper:not(:has(input[type='search'])) > .section[data-position='left']:not(:has(button)) {
     display: none;
 }

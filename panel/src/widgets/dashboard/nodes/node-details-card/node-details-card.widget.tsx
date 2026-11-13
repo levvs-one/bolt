@@ -189,21 +189,6 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                                     disabled={isDisableNodePending || isEnableNodePending}
                                     onClick={handleToggleNodeStatus}
                                     size="md"
-                                    style={{
-                                        backgroundColor: node.isDisabled
-                                            ? 'rgba(45, 212, 191, 0.15)'
-                                            : 'rgba(239, 68, 68, 0.15)',
-                                        border: `1px solid ${
-                                            node.isDisabled
-                                                ? 'rgba(45, 212, 191, 0.3)'
-                                                : 'rgba(239, 68, 68, 0.3)'
-                                        }`,
-                                        boxShadow: `0 0 10px ${
-                                            node.isDisabled
-                                                ? 'rgba(45, 212, 191, 0.2)'
-                                                : 'rgba(239, 68, 68, 0.2)'
-                                        }`
-                                    }}
                                     variant="light"
                                 >
                                     {isDisableNodePending || isEnableNodePending ? (
@@ -212,14 +197,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                                             size="xs"
                                         />
                                     ) : (
-                                        <TbPower
-                                            size={16}
-                                            style={{
-                                                color: node.isDisabled
-                                                    ? 'var(--mantine-color-teal-4)'
-                                                    : 'var(--mantine-color-red-4)'
-                                            }}
-                                        />
+                                        <TbPower size={16} />
                                     )}
                                 </ActionIcon>
                             </Tooltip>
@@ -231,24 +209,8 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                                     'node-details-card.widget.config-profile-or-inbounds-is-missing'
                                 )}
                             >
-                                <ActionIcon
-                                    color="gray"
-                                    disabled
-                                    size="md"
-                                    style={{
-                                        backgroundColor: 'rgba(107, 114, 128, 0.15)',
-                                        border: `1px solid rgba(107, 114, 128, 0.3)`,
-                                        boxShadow: `0 0 10px rgba(107, 114, 128, 0.2)`,
-                                        opacity: 0.7
-                                    }}
-                                    variant="light"
-                                >
-                                    <TbPower
-                                        size={16}
-                                        style={{
-                                            color: 'var(--mantine-color-teal-4)'
-                                        }}
-                                    />
+                                <ActionIcon color="gray" disabled size="md" variant="light">
+                                    <TbPower size={16} />
                                 </ActionIcon>
                             </Tooltip>
                         )}
@@ -259,7 +221,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
             <SectionCard.Section>
                 <Group gap="xs" justify="flex-end">
                     <Group gap="xs" justify="center">
-                        <Tooltip label="Metadata">
+                        <Tooltip label={t('bolt.user.metadata')}>
                             <ActionIcon
                                 color="teal"
                                 disabled={!metadata}
@@ -274,7 +236,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                                                 iconColor="teal"
                                                 IconComponent={TbJson}
                                                 iconVariant="soft"
-                                                title="Metadata"
+                                                title={t('bolt.user.metadata')}
                                             />
                                         ),
                                         children: (
@@ -362,21 +324,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                         }}
                         spacing="xs"
                     >
-                        <Paper
-                            p="xs"
-                            radius="md"
-                            style={{
-                                background:
-                                    node.usersOnline! > 0
-                                        ? 'rgba(45, 212, 191, 0.08)'
-                                        : 'rgba(107, 114, 128, 0.08)',
-                                border: `1px solid ${
-                                    node.usersOnline! > 0
-                                        ? 'rgba(45, 212, 191, 0.2)'
-                                        : 'rgba(107, 114, 128, 0.2)'
-                                }`
-                            }}
-                        >
+                        <Paper p="xs" radius="md">
                             <Group gap="xs" justify="center">
                                 <PiUsersDuotone
                                     color={
@@ -397,14 +345,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                         </Paper>
 
                         {node.versions && (
-                            <Paper
-                                p="xs"
-                                radius="md"
-                                style={{
-                                    background: 'rgba(139, 92, 246, 0.08)',
-                                    border: '1px solid rgba(139, 92, 246, 0.2)'
-                                }}
-                            >
+                            <Paper p="xs" radius="md">
                                 <Tooltip label={t('node-details-card.widget.xray-core-version')}>
                                     <Group gap="xs" justify="center">
                                         <XrayLogo color="var(--mantine-color-violet-5)" size={16} />
@@ -417,15 +358,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                         )}
 
                         {node.xrayUptime !== 0 && (
-                            <Paper
-                                hiddenFrom="sm"
-                                p="xs"
-                                radius="md"
-                                style={{
-                                    background: 'rgba(20, 184, 166, 0.08)', // teal-500 at 8%
-                                    border: '1px solid rgba(20, 184, 166, 0.2)' // teal-500 at 20%
-                                }}
-                            >
+                            <Paper hiddenFrom="sm" p="xs" radius="md">
                                 <Tooltip
                                     label={t(
                                         'node-stats.card.represents-the-uptime-of-the-xray-core'
@@ -447,14 +380,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                         )}
 
                         {node.versions && (
-                            <Paper
-                                p="xs"
-                                radius="md"
-                                style={{
-                                    background: 'rgba(99, 102, 241, 0.08)',
-                                    border: '1px solid rgba(99, 102, 241, 0.2)'
-                                }}
-                            >
+                            <Paper p="xs" radius="md">
                                 <Tooltip
                                     label={t('node-details-card.widget.remnawave-node-version')}
                                 >

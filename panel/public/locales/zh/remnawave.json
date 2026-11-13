@@ -2179,7 +2179,8 @@
       "confirm-delete": "Delete?",
       "nothing-to-show": "Nothing to show",
       "scopes-pasted": "Scopes pasted",
-      "scopes-invalid": "Invalid scopes"
+      "scopes-invalid": "Invalid scopes",
+      "unknown-country": "Unknown"
     }
   }
 }

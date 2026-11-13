@@ -30,7 +30,7 @@ import {
 
 import { useGetNodePlugins, useGetNodesTags } from '@shared/api/hooks'
 import { CopyableFieldShared } from '@shared/ui/copyable-field/copyable-field'
-import { COUNTRIES } from '@shared/ui/forms/nodes/base-node-form/constants'
+import { getCountryOptions } from '@shared/ui/forms/nodes/base-node-form/constants'
 import { SelectInfraProviderShared } from '@shared/ui/infra-billing/select-infra-provider/select-infra-provider.shared'
 import { TagInputPill } from '@shared/ui/tag-input-pill'
 
@@ -45,7 +45,7 @@ interface IProps {
 }
 
 export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IProps) => {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     const { data: nodePlugins } = useGetNodePlugins()
     const { data: nodesTags } = useGetNodesTags()
@@ -120,7 +120,7 @@ export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IPr
                         key={form.key('countryCode')}
                         label={t('base-node-form.country')}
                         {...form.getInputProps('countryCode')}
-                        data={COUNTRIES}
+                        data={getCountryOptions(i18n.language, t('bolt.text.unknown-country'))}
                         leftSection={<TbMapPin size={16} />}
                         placeholder={t('base-node-form.select-country')}
                         searchable

@@ -2210,7 +2210,8 @@
       "confirm-delete": "Удалить?",
       "nothing-to-show": "Показывать нечего",
       "scopes-pasted": "Права вставлены",
-      "scopes-invalid": "Права не распознаны"
+      "scopes-invalid": "Права не распознаны",
+      "unknown-country": "Неизвестно"
     }
   }
 }

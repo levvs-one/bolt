@@ -33,7 +33,7 @@ import {
     useGetNodesTags
 } from '@shared/api/hooks'
 import { queryClient } from '@shared/api/query-client'
-import { COUNTRIES } from '@shared/ui/forms/nodes/base-node-form/constants'
+import { getCountryOptions } from '@shared/ui/forms/nodes/base-node-form/constants'
 import integrationsClasses from '@shared/ui/forms/nodes/base-node-form/integrations-select.module.css'
 import { SelectInfraProviderShared } from '@shared/ui/infra-billing/select-infra-provider/select-infra-provider.shared'
 import { LoaderModalShared } from '@shared/ui/loader-modal'
@@ -51,7 +51,7 @@ interface IProps {
 
 export const BulkUpdateNodesModalContent = (props: IProps) => {
     const { selectedRecords, setSelectedRecords } = props
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     const isNodeIntegrationsEnabled = useExperimentalFeature('nodeIntegrations')
 
@@ -122,7 +122,7 @@ export const BulkUpdateNodesModalContent = (props: IProps) => {
                             key={form.key('fields.countryCode')}
                             label={t('base-node-form.country')}
                             {...form.getInputProps('fields.countryCode')}
-                            data={COUNTRIES}
+                            data={getCountryOptions(i18n.language, t('bolt.text.unknown-country'))}
                             leftSection={<TbMapPin size={16} />}
                             placeholder={t('base-node-form.select-country')}
                             searchable

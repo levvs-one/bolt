@@ -29,8 +29,6 @@
 .tokenColLabel {
     font-size: 11px;
     font-family: var(--mantine-font-family-monospace);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
     color: var(--bolt-text);
 }
 
@@ -119,7 +117,6 @@
     flex: none;
     width: 60px;
     font-size: 9.5px;
-    letter-spacing: 0.04em;
 }
 
 .endpointPath {

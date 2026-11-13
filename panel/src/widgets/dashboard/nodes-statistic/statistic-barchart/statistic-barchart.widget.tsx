@@ -45,9 +45,7 @@ export const NodesStatisticBarchartWidget = (props: IProps) => {
                     <Stack align="center" gap={8}>
                         <PiEmpty size="2rem" />
                         <Text c="dimmed">
-                            {t(
-                                'common.message.no-data-available-for-the-selected-period'
-                            )}
+                            {t('common.message.no-data-available-for-the-selected-period')}
                         </Text>
                     </Stack>
                 </Center>

@@ -14,19 +14,7 @@ import { CountryFlag } from '@shared/ui/get-country-flag'
 import { TopLeaderboardCardShared } from '@shared/ui/leaderboard-item-card'
 import { getDefaultDateRange } from '@shared/utils/time-utils'
 
-const TOP_NODES_LIMIT_OPTIONS = [
-    { value: '5', label: 'Top 5' },
-    { value: '10', label: 'Top 10' },
-    { value: '20', label: 'Top 20' },
-    { value: '30', label: 'Top 30' },
-    { value: '40', label: 'Top 40' },
-    { value: '50', label: 'Top 50' },
-    { value: '60', label: 'Top 60' },
-    { value: '70', label: 'Top 70' },
-    { value: '80', label: 'Top 80' },
-    { value: '90', label: 'Top 90' },
-    { value: '100', label: 'Top 100' }
-]
+const TOP_NODES_LIMIT_OPTIONS = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 const DEFAULT_TOP_NODES_LIMIT = 20
 
@@ -86,7 +74,10 @@ export const StatisticNodesPage = () => {
                     <>
                         <Select
                             allowDeselect={false}
-                            data={TOP_NODES_LIMIT_OPTIONS}
+                            data={TOP_NODES_LIMIT_OPTIONS.map((count) => ({
+                                value: String(count),
+                                label: t('bolt.text.top', { count })
+                            }))}
                             leftSection={<TbServer2 size="20px" />}
                             onChange={(value) => setTopNodesLimit(Number(value))}
                             size="md"

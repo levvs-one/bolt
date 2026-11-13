@@ -1,5 +1,5 @@
 import { Sparkline } from '@mantine/charts'
-import { Box, Card, SimpleGrid, Skeleton, Stack, Text } from '@mantine/core'
+import { Box, Card, Group, Skeleton, Stack, Text } from '@mantine/core'
 import { useTranslation } from 'react-i18next'
 
 import { prettifyBytesUtil } from '@shared/utils/bytes'
@@ -28,46 +28,28 @@ export const NodesStatisticSparklineCardWidget = (props: IProps) => {
 
     return (
         <Card p="md" withBorder>
-            <Stack gap="md">
-                <Box>
-                    <Text c="dimmed" fw={500} mb={4} size="xs" tt="uppercase">
-                        {t('statistic-nodes.component.total-traffic')}
-                    </Text>
-                    {isLoading ? (
-                        <Skeleton height={28} width={140} />
-                    ) : (
-                        <Text fw={700} style={{ fontSize: '2rem', lineHeight: 1 }}>
-                            {prettifyBytesUtil(totalUsage) || '0 GiB'}
-                        </Text>
-                    )}
-                </Box>
-
-                <SimpleGrid cols={2} spacing="sm">
-                    <Box>
-                        <Text c="dimmed" size="xs">
-                            Ø / day
+            <Stack gap="sm">
+                {[
+                    {
+                        label: t('statistic-nodes.component.total-traffic'),
+                        value: totalUsage
+                    },
+                    { label: t('bolt.text.per-day'), value: dailyAverage },
+                    { label: t('statistic-sparkline-card.widget.peak'), value: peakDay }
+                ].map((row) => (
+                    <Group gap="sm" justify="space-between" key={row.label} wrap="nowrap">
+                        <Text fw={600} size="md" truncate>
+                            {row.label}
                         </Text>
                         {isLoading ? (
-                            <Skeleton height={20} mt={4} width={80} />
+                            <Skeleton height={20} width={80} />
                         ) : (
-                            <Text fw={600} size="sm">
-                                {prettifyBytesUtil(dailyAverage) || '0 GiB'}
+                            <Text fw={700} size="md" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                                {prettifyBytesUtil(row.value) || '0 GiB'}
                             </Text>
                         )}
-                    </Box>
-                    <Box>
-                        <Text c="dimmed" size="xs">
-                            {t('statistic-sparkline-card.widget.peak')}
-                        </Text>
-                        {isLoading ? (
-                            <Skeleton height={20} mt={4} width={80} />
-                        ) : (
-                            <Text fw={600} size="sm">
-                                {prettifyBytesUtil(peakDay) || '0 GiB'}
-                            </Text>
-                        )}
-                    </Box>
-                </SimpleGrid>
+                    </Group>
+                ))}
 
                 <Box style={{ flex: 1 }}>
                     {isLoading ? (

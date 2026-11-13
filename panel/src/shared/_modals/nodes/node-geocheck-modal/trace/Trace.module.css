@@ -102,9 +102,7 @@
     color: var(--mantine-color-dimmed);
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: 1px;
     line-height: 1;
-    text-transform: uppercase;
 }
 
 .segment {

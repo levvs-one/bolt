@@ -31,6 +31,7 @@ import { TorrentBlockerReportsPageConnector } from '@pages/dashboard/torrent-blo
 import { UsersPageConnector } from '@pages/dashboard/users/ui/connectors'
 import { NotFoundPageComponent } from '@pages/errors/4xx-error'
 import { ErrorPageComponent } from '@pages/errors/5xx-error'
+import { SUBSCRIPTION_TEMPLATE_TYPE } from '@remnawave/backend-contract'
 import {
     createBrowserRouter,
     createRoutesFromElements,
@@ -164,6 +165,18 @@ const router = createBrowserRouter(
                     </Route>
 
                     <Route path={ROUTES.DASHBOARD.TEMPLATES.ROOT}>
+                        <Route
+                            element={
+                                <Navigate
+                                    replace
+                                    to={ROUTES.DASHBOARD.TEMPLATES.TEMPLATES_BY_TYPE.replace(
+                                        ':type',
+                                        SUBSCRIPTION_TEMPLATE_TYPE.XRAY_JSON
+                                    )}
+                                />
+                            }
+                            index
+                        />
                         <Route
                             element={<TemplateBasePageConnector />}
                             path={ROUTES.DASHBOARD.TEMPLATES.TEMPLATES_BY_TYPE}

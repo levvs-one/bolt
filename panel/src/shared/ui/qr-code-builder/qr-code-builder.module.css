@@ -8,8 +8,6 @@
 .controlLabel {
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
     color: var(--bolt-text);
     margin-bottom: 8px;
 }

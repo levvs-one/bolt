@@ -2211,7 +2211,9 @@
       "nothing-to-show": "Показывать нечего",
       "scopes-pasted": "Права вставлены",
       "scopes-invalid": "Права не распознаны",
-      "unknown-country": "Неизвестно"
+      "unknown-country": "Неизвестно",
+      "per-day": "В среднем за день",
+      "top": "Топ {{count}}"
     }
   }
 }

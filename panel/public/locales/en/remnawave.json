@@ -2211,7 +2211,9 @@
       "nothing-to-show": "Nothing to show",
       "scopes-pasted": "Scopes pasted",
       "scopes-invalid": "Invalid scopes",
-      "unknown-country": "Unknown"
+      "unknown-country": "Unknown",
+      "per-day": "Daily average",
+      "top": "Top {{count}}"
     }
   }
 }

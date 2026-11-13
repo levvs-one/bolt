@@ -26,7 +26,7 @@ export const NodeStatusSimplfiedBadgeWidget = memo(
             )
             color = 'var(--mantine-color-yellow-3)'
         } else if (isDisabled) {
-            icon = <PiProhibitDuotone size={18} style={{ color: 'var(--mantine-color-gray-6)' }} />
+            icon = <PiProhibitDuotone size={18} style={{ color: 'var(--bolt-text)' }} />
             color = 'gray'
         } else {
             icon = <PiWarningCircle size={18} style={{ color: 'var(--mantine-color-red-3)' }} />

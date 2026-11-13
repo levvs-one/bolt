@@ -30,7 +30,7 @@
 
 .trafficLight svg {
     opacity: 0;
-    color: var(--mantine-color-dark-9);
+    color: var(--bolt-text);
     transition: opacity 200ms ease;
 }
 
@@ -321,7 +321,7 @@
     width: 18px;
     height: 18px;
     cursor: nwse-resize;
-    color: var(--mantine-color-dark-2);
+    color: var(--bolt-text);
 }
 
 .resizeHandle::after {

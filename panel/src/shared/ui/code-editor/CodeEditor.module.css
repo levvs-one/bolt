@@ -24,11 +24,11 @@
 }
 
 .pathSeparator {
-    color: var(--mantine-color-dark-2);
+    color: var(--bolt-text);
 }
 
 .pathSegmentActive {
-    color: var(--mantine-color-gray-4);
+    color: var(--bolt-text);
 }
 
 @keyframes statusBarIn {

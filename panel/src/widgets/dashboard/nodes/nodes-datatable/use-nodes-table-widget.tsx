@@ -162,7 +162,7 @@ export function getNodesTableColumns(
                             {option.value === 'disabled' && (
                                 <PiProhibitDuotone
                                     size={16}
-                                    style={{ color: 'var(--mantine-color-gray-6)' }}
+                                    style={{ color: 'var(--bolt-text)' }}
                                 />
                             )}
                             {option.value === 'disconnected' && (

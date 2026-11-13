@@ -27,5 +27,5 @@
 
 .affordance {
     flex-shrink: 0;
-    color: var(--mantine-color-dark-2);
+    color: var(--bolt-text);
 }

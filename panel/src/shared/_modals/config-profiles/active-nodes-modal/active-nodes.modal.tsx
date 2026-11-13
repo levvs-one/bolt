@@ -109,7 +109,7 @@ export const ActiveNodesModal = NiceModal.create((props: IProps) => {
                             <PiCpu
                                 size={48}
                                 style={{
-                                    color: 'var(--mantine-color-gray-5)'
+                                    color: 'var(--bolt-text)'
                                 }}
                             />
                             <Text c="dimmed" size="sm" ta="center">

@@ -35,9 +35,7 @@ export const NodeStatusBadgeWidget = memo(
                 color = 'var(--mantine-color-yellow-3)'
                 status = t('node-status-badge.widget.connecting')
             } else if (nodeData.isDisabled) {
-                icon = (
-                    <PiProhibitDuotone size={18} style={{ color: 'var(--mantine-color-gray-6)' }} />
-                )
+                icon = <PiProhibitDuotone size={18} style={{ color: 'var(--bolt-text)' }} />
                 color = 'gray'
                 status = t('node-status-badge.widget.disabled')
             } else {

@@ -6,19 +6,19 @@ import { isRestApi, isScheduler } from '@common/utils/startup-app';
 import { AdminModule } from './admin/admin.module';
 import { ApiTokensModule } from './api-tokens/api-tokens.module';
 import { AuthModule } from './auth/auth.module';
+import { BoltModule } from './bolt/bolt.module';
 import { ConfigProfileModule } from './config-profiles/config-profile.module';
 import { ConnectionsModule } from './connections/connections.module';
-import { NodeSshModule } from './node-ssh/node-ssh.module';
 import { ExternalSquadModule } from './external-squads/external-squads.module';
 import { HostsModule } from './hosts/hosts.module';
 import { HwidUserDevicesModule } from './hwid-user-devices/hwid-user-devices.module';
 import { InfraBillingModule } from './infra-billing/infra-billing.module';
 import { InternalSquadModule } from './internal-squads/internal-squad.module';
-import { BoltModule } from './bolt/bolt.module';
 import { KeygenModule } from './keygen/keygen.module';
 import { MetadataModule } from './metadata/metadata.module';
 import { NodeIntegrationModule } from './node-integrations';
 import { NodePluginModule } from './node-plugins';
+import { NodeSshModule } from './node-ssh/node-ssh.module';
 import { NodesUsageHistoryModule } from './nodes-usage-history/nodes-usage-history.module';
 import { NodesUserUsageHistoryModule } from './nodes-user-usage-history/nodes-user-usage-history.module';
 import { NodesModule } from './nodes/nodes.module';
@@ -29,6 +29,7 @@ import { SubscriptionResponseRulesModule } from './subscription-response-rules/s
 import { SubscriptionSettingsModule } from './subscription-settings/subscription-settings.module';
 import { SubscriptionTemplateModule } from './subscription-template/subscription-template.module';
 import { SubscriptionModule } from './subscription/subscription.module';
+import { SumiModule } from './sumi/sumi.module';
 import { SystemModule } from './system/system.module';
 import { UserSubscriptionRequestHistoryModule } from './user-subscription-request-history/user-subscription-request-history.module';
 import { UsersModule } from './users/users.module';
@@ -47,6 +48,7 @@ import { UsersModule } from './users/users.module';
         InternalSquadModule,
         ExternalSquadModule,
         BoltModule,
+        SumiModule,
         KeygenModule,
         NodesModule,
         NodePluginModule,

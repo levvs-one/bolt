@@ -129,6 +129,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                         href: ROUTES.DASHBOARD.MANAGEMENT.QUICK_SETUP,
                         icon: TbBolt,
                         id: 'quick-setup'
+                    },
+                    {
+                        name: t('bolt.sumi.title'),
+                        href: ROUTES.DASHBOARD.MANAGEMENT.SUMI,
+                        icon: TbSettings,
+                        id: 'sumi'
                     }
                 ]
             },

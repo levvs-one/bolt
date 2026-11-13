@@ -34,6 +34,7 @@ import { compactBytesUtil } from '@shared/utils/bytes'
 import { getTimeAgoUtil } from '@shared/utils/time-utils'
 
 import classes from './user-identification-card.module.css'
+import { UserSumiGroup } from './user-sumi-group'
 
 interface IProps {
     cardVariants: Variants
@@ -55,7 +56,9 @@ export const UserIdentificationCard = memo((props: IProps) => {
     const usedBytes = user.userTraffic.usedTrafficBytes
     const limitBytes = user.trafficLimitBytes
     const isUnlimitedTraffic = limitBytes === 0
-    const percentage = isUnlimitedTraffic ? 0 : Math.min(PERCENT, (usedBytes * PERCENT) / limitBytes)
+    const percentage = isUnlimitedTraffic
+        ? 0
+        : Math.min(PERCENT, (usedBytes * PERCENT) / limitBytes)
 
     const expireAt = dayjs(user.expireAt).locale(i18n.language)
     const onlineAt = user.userTraffic.onlineAt
@@ -112,6 +115,8 @@ export const UserIdentificationCard = memo((props: IProps) => {
                         />
                     )}
                 </BoltGroup>
+
+                <UserSumiGroup userId={user.id} />
 
                 <BoltGroup>
                     <BoltRow
@@ -191,7 +196,9 @@ export const UserIdentificationCard = memo((props: IProps) => {
                     <BoltRow
                         icon={TbRadar}
                         label={t('common.field.active-sessions')}
-                        onClick={() => showModal('users_userActiveSessionDrawer', { userId: user.id })}
+                        onClick={() =>
+                            showModal('users_userActiveSessionDrawer', { userId: user.id })
+                        }
                     />
                     <BoltRow
                         icon={TbWifi}
@@ -222,10 +229,16 @@ export const UserIdentificationCard = memo((props: IProps) => {
                     <BoltRow
                         icon={TbUserCircle}
                         label={t('view-user-modal.widget.detailed-info')}
-                        onClick={() => showModal('users_detailedUserInfoDrawer', { userId: user.id })}
+                        onClick={() =>
+                            showModal('users_detailedUserInfoDrawer', { userId: user.id })
+                        }
                     />
                     {metadata && (
-                        <BoltRow icon={TbBraces} label={t('bolt.user.metadata')} onClick={openMetadata} />
+                        <BoltRow
+                            icon={TbBraces}
+                            label={t('bolt.user.metadata')}
+                            onClick={openMetadata}
+                        />
                     )}
                 </BoltGroup>
             </Stack>

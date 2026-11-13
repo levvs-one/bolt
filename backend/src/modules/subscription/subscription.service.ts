@@ -13,7 +13,7 @@ import { hasContent } from '@common/utils/convert-type';
 import { HwidHeaders } from '@common/utils/extract-hwid-headers';
 import { TemplateEngine } from '@common/utils/templates/replace-templates-values';
 import { ERRORS, EVENTS, TSubscriptionTemplateType, USERS_STATUS } from '@libs/contracts/constants';
-import { THwidSettings } from '@libs/contracts/models';
+import { THwidSettings, TSumiBrand } from '@libs/contracts/models';
 
 import { UserHwidDeviceEvent } from '@integration-modules/notifications/interfaces';
 
@@ -32,6 +32,8 @@ import { XrayGeneratorService } from '@modules/subscription-template/generators/
 import { RenderTemplatesService } from '@modules/subscription-template/render-templates.service';
 import { ResolvedProxyConfig } from '@modules/subscription-template/resolve-proxy/interfaces';
 import { ResolveProxyConfigService } from '@modules/subscription-template/resolve-proxy/resolve-proxy-config.service';
+import { SumiSettingsService } from '@modules/sumi/sumi-settings.service';
+import { IUserSumi, SumiUsersRepository } from '@modules/sumi/sumi-users.repository';
 import { UserEntity } from '@modules/users/entities/user.entity';
 import { GetFullUserResponseModel } from '@modules/users/models';
 import { GetUserByUniqueFieldQuery } from '@modules/users/queries/get-user-by-unique-field';
@@ -73,6 +75,8 @@ export class SubscriptionService {
         private readonly xrayGeneratorService: XrayGeneratorService,
         private readonly usersQueuesService: UsersQueuesService,
         private readonly srrMatcher: ResponseRulesMatcherService,
+        private readonly sumiUsers: SumiUsersRepository,
+        private readonly sumiSettings: SumiSettingsService,
     ) {
         this.subPublicDomain = this.configService.getOrThrow('SUB_PUBLIC_DOMAIN');
     }
@@ -116,6 +120,14 @@ export class SubscriptionService {
             if (!user.isOk) {
                 return new SubscriptionNotFoundResponse();
             }
+
+            const sumi = {
+                record: await this.sumiUsers.find(user.response.id),
+                brand: SumiSettingsService.brandOf(
+                    await this.sumiSettings.get(),
+                    user.response.username,
+                ),
+            };
 
             if (!srrContext.overrideTemplateName) {
                 if (user.response.externalSquadUuid) {
@@ -162,7 +174,12 @@ export class SubscriptionService {
                     });
 
                 return new SubscriptionWithConfigResponse({
-                    headers: this.getUserProfileHeadersInfo(user.response, subscriptionSettings),
+                    headers: this.getUserProfileHeadersInfo(
+                        user.response,
+                        subscriptionSettings,
+                        false,
+                        sumi,
+                    ),
                     body: subscription,
                     contentType: contentType,
                 });
@@ -190,6 +207,8 @@ export class SubscriptionService {
                         headers: this.getUserProfileHeadersInfo(
                             user.response,
                             subscriptionSettings,
+                            false,
+                            sumi,
                         ),
                         body: '',
                         contentType: 'text/plain',
@@ -277,12 +296,16 @@ export class SubscriptionService {
                 matchedResponseType: srrContext.matchedResponseType,
             });
 
+            // Персональная подписка: одна страна — один вход. У SUMI профиль ноды — это
+            // страна, а первым в ней стоит основной вход.
+            const userHosts = sumi.record?.personal
+                ? _.uniqBy(hosts.response, (host) => host.configProfileUuid ?? host.uuid)
+                : hosts.response;
+
             const subscription = await this.renderTemplatesService.generateSubscription({
                 srrContext,
                 user: user.response,
-                hosts: subscriptionSettings.randomizeHosts
-                    ? _.shuffle(hosts.response)
-                    : hosts.response,
+                hosts: subscriptionSettings.randomizeHosts ? _.shuffle(userHosts) : userHosts,
                 hostsOverrides,
             });
 
@@ -291,6 +314,7 @@ export class SubscriptionService {
                     user.response,
                     subscriptionSettings,
                     hwidCheckup !== null && !hwidCheckup.limitBypassed,
+                    sumi,
                 ),
                 body: subscription.subscription,
                 contentType: subscription.contentType,
@@ -615,10 +639,22 @@ export class SubscriptionService {
         user: UserEntity,
         settings: SubscriptionSettingsEntity,
         hwidLimit: boolean = false,
+        sumi: { record: IUserSumi | null; brand: TSumiBrand | null } | null = null,
     ): ISubscriptionHeaders {
+        const userInfo = getSubscriptionUserInfo(user);
+        const record = sumi?.record ?? null;
+        if (record) {
+            // Обычные страны безлимитные: полоска в приложении показывает квоту
+            // «Мобильной связи», ровно ту, что и ограничивается. Сверх ста процентов
+            // полоска рисуется плохо, поэтому потребление обрезано по квоте.
+            const limit = Number(record.meteredLimitBytes);
+            userInfo.download = Math.min(Number(record.meteredUsedBytes), limit);
+            userInfo.total = limit;
+        }
+
         const headers: ISubscriptionHeaders = {
             'content-disposition': `attachment; filename=${user.username}`,
-            'subscription-userinfo': Object.entries(getSubscriptionUserInfo(user))
+            'subscription-userinfo': Object.entries(userInfo)
                 .map(([key, val]) => `${key}=${val}`)
                 .join('; '),
         };
@@ -642,6 +678,21 @@ export class SubscriptionService {
             for (const [key, value] of Object.entries(settings.customResponseHeaders)) {
                 headers[key] = TemplateEngine.replace(value, userValueMap);
             }
+        }
+
+        // Своё название человека сильнее названия бренда, а то — общих заголовков.
+        // Отключённому — строка бренда о продлении вместо обычной.
+        const brand = sumi?.brand ?? null;
+        const title = record?.title || brand?.title;
+        const announce =
+            user.status === USERS_STATUS.ACTIVE
+                ? record?.announce || brand?.announce
+                : brand?.blockedAnnounce;
+        if (title) {
+            headers['profile-title'] = `base64:${Buffer.from(title).toString('base64')}`;
+        }
+        if (announce) {
+            headers.announce = `base64:${Buffer.from(announce).toString('base64')}`;
         }
 
         return headers;
@@ -763,11 +814,12 @@ export class SubscriptionService {
             }
 
             if (hwidHeaders === null) {
+                const { allowWithoutDeviceId } = await this.sumiSettings.get();
                 return ok({
-                    subscriptionAllowed: false,
+                    subscriptionAllowed: allowWithoutDeviceId,
                     maxDeviceReached: false,
-                    hwidNotSupported: true,
-                    limitBypassed: false,
+                    hwidNotSupported: !allowWithoutDeviceId,
+                    limitBypassed: allowWithoutDeviceId,
                 });
             }
 

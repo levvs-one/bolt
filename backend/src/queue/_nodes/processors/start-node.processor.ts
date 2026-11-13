@@ -195,6 +195,7 @@ export class StartNodeProcessor extends WorkerHost {
                 new GetPreparedConfigWithUsersQuery(
                     node.activeConfigProfileUuid,
                     node.activeInbounds,
+                    node.uuid,
                 ),
             );
 

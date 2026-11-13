@@ -103,7 +103,7 @@ export const CONTROLLERS_INFO = {
     },
     BOLT: {
         tag: 'Bolt Controller',
-        description: 'Bolt tools: Reality key generation for config profile presets.',
+        description: 'Bolt tools: Reality keys, SUMI settings and the bot API.',
         resource: 'bolt',
     },
     KEYGEN: {

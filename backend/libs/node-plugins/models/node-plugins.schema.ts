@@ -74,8 +74,32 @@ const AsListSchema = z
         markdownDescription: `Shared list of autonomous system numbers.${DOCS_LINK}`,
     });
 
+/**
+ * Правила доменов Xray для шаблонов подписки: реклама, сайты РФ напрямую.
+ * Только то, что есть в любой сборке клиента: `geosite:` и `geoip:` зависят от
+ * базы внутри приложения, и один неизвестный код роняет весь конфиг.
+ */
+const DomainListSchema = z
+    .object({
+        type: z.literal('domainList').meta({
+            title: 'Domain List',
+            markdownDescription: 'Xray domain rules for subscription templates.',
+        }),
+        items: z.array(z.string().regex(/^((domain|full|keyword):)?[a-z0-9.*_-]+$/i)).meta({
+            title: 'Domain rules',
+            markdownDescription: [
+                'Rules with a `domain:`, `full:` or `keyword:` prefix, or a plain substring.',
+                'Reference the list from a subscription template as **ext:list_name** inside a `domain` array.',
+            ].join('\n\n'),
+        }),
+    })
+    .meta({
+        title: 'Domain List',
+        markdownDescription: 'Shared list of Xray domain rules.',
+    });
+
 export const SharedListConfigSchema = z
-    .discriminatedUnion('type', [IpListSchema, AsListSchema])
+    .discriminatedUnion('type', [IpListSchema, AsListSchema, DomainListSchema])
     .meta({
         title: 'Shared List',
         markdownDescription: `Shared list body. Pick **ipList** for IP addresses and CIDR ranges, or **asList** for autonomous system numbers.${DOCS_LINK}`,
@@ -84,6 +108,7 @@ export const SharedListConfigSchema = z
 export const SharedListSchema = z.discriminatedUnion('type', [
     IpListSchema.extend({ name: z.string().startsWith('ext:') }),
     AsListSchema.extend({ name: z.string().startsWith('ext:') }),
+    DomainListSchema.extend({ name: z.string().startsWith('ext:') }),
 ]);
 
 export const TorrentBlockerPluginSchema = z.object({

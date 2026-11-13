@@ -12,6 +12,7 @@ import {
 import { getVlessFlowFromDbInbound } from '@common/utils/flow/get-vless-flow';
 
 import { ConfigProfileInboundEntity } from '@modules/config-profiles/entities/config-profile-inbound.entity';
+import { SumiNodeClientsService } from '@modules/sumi/sumi-node-clients.service';
 import { GetUserWithResolvedInboundsQuery } from '@modules/users/queries/get-user-with-resolved-inbounds';
 
 import { NodesQueuesService } from '@queue/_nodes';
@@ -27,6 +28,7 @@ export class AddUserToNodeHandler implements IEventHandler<AddUserToNodeEvent> {
         private readonly nodesRepository: NodesRepository,
         private readonly nodesQueuesService: NodesQueuesService,
         private readonly queryBus: QueryBus,
+        private readonly sumiNodeClients: SumiNodeClientsService,
     ) {}
     async handle(event: AddUserToNodeEvent) {
         try {
@@ -116,7 +118,28 @@ export class AddUserToNodeHandler implements IEventHandler<AddUserToNodeEvent> {
                     data: userData.data.filter((item) => activeTags.has(item.tag)),
                 };
 
+                const connection = {
+                    address: node.address,
+                    port: node.port,
+                    proxyUrl: node.proxyUrl,
+                };
+                const nodeInbounds = inbounds.filter((inbound) => activeTags.has(inbound.tag));
+
                 if (filteredData.data.length === 0) {
+                    const sumiRemoval = await this.sumiNodeClients.removalClients(
+                        [{ id, vlessUuid: event.prevVlessUuid || vlessUuid }],
+                        node.activeInbounds
+                            .filter((inbound) => inbound.type === 'vless')
+                            .map((inbound) => inbound.tag),
+                        await this.sumiNodeClients.nodeContext(node.uuid),
+                    );
+                    if (sumiRemoval.length > 0) {
+                        await this.nodesQueuesService.removeUsersFromNode({
+                            data: { users: sumiRemoval },
+                            node: connection,
+                        });
+                    }
+
                     await this.nodesQueuesService.removeUserFromNode({
                         data: {
                             username: id.toString(),
@@ -136,12 +159,26 @@ export class AddUserToNodeHandler implements IEventHandler<AddUserToNodeEvent> {
 
                 await this.nodesQueuesService.addUserToNode({
                     data: filteredData,
-                    node: {
-                        address: node.address,
-                        port: node.port,
-                        proxyUrl: node.proxyUrl,
-                    },
+                    node: connection,
                 });
+
+                const sumi = await this.sumiNodeClients.nodePlan(
+                    node.uuid,
+                    [{ id, inbounds: nodeInbounds }],
+                    node.activeInbounds,
+                );
+                if (sumi.add.length > 0) {
+                    await this.nodesQueuesService.addUsersToNode({
+                        data: { affectedInboundTags: sumi.affectedTags, users: sumi.add },
+                        node: connection,
+                    });
+                }
+                if (sumi.remove.length > 0) {
+                    await this.nodesQueuesService.removeUsersFromNode({
+                        data: { users: sumi.remove },
+                        node: connection,
+                    });
+                }
             }
 
             return;

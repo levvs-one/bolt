@@ -19,6 +19,8 @@ export class GetPreparedConfigWithUsersQuery extends Query<
     constructor(
         public readonly configProfileUuid: string,
         public readonly activeInbounds: ConfigProfileInboundEntity[],
+        /** Нода, для которой собирается конфиг: у неё могут быть свои DNS и ключ «Мобильной связи». */
+        public readonly nodeUuid?: string,
     ) {
         super();
     }

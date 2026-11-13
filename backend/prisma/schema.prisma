@@ -43,6 +43,17 @@ model RemnawaveSettings {
   @@map("remnawave_settings")
 }
 
+model BoltSettings {
+  id Int @id @default(1)
+
+  /// [SumiSettings]
+  sumi Json @default("{}") @map("sumi")
+
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("bolt_settings")
+}
+
 model Users {
   id                     BigInt    @id @default(autoincrement()) @map("id")
   shortUuid              String    @unique @map("short_uuid")
@@ -76,6 +87,7 @@ model Users {
   userMetas                      UserMeta[]
   torrentBlockerReports          TorrentBlockerReports[]
   traffic                        UserTraffic?
+  sumi                           UserSumi?
 
   externalSquad ExternalSquads? @relation(fields: [externalSquadUuid], references: [uuid], onDelete: SetNull)
 
@@ -98,6 +110,31 @@ model UserTraffic {
   lastConnectedNode Nodes? @relation(fields: [lastConnectedNodeUuid], references: [uuid], onDelete: SetNull)
 
   @@map("user_traffic")
+}
+
+/// SUMI: ключи по входам, квота «Мобильной связи» и то, что бот показывает
+/// человеку. Нет записи — пользователь работает как в апстриме, с одним ключом.
+model UserSumi {
+  userId BigInt @id @map("user_id")
+
+  credentialSeed String @map("credential_seed") @db.Uuid
+
+  meteredLimitBytes BigInt  @default(0) @map("metered_limit_bytes")
+  meteredUsedBytes  BigInt  @default(0) @map("metered_used_bytes")
+  meteredBlocked    Boolean @default(false) @map("metered_blocked")
+
+  personal   Boolean @default(false) @map("personal")
+  title      String? @map("title") @db.VarChar(32)
+  announce   String? @map("announce") @db.VarChar(120)
+  notice     String? @map("notice") @db.VarChar(64)
+  proxyExtra Int     @default(0) @map("proxy_extra")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_sumi")
 }
 
 model ApiTokens {

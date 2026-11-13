@@ -22,6 +22,6 @@ import { NodesRepository } from './repositories/nodes.repository';
         ...QUERIES,
         ...COMMANDS,
     ],
-    exports: [NodesRepository],
+    exports: [NodesRepository, NodesService],
 })
 export class NodesModule {}

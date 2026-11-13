@@ -6,9 +6,12 @@ import type {
     TRemnawaveInjectorSelector,
 } from '@libs/contracts/models';
 
+import { SumiSettingsService } from '@modules/sumi/sumi-settings.service';
+
 import { applyHostMapper } from '../host-mapper';
 import { ResolvedProxyConfig } from '../resolve-proxy/interfaces';
 import { SubscriptionTemplateService } from '../subscription-template.service';
+import { TemplateListsService } from '../template-lists.service';
 import {
     IGenerateConfigParams,
     Outbound,
@@ -199,7 +202,11 @@ function buildRealitySettings(host: ResolvedProxyConfig): Record<string, unknown
 export class XrayJsonGeneratorService {
     private readonly logger = new Logger(XrayJsonGeneratorService.name);
 
-    constructor(private readonly subscriptionTemplateService: SubscriptionTemplateService) {}
+    constructor(
+        private readonly subscriptionTemplateService: SubscriptionTemplateService,
+        private readonly templateLists: TemplateListsService,
+        private readonly sumiSettings: SumiSettingsService,
+    ) {}
 
     public async generateConfig(params: IGenerateConfigParams): Promise<string> {
         const {
@@ -210,10 +217,13 @@ export class XrayJsonGeneratorService {
         } = params;
 
         try {
-            const templateContent = (await this.subscriptionTemplateService.getCachedTemplateByType(
-                'XRAY_JSON',
-                overrideTemplateName,
+            const templateContent = (await this.templateLists.expand(
+                await this.subscriptionTemplateService.getCachedTemplateByType(
+                    'XRAY_JSON',
+                    overrideTemplateName,
+                ),
             )) as unknown as XrayJsonConfig;
+            const { autoSelectedHost } = await this.sumiSettings.get();
 
             const configs: XrayJsonConfig[] = [];
 
@@ -221,10 +231,11 @@ export class XrayJsonGeneratorService {
                 if (host.metadata.isHidden) continue;
                 if (host.metadata.excludeFromSubscriptionTypes.includes('XRAY_JSON')) continue;
 
-                const baseTemplate = ignoreHostXrayJsonTemplate
-                    ? templateContent
-                    : ((host.clientOverrides.xrayJsonTemplate as XrayJsonConfig) ??
-                      templateContent);
+                const hostTemplate = host.clientOverrides.xrayJsonTemplate as XrayJsonConfig | null;
+                const baseTemplate =
+                    ignoreHostXrayJsonTemplate || !hostTemplate
+                        ? templateContent
+                        : await this.templateLists.expand(hostTemplate);
 
                 if (baseTemplate.remnawave) {
                     const injected = this.applyRemnawaveInjector(
@@ -232,6 +243,7 @@ export class XrayJsonGeneratorService {
                         host,
                         hosts,
                         isExtendedClient,
+                        autoSelectedHost,
                     );
                     if (injected) configs.push(injected);
                     continue;
@@ -386,6 +398,21 @@ export class XrayJsonGeneratorService {
         );
     }
 
+    /**
+     * Хост, выбранный замерами, — первым: первый вставленный выход получает тег
+     * без номера, и шаблон делает его запасным выходом балансера.
+     */
+    private preferFirst(
+        hosts: ResolvedProxyConfig[],
+        preferredHost: string | null,
+    ): ResolvedProxyConfig[] {
+        const index = preferredHost
+            ? hosts.findIndex((h) => h.metadata.uuid === preferredHost)
+            : -1;
+        if (index <= 0) return hosts;
+        return [hosts[index], ...hosts.slice(0, index), ...hosts.slice(index + 1)];
+    }
+
     private parseRegex(pattern: string): RegExp | null {
         try {
             return new RegExp(pattern);
@@ -455,6 +482,7 @@ export class XrayJsonGeneratorService {
         host: ResolvedProxyConfig,
         allHosts: ResolvedProxyConfig[],
         isExtendedClient: boolean,
+        preferredHost: string | null,
     ): XrayJsonConfig | null {
         const { remnawave: injector, ...template } = baseTemplate;
         if (!injector) return null;
@@ -464,7 +492,10 @@ export class XrayJsonGeneratorService {
             ...(injector.addVirtualHostAsOutbound ? [this.buildOutbound(host, 'proxy')] : []),
             ...(injector.injectHosts ?? []).flatMap((entry) => {
                 return this.buildTaggedOutbounds(
-                    this.resolveHosts(entry.selector, entry.selectFrom, host, allHosts),
+                    this.preferFirst(
+                        this.resolveHosts(entry.selector, entry.selectFrom, host, allHosts),
+                        preferredHost,
+                    ),
                     {
                         tagPrefix: entry.tagPrefix,
                         useHostRemarkAsTag: entry.useHostRemarkAsTag,

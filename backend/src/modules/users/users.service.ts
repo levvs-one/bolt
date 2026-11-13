@@ -24,6 +24,8 @@ import { AddUserToNodeEvent } from '@modules/nodes/events/add-user-to-node';
 import { AddUsersToNodeEvent } from '@modules/nodes/events/add-users-to-node';
 import { RemoveUserFromNodeEvent } from '@modules/nodes/events/remove-user-from-node';
 import { RemoveUsersFromNodeEvent } from '@modules/nodes/events/remove-users-from-node';
+import { sharedUuid } from '@modules/sumi/sumi-credentials';
+import { SumiUsersRepository } from '@modules/sumi/sumi-users.repository';
 import { GetUserSubscriptionRequestHistoryQuery } from '@modules/user-subscription-request-history/queries/get-user-subscription-request-history';
 
 import { UsersQueuesService } from '@queue/_users';
@@ -62,6 +64,7 @@ export class UsersService {
         private readonly queryBus: QueryBus,
         private readonly configService: TypedConfigService,
         private readonly usersQueuesService: UsersQueuesService,
+        private readonly sumiUsers: SumiUsersRepository,
     ) {
         this.shortUuidLength = this.configService.getOrThrow('SHORT_UUID_LENGTH');
         this.shortUuidMethod = this.configService.getOrThrow('SHORT_UUID_METHOD');
@@ -316,10 +319,15 @@ export class UsersService {
         try {
             const user = await this.userRepository.getPartialUserByUniqueFields(
                 { id: BigInt(userId) },
-                ['id', 'vlessUuid', 'shortUuid'],
+                ['id', 'vlessUuid', 'shortUuid', 'username'],
             );
 
             if (!user) return fail(ERRORS.USER_NOT_FOUND);
+
+            // У человека SUMI перевыпуск — это и новый корень ключей: старые UUID
+            // входов и «Мобильной связи» перестают открывать ноды вместе со ссылкой.
+            const sumi = await this.sumiUsers.find(user.id);
+            const credentialSeed = sumi ? randomUUID() : null;
 
             let shortUuid = user.shortUuid;
 
@@ -333,13 +341,23 @@ export class UsersService {
                 id: user.id,
                 shortUuid,
                 trojanPassword: this.createPassword(),
-                vlessUuid: this.createUuid(),
+                vlessUuid: credentialSeed
+                    ? sharedUuid(credentialSeed, user.username)
+                    : this.createUuid(),
                 ssPassword: this.createPassword(),
                 subRevokedAt: new Date(),
                 updatedAt: new Date(),
             });
 
             if (!updateResult) return fail(ERRORS.REVOKE_USER_SUBSCRIPTION_ERROR);
+
+            if (credentialSeed) {
+                await this.sumiUsers.update(user.id, { credentialSeed });
+                // Новая ссылка — новый список устройств: набранный по старой уже не про этого человека.
+                if (shortUuid !== user.shortUuid) {
+                    await this.sumiUsers.forgetDevices(user.id);
+                }
+            }
 
             const updatedUser = await this.userRepository.findUniqueByCriteria({ id: user.id });
 

@@ -3,7 +3,7 @@ import ems from 'enhanced-ms';
 
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, EventBus } from '@nestjs/cqrs';
 
 import { GetUsersStatsCommand } from '@remnawave/node-contract';
 
@@ -17,6 +17,10 @@ import {
     INTERNAL_CACHE_KEYS,
     INTERNAL_CACHE_KEYS_TTL,
 } from '@libs/contracts/constants';
+
+import { AddUserToNodeEvent } from '@modules/nodes/events/add-user-to-node';
+import { METERED_SUFFIX, parseClientEmail } from '@modules/sumi/sumi-credentials';
+import { SumiUsersRepository } from '@modules/sumi/sumi-users.repository';
 
 import { UsersQueuesService } from '@queue/_users';
 import { PushFromRedisQueueService } from '@queue/push-from-redis/push-from-redis.service';
@@ -39,6 +43,8 @@ export class RecordUserUsageQueueProcessor extends WorkerHost {
         private readonly usersQueuesService: UsersQueuesService,
         private readonly pushFromRedisQueueService: PushFromRedisQueueService,
         private readonly rawCacheService: RawCacheService,
+        private readonly eventBus: EventBus,
+        private readonly sumiUsers: SumiUsersRepository,
     ) {
         super();
 
@@ -120,27 +126,45 @@ export class RecordUserUsageQueueProcessor extends WorkerHost {
 
             const pipeline = this.rawCacheService.createPipeline();
 
-            response.users.forEach((user) => {
-                try {
-                    BigInt(user.username);
-                } catch {
-                    return;
+            // Один человек на ноде — это общий клиент `<id>` и клиенты SUMI `<id>~вход`,
+            // `<id>~white`. Общая статистика складывает всех; в квоту «Мобильной
+            // связи» идёт только `~white`, остальные страны безлимитные.
+            const totalsByUser = new Map<string, number>();
+            const meteredByUser = new Map<bigint, bigint>();
+
+            for (const user of response.users) {
+                const parsed = parseClientEmail(user.username);
+                if (!parsed) continue;
+
+                const bytes = user.downlink + user.uplink;
+                const id = parsed.userId.toString();
+                totalsByUser.set(id, (totalsByUser.get(id) ?? 0) + bytes);
+
+                if (parsed.suffix === METERED_SUFFIX && bytes > 0) {
+                    meteredByUser.set(
+                        parsed.userId,
+                        (meteredByUser.get(parsed.userId) ?? 0n) + BigInt(bytes),
+                    );
                 }
+            }
 
-                const totalBytes = user.downlink + user.uplink;
+            for (const [id, totalBytes] of totalsByUser) {
+                if (totalBytes < this.ignoreBelowBytes) continue;
 
-                if (totalBytes < this.ignoreBelowBytes) {
-                    return;
-                }
-
-                pipeline.hincrby(nodeRedisKey, user.username, totalBytes);
+                pipeline.hincrby(nodeRedisKey, id, totalBytes);
 
                 userUsageList[userUsageIndex++] = {
-                    u: user.username,
+                    u: id,
                     b: multiplyConsumption(consumptionMultiplier, totalBytes).toString(),
                     n: nodeUuid,
                 };
-            });
+            }
+
+            const meteredSpent = await this.sumiUsers.addMeteredUsage(meteredByUser);
+            for (const userId of meteredSpent) {
+                // Нода получит план заново: без ключа «Мобильной связи», остальные на месте.
+                await this.eventBus.publish(new AddUserToNodeEvent(userId));
+            }
 
             pipeline.expire(nodeRedisKey, INTERNAL_CACHE_KEYS_TTL.NODE_USER_USAGE);
 

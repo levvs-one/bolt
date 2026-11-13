@@ -8,6 +8,7 @@ import { isSS2022Method } from '@common/helpers/xray-config/ss-cipher';
 import { getVlessFlowFromDbInbound } from '@common/utils/flow/get-vless-flow';
 
 import { ConfigProfileInboundEntity } from '@modules/config-profiles/entities';
+import { SumiNodeClientsService } from '@modules/sumi/sumi-node-clients.service';
 import { GetUsersWithResolvedInboundsQuery } from '@modules/users/queries/get-users-with-resolved-inbounds';
 
 import { NodesQueuesService } from '@queue/_nodes';
@@ -23,6 +24,7 @@ export class AddUsersToNodeHandler implements IEventHandler<AddUsersToNodeEvent>
         private readonly nodesRepository: NodesRepository,
         private readonly nodesQueuesService: NodesQueuesService,
         private readonly queryBus: QueryBus,
+        private readonly sumiNodeClients: SumiNodeClientsService,
     ) {}
 
     async handle(event: AddUsersToNodeEvent) {
@@ -52,6 +54,8 @@ export class AddUsersToNodeHandler implements IEventHandler<AddUsersToNodeEvent>
 
                 const usersForNode: AddUsersToNodeCommandSdk.Request['users'] = [];
                 const usersToRemove: Array<{ userId: string; hashUuid: string }> = [];
+                const sumiUsers: { id: bigint; inbounds: ConfigProfileInboundEntity[] }[] = [];
+                const removedFromNode: { id: bigint; vlessUuid: string }[] = [];
 
                 for (const user of usersResult.response) {
                     const { id, trojanPassword, vlessUuid, ssPassword, inbounds } = user;
@@ -62,8 +66,11 @@ export class AddUsersToNodeHandler implements IEventHandler<AddUsersToNodeEvent>
 
                     if (filteredInbounds.length === 0) {
                         usersToRemove.push({ userId: id.toString(), hashUuid: vlessUuid });
+                        removedFromNode.push({ id, vlessUuid });
                         continue;
                     }
+
+                    sumiUsers.push({ id, inbounds: filteredInbounds });
 
                     usersForNode.push({
                         userData: {
@@ -109,6 +116,28 @@ export class AddUsersToNodeHandler implements IEventHandler<AddUsersToNodeEvent>
                             affectedInboundTags,
                             users: usersForNode,
                         },
+                        node: { address: node.address, port: node.port, proxyUrl: node.proxyUrl },
+                    });
+                }
+
+                const sumi = await this.sumiNodeClients.nodePlan(
+                    node.uuid,
+                    sumiUsers,
+                    node.activeInbounds,
+                );
+                usersToRemove.push(
+                    ...sumi.remove,
+                    ...(await this.sumiNodeClients.removalClients(
+                        removedFromNode,
+                        node.activeInbounds
+                            .filter((inbound) => inbound.type === 'vless')
+                            .map((inbound) => inbound.tag),
+                        await this.sumiNodeClients.nodeContext(node.uuid),
+                    )),
+                );
+                if (sumi.add.length > 0) {
+                    await this.nodesQueuesService.addUsersToNode({
+                        data: { affectedInboundTags: sumi.affectedTags, users: sumi.add },
                         node: { address: node.address, port: node.port, proxyUrl: node.proxyUrl },
                     });
                 }

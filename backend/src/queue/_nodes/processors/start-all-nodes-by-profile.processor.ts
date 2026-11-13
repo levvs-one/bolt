@@ -18,6 +18,7 @@ import { GetAllPluginsQuery } from '@modules/node-plugins/queries/get-all-plugin
 import { NodesEntity } from '@modules/nodes';
 import { UpdateNodeCommand } from '@modules/nodes/commands/update-node';
 import { FindNodesByCriteriaQuery } from '@modules/nodes/queries/find-nodes-by-criteria';
+import { SumiSettingsService } from '@modules/sumi/sumi-settings.service';
 import { GetPreparedConfigWithUsersQuery } from '@modules/users/queries/get-prepared-config-with-users/get-prepared-config-with-users.query';
 
 import { NodesQueuesService } from '@queue/_nodes';
@@ -44,6 +45,7 @@ export class StartAllNodesByProfileQueueProcessor extends WorkerHost {
         private readonly queryBus: QueryBus,
         private readonly commandBus: CommandBus,
         private readonly rawCacheService: RawCacheService,
+        private readonly sumiSettings: SumiSettingsService,
     ) {
         super();
         this.CONCURRENCY = 20;
@@ -183,6 +185,21 @@ export class StartAllNodesByProfileQueueProcessor extends WorkerHost {
                     throw new Error('Failed to get config');
                 }
 
+                // Ноде с ключом «Мобильной связи» или своим DNS общий конфиг профиля не подходит.
+                const nodeConfig = (await this.needsOwnConfig(node.uuid))
+                    ? await this.queryBus.execute(
+                          new GetPreparedConfigWithUsersQuery(
+                              payload.profileUuid,
+                              node.activeInbounds,
+                              node.uuid,
+                          ),
+                      )
+                    : config;
+
+                if (!nodeConfig.isOk) {
+                    throw new Error('Failed to get config');
+                }
+
                 const activeNodeInboundsTags = new Set(activeNodeTags.get(node.uuid));
 
                 if (!activeNodeInboundsTags) {
@@ -298,15 +315,15 @@ export class StartAllNodesByProfileQueueProcessor extends WorkerHost {
                     }
                 }
 
-                const filteredInboundsHashes = config.response.hashesPayload.inbounds.filter(
+                const filteredInboundsHashes = nodeConfig.response.hashesPayload.inbounds.filter(
                     (inbound) => activeNodeInboundsTags.has(inbound.tag),
                 );
 
                 const startXrayResponse = await this.axios.startXray(
                     {
                         xrayConfig: {
-                            ...config.response.config,
-                            inbounds: config.response.config.inbounds!.filter(
+                            ...nodeConfig.response.config,
+                            inbounds: nodeConfig.response.config.inbounds!.filter(
                                 (inbound) =>
                                     activeNodeInboundsTags.has(inbound.tag!) ||
                                     this.isUnsecureInbound(inbound.protocol),
@@ -314,7 +331,7 @@ export class StartAllNodesByProfileQueueProcessor extends WorkerHost {
                         } as unknown as Record<string, unknown>,
                         internals: {
                             hashes: {
-                                emptyConfig: config.response.hashesPayload.emptyConfig,
+                                emptyConfig: nodeConfig.response.hashesPayload.emptyConfig,
                                 inbounds: filteredInboundsHashes,
                             },
                             forceRestart: payload.force ?? false,
@@ -404,5 +421,13 @@ export class StartAllNodesByProfileQueueProcessor extends WorkerHost {
 
     private isUnsecureInbound(protocol: string): boolean {
         return ['dokodemo-door', 'http', 'mixed', 'tun', 'tunnel', 'wireguard'].includes(protocol);
+    }
+
+    private async needsOwnConfig(nodeUuid: string): Promise<boolean> {
+        const settings = await this.sumiSettings.get();
+        return (
+            settings.meteredNodes.includes(nodeUuid) ||
+            (settings.nodeDns[nodeUuid]?.length ?? 0) > 0
+        );
     }
 }

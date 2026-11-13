@@ -2,6 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import { THostMapperOperation } from '@libs/contracts/models';
 
+import { SumiSettingsService } from '@modules/sumi/sumi-settings.service';
+
 import { applyHostMapper } from '../host-mapper';
 import { ResolvedProxyConfig } from '../resolve-proxy/interfaces';
 
@@ -44,6 +46,8 @@ interface Hysteria2FinalMask {
 export class XrayGeneratorService {
     private readonly logger = new Logger(XrayGeneratorService.name);
 
+    constructor(private readonly sumiSettings: SumiSettingsService) {}
+
     public async generateConfig(
         hosts: ResolvedProxyConfig[],
         isBase64: boolean,
@@ -51,6 +55,16 @@ export class XrayGeneratorService {
     ): Promise<string> {
         try {
             const links = this.generateLinks(hosts, isExtendedClient);
+            // Маршрутные профили Happ едут строками в теле подписки: Happ предлагает
+            // их в своём списке, остальные клиенты незнакомую схему пропускают.
+            const { routingProfiles } = await this.sumiSettings.get();
+            if (links.length > 0) {
+                for (const profile of routingProfiles) {
+                    links.push(
+                        `happ://routing/add/${Buffer.from(JSON.stringify(profile)).toString('base64')}`,
+                    );
+                }
+            }
             const joined = links.join('\n');
             return isBase64 ? Buffer.from(joined).toString('base64') : joined;
         } catch (error) {

@@ -22,6 +22,7 @@ export const ROUTES = {
             CONFIG_PROFILES: '/dashboard/management/config-profiles',
             CONFIG_PROFILE_BY_UUID: '/dashboard/management/config-profiles/:uuid',
             QUICK_SETUP: '/dashboard/management/quick-setup',
+            SUMI: '/dashboard/management/sumi',
             INTERNAL_SQUADS: '/dashboard/management/internal-squads',
             EXTERNAL_SQUADS: '/dashboard/management/external-squads',
             REMNAWAVE_SETTINGS: '/dashboard/management/settings',

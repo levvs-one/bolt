@@ -9,6 +9,13 @@ import { ERRORS } from '@libs/contracts/constants';
 
 import { GetConfigProfileByUuidQuery } from '@modules/config-profiles/queries/get-config-profile-by-uuid';
 import { GetSnippetsQuery } from '@modules/config-profiles/queries/get-snippets';
+import {
+    buildSumiNodeClients,
+    ISumiNodeContext,
+    SumiNodeClientsService,
+} from '@modules/sumi/sumi-node-clients.service';
+import { SumiSettingsService } from '@modules/sumi/sumi-settings.service';
+import { UserForConfigEntity } from '@modules/users/entities/users-for-config';
 import { UsersRepository } from '@modules/users/repositories/users.repository';
 
 import {
@@ -25,6 +32,8 @@ export class GetPreparedConfigWithUsersHandler implements IQueryHandler<
     constructor(
         private readonly usersRepository: UsersRepository,
         private readonly queryBus: QueryBus,
+        private readonly sumiNodeClients: SumiNodeClientsService,
+        private readonly sumiSettings: SumiSettingsService,
     ) {}
 
     async execute(
@@ -34,7 +43,7 @@ export class GetPreparedConfigWithUsersHandler implements IQueryHandler<
         const inboundsUserSets: Map<string, HashedSet> = new Map();
         const snippetsMap: Map<string, unknown> = new Map();
         try {
-            const { configProfileUuid, activeInbounds } = query;
+            const { configProfileUuid, activeInbounds, nodeUuid } = query;
 
             const configProfile = await this.queryBus.execute(
                 new GetConfigProfileByUuidQuery(configProfileUuid),
@@ -60,6 +69,22 @@ export class GetPreparedConfigWithUsersHandler implements IQueryHandler<
 
             config.replaceSnippets(snippetsMap);
 
+            const sumiSettings = await this.sumiSettings.get();
+            const nodeDns = nodeUuid ? sumiSettings.nodeDns[nodeUuid] : undefined;
+            if (nodeDns && nodeDns.length > 0) {
+                // До хэша пустого конфига: смена DNS ноды должна перезапустить Xray.
+                const raw = config.getConfig() as { dns?: Record<string, unknown> };
+                raw.dns = { ...raw.dns, servers: nodeDns };
+            }
+            const sumiContext: ISumiNodeContext = nodeUuid
+                ? await this.sumiNodeClients.nodeContext(nodeUuid)
+                : { isMetered: false, entryTagPrefix: sumiSettings.entryTagPrefix };
+            const vlessTags = new Set(
+                activeInbounds
+                    .filter((inbound) => inbound.type === 'vless')
+                    .map((inbound) => inbound.tag),
+            );
+
             const configHash = config.getConfigHash();
 
             config.leaveInbounds(activeInboundsTags);
@@ -68,6 +93,13 @@ export class GetPreparedConfigWithUsersHandler implements IQueryHandler<
 
             for await (const userBatch of usersStream) {
                 config.includeUserBatch(userBatch, inboundsUserSets);
+                await this.includeSumiClients(
+                    config,
+                    userBatch,
+                    vlessTags,
+                    sumiContext,
+                    inboundsUserSets,
+                );
             }
 
             for (const [tag, set] of inboundsUserSets) {
@@ -94,6 +126,32 @@ export class GetPreparedConfigWithUsersHandler implements IQueryHandler<
                 set.clear();
             }
             inboundsUserSets.clear();
+        }
+    }
+
+    private async includeSumiClients(
+        config: XRayConfig,
+        users: UserForConfigEntity[],
+        vlessTags: Set<string>,
+        context: ISumiNodeContext,
+        inboundsUserSets: Map<string, HashedSet>,
+    ): Promise<void> {
+        const credentials = await this.sumiNodeClients.credentials(users.map((user) => user.id));
+        if (credentials.size === 0) return;
+
+        for (const user of users) {
+            const known = credentials.get(user.id);
+            if (!known) continue;
+
+            const tags = user.tags.filter((tag) => vlessTags.has(tag));
+            config.addVlessClients(
+                buildSumiNodeClients(known, tags, context).map((client) => ({
+                    email: client.userId,
+                    id: client.uuid,
+                    tags: client.tags,
+                })),
+                inboundsUserSets,
+            );
         }
     }
 }

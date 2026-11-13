@@ -1,7 +1,6 @@
 import { LoginPage } from '@pages/auth/login'
 import { Oauth2CallbackPage } from '@pages/auth/oauth2-callback/oauth2-callback.page'
 import { ConfigProfilesPageConnector } from '@pages/dashboard/config-profiles/connectors'
-import { QuickSetupPage } from '@pages/dashboard/quick-setup'
 import { ConfigProfileByUuidPageConnector } from '@pages/dashboard/config-profiles/connectors/config-profile-by-uuid.page.connector'
 import { InfraBillingPageConnector } from '@pages/dashboard/crm/infra-billing/connectors/infra-billing.page.connector'
 import { ExternalSquadsPageConnector } from '@pages/dashboard/external-squads/connectors'
@@ -16,6 +15,7 @@ import { NodesMetricsPageConnector } from '@pages/dashboard/nodes-metrics/ui/con
 import { NodesPageConnector } from '@pages/dashboard/nodes/ui/connectors'
 import { OpenEntityPage } from '@pages/dashboard/open-entity'
 import { QuickOpenPage } from '@pages/dashboard/quick-open'
+import { QuickSetupPage } from '@pages/dashboard/quick-setup'
 import { RemnawaveSettingsConnector } from '@pages/dashboard/remnawave-settings/connectors'
 import { ResponseRulesPageConnector } from '@pages/dashboard/response-rules/connectors/response-rules.page.connector'
 import { SessionsExplorerPageConnector } from '@pages/dashboard/sessions-explorer/ui/connectors/sessions-explorer.page.connector'
@@ -24,6 +24,7 @@ import { StatisticNodesConnector } from '@pages/dashboard/statistic-nodes/connec
 import { SubpageConfigBasePageConnector } from '@pages/dashboard/subpage-config/ui/connectors/subpage-config-base-page.connector'
 import { SubpageConfigEditorPageConnector } from '@pages/dashboard/subpage-config/ui/connectors/subpage-config-editor-page.connector'
 import { SubscriptionSettingsConnector } from '@pages/dashboard/subscription-settings/connectors'
+import { SumiPage } from '@pages/dashboard/sumi'
 import { TemplateBasePageConnector } from '@pages/dashboard/templates/ui/connectors/template-base-page.connector'
 import { TemplateEditorPageConnector } from '@pages/dashboard/templates/ui/connectors/template-editor-page.connector'
 import { TorrentBlockerReportsPageConnector } from '@pages/dashboard/torrent-blocker-reports/ui/connectors'
@@ -100,6 +101,7 @@ const router = createBrowserRouter(
                             element={<QuickSetupPage />}
                             path={ROUTES.DASHBOARD.MANAGEMENT.QUICK_SETUP}
                         />
+                        <Route element={<SumiPage />} path={ROUTES.DASHBOARD.MANAGEMENT.SUMI} />
                         <Route
                             element={<InternalSquadsPageConnector />}
                             path={ROUTES.DASHBOARD.MANAGEMENT.INTERNAL_SQUADS}

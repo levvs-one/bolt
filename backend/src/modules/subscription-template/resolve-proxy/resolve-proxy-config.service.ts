@@ -25,11 +25,15 @@ import { getVlessFlow } from '@common/utils/flow';
 import { TemplateEngine } from '@common/utils/templates/replace-templates-values';
 import { setVlessRouteForUuid } from '@common/utils/vless-route';
 import { SECURITY_LAYERS, USERS_STATUS } from '@libs/contracts/constants';
+import { SUMI_HOST_KEY } from '@libs/contracts/models';
 
 import { ExternalSquadEntity } from '@modules/external-squads/entities';
 import { HostWithRawInbound } from '@modules/hosts/entities/host-with-inbound-tag.entity';
 import { ISRRContext } from '@modules/subscription-response-rules/interfaces';
 import { SubscriptionSettingsEntity } from '@modules/subscription-settings/entities/subscription-settings.entity';
+import { entryIdFromTag, entryUuid, meteredUuid } from '@modules/sumi/sumi-credentials';
+import { SumiSettingsService } from '@modules/sumi/sumi-settings.service';
+import { SumiUsersRepository } from '@modules/sumi/sumi-users.repository';
 import { UserEntity } from '@modules/users/entities';
 
 import {
@@ -67,7 +71,11 @@ export class ResolveProxyConfigService {
     private readonly domainRegex =
         /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
-    constructor(private readonly configService: TypedConfigService) {
+    constructor(
+        private readonly configService: TypedConfigService,
+        private readonly sumiSettings: SumiSettingsService,
+        private readonly sumiUsers: SumiUsersRepository,
+    ) {
         this.nanoid = customAlphabet('0123456789abcdefghjkmnopqrstuvwxyz', 10);
         this.subPublicDomain = this.configService.getOrThrow('SUB_PUBLIC_DOMAIN');
     }
@@ -95,8 +103,16 @@ export class ResolveProxyConfigService {
             options.hosts.length,
         );
         if (earlyRemarks !== null) {
+            // Своя надпись человеку («пробный период закончился») сильнее общей:
+            // клиент показывает только эту строку вместо списка серверов.
+            const notice =
+                user.status !== USERS_STATUS.ACTIVE && subscriptionSettings.isShowCustomRemarks
+                    ? (await this.sumiUsers.find(user.id))?.notice ||
+                      SumiSettingsService.brandOf(await this.sumiSettings.get(), user.username)
+                          ?.blockedLabel
+                    : null;
             return this.createFallbackHosts(
-                this.templateRemarks(earlyRemarks, user, subscriptionSettings),
+                notice ? [notice] : this.templateRemarks(earlyRemarks, user, subscriptionSettings),
             );
         }
 
@@ -108,6 +124,8 @@ export class ResolveProxyConfigService {
             resolveInboundAndMlDsa65PublicKey(rawInbounds),
             resolveEncryptionFromDecryption(rawInbounds),
         ]);
+
+        const sumiKeys = await this.resolveSumiHostKeys(user, hosts);
 
         const knownRemarks = new Map<string, number>();
         const resolvedProxyConfigs: ResolvedProxyConfig[] = [];
@@ -130,7 +148,9 @@ export class ResolveProxyConfigService {
                 inputHost,
                 inbound: inputHost.rawInbound as InboundConfig,
                 finalRemark,
-                user,
+                user: sumiKeys.has(inputHost.uuid)
+                    ? { ...user, vlessUuid: sumiKeys.get(inputHost.uuid)! }
+                    : user,
                 publicKeyMap,
                 mldsa65PublicKeyMap,
                 encryptionMap,
@@ -142,6 +162,31 @@ export class ResolveProxyConfigService {
         }
 
         return resolvedProxyConfigs;
+    }
+
+    /** UUID для хостов, которым в настройках SUMI задан ключ входа или «Мобильной связи». */
+    private async resolveSumiHostKeys(
+        user: UserEntity,
+        hosts: HostWithRawInbound[],
+    ): Promise<Map<string, string>> {
+        const keys = new Map<string, string>();
+        const settings = await this.sumiSettings.get();
+        if (!hosts.some((host) => settings.hostKeys[host.uuid])) return keys;
+
+        const sumi = await this.sumiUsers.find(user.id);
+        if (!sumi) return keys;
+
+        for (const host of hosts) {
+            const kind = settings.hostKeys[host.uuid];
+            if (kind === SUMI_HOST_KEY.METERED) {
+                keys.set(host.uuid, meteredUuid(sumi.credentialSeed, user.username));
+            } else if (kind === SUMI_HOST_KEY.ENTRY) {
+                const entryId = entryIdFromTag(host.inboundTag, settings.entryTagPrefix);
+                keys.set(host.uuid, entryUuid(sumi.credentialSeed, user.username, entryId));
+            }
+        }
+
+        return keys;
     }
 
     private resolveEarlyExitRemarks(

@@ -25,6 +25,9 @@ import {
     SHADOWSOCKS_METHODS,
 } from './ss-cipher';
 
+/** Email клиента, которого раздаёт панель: id пользователя, возможно с `~суффиксом`. */
+const MANAGED_EMAIL = /^\d+(~.*)?$/;
+
 const MANAGED_CLIENT_PROTOCOLS = new Set(['hysteria', 'shadowsocks', 'trojan', 'vless']);
 type ManagedInboundSettings = VLessInboundConfig | TrojanInboundConfig | ShadowsocksInboundConfig;
 
@@ -165,7 +168,12 @@ export class XRayConfig {
             if (!this.hasManagedClients(inbound)) continue;
 
             this.ensureSettings(inbound);
-            inbound.settings!.clients = [];
+            // Клиенты с нечисловым email — не люди панели, а служебные ключи профиля
+            // (транзит цепочки через CDN): их оставляем, людей подставим сами.
+            const settings = inbound.settings as { clients?: { email?: string }[] };
+            settings.clients = (settings.clients ?? []).filter(
+                (client) => typeof client.email === 'string' && !MANAGED_EMAIL.test(client.email),
+            );
 
             if (injectFlow && inbound.protocol === 'vless') {
                 inbound.settings!.flow = getVlessFlow(inbound);
@@ -196,6 +204,28 @@ export class XRayConfig {
         }
 
         return this.config;
+    }
+
+    /** Клиенты VLESS сверх общего ключа: свой UUID на вход и ключ «Мобильной связи». */
+    public addVlessClients(
+        clients: { email: string; id: string; tags: string[] }[],
+        inboundsUserSets: Map<string, HashedSet>,
+    ): void {
+        for (const client of clients) {
+            for (const tag of client.tags) {
+                const inbound = this.inboundsByTag[tag];
+                if (!inbound || inbound.protocol !== 'vless') continue;
+
+                this.ensureSettings(inbound);
+                inbound.settings!.clients ??= [];
+                inbound.settings!.clients.push({ id: client.id, email: client.email });
+
+                if (!inboundsUserSets.has(tag)) {
+                    inboundsUserSets.set(tag, new HashedSet());
+                }
+                inboundsUserSets.get(tag)!.add(client.id);
+            }
+        }
     }
 
     private groupUsersByTag(

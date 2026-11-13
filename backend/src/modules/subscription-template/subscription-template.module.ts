@@ -9,6 +9,8 @@ import { ResolveProxyConfigService } from './resolve-proxy/resolve-proxy-config.
 import { SubscriptionTemplateController } from './subscription-template.controller';
 import { SubscriptionTemplateConverter } from './subscription-template.converter';
 import { SubscriptionTemplateService } from './subscription-template.service';
+import { TemplateListsService } from './template-lists.service';
+
 @Module({
     imports: [CqrsModule],
     controllers: [SubscriptionTemplateController],
@@ -17,6 +19,7 @@ import { SubscriptionTemplateService } from './subscription-template.service';
         SubscriptionTemplateRepository,
         SubscriptionTemplateConverter,
         ResolveProxyConfigService,
+        TemplateListsService,
         ...TEMPLATE_RENDERERS,
         RenderTemplatesService,
         ...QUERIES,

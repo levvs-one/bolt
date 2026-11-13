@@ -31,13 +31,7 @@ export const ProgressWidget = ({ completed, percent, total }: IProps) => {
                     </Stack>
 
                     <Box mt={6} w="100%">
-                        <Progress.Root
-                            radius="md"
-                            size={18}
-                            style={{
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)'
-                            }}
-                        >
+                        <Progress.Root radius="md" size={18}>
                             <Progress.Section
                                 animated
                                 color="teal"

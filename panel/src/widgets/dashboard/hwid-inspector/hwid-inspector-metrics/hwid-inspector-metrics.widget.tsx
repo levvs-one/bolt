@@ -60,15 +60,7 @@ export function HwidInspectorMetrics() {
                 ))}
             </MetricGridShared>
 
-            <Card
-                p="lg"
-                radius="md"
-                style={{
-                    border: '1px solid rgb(255, 255, 255, 0.08)',
-                    background: 'rgb(255, 255, 255, 0.02)'
-                }}
-                withBorder
-            >
+            <Card p="lg" radius="md" withBorder>
                 <Group align="center" gap="sm" justify="space-between" mb="lg" wrap="nowrap">
                     <Group align="center" gap="sm" style={{ minWidth: 0 }} wrap="nowrap">
                         <ThemeIcon color="cyan" radius="md" size="lg" variant="soft">

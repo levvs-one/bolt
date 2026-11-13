@@ -65,6 +65,7 @@ export const TemplateSelector = (props: TemplateSelectorProps) => {
                 </Button>
             </Group>
             <TextInput
+                type="search"
                 leftSection={<IconSearch size={16} />}
                 onChange={(event) => setSearchQuery(event.currentTarget.value)}
                 placeholder={t('template-selector.search-templates')}

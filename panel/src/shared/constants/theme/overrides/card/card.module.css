@@ -1,4 +1,5 @@
-.root {
-    background: var(--bolt-surface);
+.root,
+.root[data-with-border] {
     border: 0;
+    background: var(--bolt-surface);
 }

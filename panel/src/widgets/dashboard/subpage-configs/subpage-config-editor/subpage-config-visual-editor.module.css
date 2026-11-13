@@ -1,6 +1,6 @@
 .sectionCard {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+    border: 0;
     transition: border-color 0.3s ease;
 }
 
@@ -11,7 +11,7 @@
 .interactiveCard {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.13);
-    border: 1px solid rgba(255, 255, 255, 0.028);
+    border: 0;
     transition: all 0.3s ease;
 }
 
@@ -25,7 +25,7 @@
 
 .buttonCard {
     background: rgba(0, 0, 0, 0.13);
-    border: 1px solid rgba(255, 255, 255, 0.028);
+    border: 0;
     transition: all 0.3s ease;
 }
 
@@ -35,13 +35,13 @@
 }
 
 .inputDark {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    border: 0;
     color: white;
 }
 
 .inputDark::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--bolt-text);
 }
 
 .inputDark:focus {
@@ -49,24 +49,24 @@
 }
 
 .selectDark {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    border: 0;
     color: white;
 }
 
 .checkboxDark {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    border: 0;
 }
 
 .addButton {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px dashed rgba(255, 255, 255, 0.15);
+    background: transparent;
+    border: 0;
     transition: all 0.2s ease;
 }
 
 .addButton:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--bolt-surface-hover);
     border-color: rgba(34, 211, 238, 0.4);
 }
 
@@ -88,7 +88,7 @@
 }
 
 .collapseHeader:hover {
-    background: rgba(255, 255, 255, 0.02);
+    background: transparent;
 }
 
 .chevron {
@@ -125,7 +125,7 @@
 }
 
 .divider {
-    border-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--bolt-line);
 }
 
 .accordion {
@@ -134,15 +134,15 @@
 }
 
 .accordionItem {
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    background: rgba(255, 255, 255, 0.01) !important;
+    border: 0 !important;
+    background: transparent !important;
     border-radius: var(--mantine-radius-md);
     margin-bottom: var(--mantine-spacing-sm);
     transition: border-color 0.2s ease;
 }
 
 .accordionItem:hover {
-    border-color: rgba(255, 255, 255, 0.12) !important;
+    border-color: var(--bolt-line) !important;
 }
 
 .accordionControl {
@@ -150,8 +150,8 @@
 }
 
 .textareaDark textarea {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    border: 0;
     color: white;
     min-height: 80px;
 }
@@ -161,8 +161,8 @@
 }
 
 .localizedTextButton {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+    border: 0;
     border-radius: var(--mantine-radius-md);
     padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
     transition: all 0.2s ease;
@@ -170,7 +170,7 @@
 }
 
 .localizedTextButton:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--bolt-surface-hover);
     border-color: rgba(34, 211, 238, 0.3);
 }
 
@@ -186,8 +186,8 @@
 }
 
 .localeCard {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: transparent;
+    border: 0;
     border-radius: var(--mantine-radius-md);
     padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
     transition: all 0.2s ease;
@@ -200,8 +200,8 @@
 }
 
 .localeCard:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: var(--bolt-surface-hover);
+    border-color: var(--bolt-line);
 }
 
 .localeCardActive {
@@ -248,8 +248,8 @@
     display: flex;
     align-items: center;
     padding: 8px 12px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    border: 0;
     border-radius: var(--mantine-radius-md);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -257,7 +257,7 @@
 }
 
 .iconSelectTrigger:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--bolt-surface-hover);
     border-color: rgba(34, 211, 238, 0.3);
 }
 
@@ -284,8 +284,8 @@
     width: 28px;
     height: 28px;
     border-radius: var(--mantine-radius-sm);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bolt-surface-hover);
+    border: 0;
     flex-shrink: 0;
 }
 
@@ -315,7 +315,7 @@
 
 .iconSelectDropdown {
     background: rgba(30, 35, 45, 0.98) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border: 0 !important;
     padding: 8px !important;
 }
 
@@ -328,8 +328,8 @@
 }
 
 .iconSelectItem {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: transparent;
+    border: 0;
     border-radius: var(--mantine-radius-md);
     transition: all 0.15s ease;
     position: relative;

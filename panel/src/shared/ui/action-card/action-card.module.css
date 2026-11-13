@@ -3,8 +3,8 @@
     transition:
         background-color 150ms ease,
         border-color 150ms ease;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+    border: 0;
 
     &:hover {
         background-color: var(--mantine-color-dark-6);

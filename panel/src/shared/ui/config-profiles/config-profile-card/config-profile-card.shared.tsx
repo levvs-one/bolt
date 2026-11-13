@@ -28,13 +28,7 @@ export const ConfigProfileCardShared = memo((props: IProps) => {
     ).length
 
     return (
-        <Accordion.Item
-            style={{
-                border: '1px solid rgb(255, 255, 255, 0.08)',
-                background: 'rgb(255, 255, 255, 0.02)'
-            }}
-            value={profile.uuid}
-        >
+        <Accordion.Item value={profile.uuid}>
             <AccordionControlShared
                 hideSelectActions={hideSelectActions}
                 onSelectAllInbounds={onSelectAllInbounds}

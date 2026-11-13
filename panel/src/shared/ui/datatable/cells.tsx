@@ -81,6 +81,7 @@ export function TextSearchFilter({
     return (
         <TextInput
             label={label}
+            type="search"
             leftSection={<TbSearch size={16} />}
             onChange={(e) => onChange(e.currentTarget.value)}
             rightSection={
@@ -146,6 +147,7 @@ export function SelectFilter({
             comboboxProps={{ withinPortal: false }}
             data={data}
             label={label}
+            type="search"
             leftSection={<TbSearch size={16} />}
             onChange={onChange}
             searchable

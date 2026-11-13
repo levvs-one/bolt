@@ -169,6 +169,7 @@ export function SessionsExplorerWidget() {
             {aggregatedUsers.length > 0 && (
                 <Group gap="xs">
                     <TextInput
+                        type="search"
                         leftSection={<TbSearch size={16} />}
                         onChange={(e) => setIpSearch(e.currentTarget.value)}
                         placeholder={t('sessions-explorer.widget.search-by-ip')}

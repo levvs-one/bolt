@@ -5,7 +5,7 @@
     gap: 12px;
     padding: 12px 16px;
     background: var(--bolt-body);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 0;
     border-radius: var(--mantine-radius-md);
     font-family: var(--mantine-font-family-monospace);
     font-size: var(--mantine-font-size-sm);
@@ -22,7 +22,7 @@
 }
 
 .container:hover {
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: var(--bolt-line);
 }
 
 .codeWrapper {

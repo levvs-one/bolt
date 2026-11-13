@@ -225,14 +225,7 @@ export const InternalSquadsInboundsDrawer = NiceModal.create((props: IProps) => 
                     height: '100%'
                 }}
             >
-                <Paper
-                    p="md"
-                    shadow="sm"
-                    style={{
-                        border: '1px solid rgb(255, 255, 255, 0.08)',
-                        background: 'rgb(255, 255, 255, 0.02)'
-                    }}
-                >
+                <Paper p="md" shadow="sm">
                     <Stack gap="md">
                         <Group align="center" justify="space-between" wrap="nowrap">
                             <Box className={classes.iconWrapper}>
@@ -334,6 +327,7 @@ export const InternalSquadsInboundsDrawer = NiceModal.create((props: IProps) => 
                 </Paper>
 
                 <TextInput
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={(event) => setSearchQuery(event.currentTarget.value)}
                     placeholder={t('common.message.search-profiles-or-inbounds')}

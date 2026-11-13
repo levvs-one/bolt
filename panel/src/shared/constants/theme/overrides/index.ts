@@ -3,6 +3,7 @@ import breadcrumbs from './breadcrumbs'
 import buttons from './buttons'
 import card from './card'
 import charts from './charts'
+import choiceCards from './choice-cards'
 import drawer from './drawer'
 import fieldset from './fieldset'
 import inputs from './inputs'
@@ -20,6 +21,7 @@ import tooltip from './tooltip'
 export default {
     ...fieldset,
     ...card,
+    ...choiceCards,
     ...drawer,
     ...modal,
     ...badge,

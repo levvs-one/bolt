@@ -86,6 +86,7 @@ export function CommandPalette({ groups }: IProps) {
         >
             <Spotlight.Search
                 classNames={{ input: classes.search }}
+                type="search"
                 leftSection={<TbSearch size={ICON_SIZE} strokeWidth={ICON_STROKE} />}
                 placeholder={t('bolt.palette.placeholder')}
             />

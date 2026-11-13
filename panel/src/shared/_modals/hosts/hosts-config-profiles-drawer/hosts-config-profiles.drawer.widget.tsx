@@ -151,14 +151,7 @@ export const HostsConfigProfilesDrawer = NiceModal.create((props: IProps) => {
             }
         >
             <Stack className={classes.drawerContent} gap="md">
-                <Box
-                    bdrs="md"
-                    p="md"
-                    style={{
-                        border: '1px solid rgb(255, 255, 255, 0.08)',
-                        background: 'rgb(255, 255, 255, 0.02)'
-                    }}
-                >
+                <Box bdrs="md" p="md">
                     <Group align="center" justify="space-between" wrap="nowrap">
                         <Box>
                             {selectedInbound && selectedProfileUuid ? (
@@ -166,10 +159,7 @@ export const HostsConfigProfilesDrawer = NiceModal.create((props: IProps) => {
                                     <Text ff="monospace" fw={700} size="sm">
                                         {filteredProfiles.find(
                                             (p) => p.uuid === selectedProfileUuid
-                                        )?.name ||
-                                            t(
-                                                'common.message.no-profile-selected'
-                                            )}
+                                        )?.name || t('common.message.no-profile-selected')}
                                     </Text>
                                     <Text ff="monospace" size="xs">
                                         {filteredProfiles
@@ -184,9 +174,7 @@ export const HostsConfigProfilesDrawer = NiceModal.create((props: IProps) => {
                             ) : (
                                 <>
                                     <Text fw={700} size="sm">
-                                        {t(
-                                            'common.message.no-inbound-selected'
-                                        )}
+                                        {t('common.message.no-inbound-selected')}
                                     </Text>
                                     <Text c="dimmed" ff="monospace" size="xs">
                                         {t(
@@ -224,11 +212,10 @@ export const HostsConfigProfilesDrawer = NiceModal.create((props: IProps) => {
                 </Box>
 
                 <TextInput
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={(event) => setSearchQuery(event.currentTarget.value)}
-                    placeholder={t(
-                        'common.message.search-profiles-or-inbounds'
-                    )}
+                    placeholder={t('common.message.search-profiles-or-inbounds')}
                     value={searchQuery}
                 />
 

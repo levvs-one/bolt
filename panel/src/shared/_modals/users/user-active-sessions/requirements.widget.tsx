@@ -46,7 +46,6 @@ export const RequirementsWidget = () => {
                     language="yaml"
                     radius="md"
                     style={{
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
                         borderRadius: 'var(--mantine-radius-md)'
                     }}
                 />

@@ -84,17 +84,10 @@ export const NodeTrackingAndBillingCard = <
                         />
 
                         <Box className={classes.trackingCard}>
-                            <Group
-                                className={classes.trackingHeader}
-                                gap="xs"
-                                justify="space-between"
-                            >
+                            <Group gap="xs" justify="space-between">
                                 <Group gap="xs">
-                                    <TbChartLine
-                                        size={18}
-                                        style={{ color: 'var(--mantine-color-indigo-6)' }}
-                                    />
-                                    <Text fw={500} size="sm">
+                                    <TbChartLine size={20} strokeWidth={1.75} />
+                                    <Text fw={600} size="md">
                                         {t('base-node-form.traffic-tracking')}
                                     </Text>
                                 </Group>
@@ -114,7 +107,7 @@ export const NodeTrackingAndBillingCard = <
                             </Group>
 
                             <Collapse expanded={advancedOpened}>
-                                <Stack className={classes.trackingBody} gap="sm">
+                                <Stack gap="sm">
                                     <Group gap="md" grow justify="space-between" w="100%">
                                         <TrafficLimitInput
                                             hideControls

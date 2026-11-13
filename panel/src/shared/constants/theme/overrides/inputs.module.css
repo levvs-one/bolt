@@ -23,3 +23,12 @@
         border-color: var(--bolt-line);
     }
 }
+
+/* Иконка слева внутри поля — украшение: подпись поля уже говорит, что в нём. Остаётся только у поиска. */
+.wrapper[data-with-left-section]:not(:has(input[type='search'])) {
+    --input-padding-inline-start: var(--input-padding);
+}
+
+.wrapper:not(:has(input[type='search'])) > .section[data-position='left'] {
+    display: none;
+}

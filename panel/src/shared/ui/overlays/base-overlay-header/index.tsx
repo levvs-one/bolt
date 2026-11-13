@@ -1,7 +1,6 @@
-import { Group, Stack, Text, ThemeIcon, ThemeIconProps, Title, TitleProps } from '@mantine/core'
+import { Group, ThemeIconProps, Title, TitleProps } from '@mantine/core'
 import { useClipboard } from '@mantine/hooks'
 import { ReactNode } from 'react'
-import ReactCountryFlag from 'react-country-flag'
 
 import { TOpenEntity } from '@shared/constants'
 import { CopyEntityLinkButton } from '@shared/ui/copy-entity-link-button'
@@ -23,65 +22,29 @@ type IProps = {
     withCopy?: boolean
 }
 
+// Заголовок окна или секции Bolt: только название. Значок, флаг и подзаголовок не показываются —
+// пропсы для них остались от Remnawave, чтобы не трогать сотню вызовов.
 export const BaseOverlayHeader = (props: IProps) => {
-    const {
-        themeIconProps,
-        IconComponent,
-        countryCode,
-        iconSize = 20,
-        iconVariant,
-        iconColor = 'cyan',
-        openEntity,
-        subtitle,
-        title,
-        titleOrder = 4,
-        withCopy = false,
-        hideIcon = false,
-        icon,
-        truncateTitle = false
-    } = props
+    const { openEntity, title, titleOrder = 4, withCopy = false, truncateTitle = false } = props
 
     const { copy } = useClipboard()
 
     return (
         <Group gap="sm" style={truncateTitle ? { minWidth: 0 } : undefined} wrap="nowrap">
-            {!hideIcon && (
-                <ThemeIcon color={iconColor} size="lg" variant={iconVariant} {...themeIconProps}>
-                    <IconComponent size={iconSize} />
-                </ThemeIcon>
-            )}
-
-            {icon ?? icon}
-
-            {countryCode && countryCode !== 'XX' && (
-                <ReactCountryFlag countryCode={countryCode} style={{ fontSize: '1.5em' }} />
-            )}
-
-            <Stack gap="0" style={truncateTitle ? { overflow: 'hidden' } : undefined}>
-                <Title
-                   
-                    onClick={() => withCopy && copy(title)}
-                    order={titleOrder}
-                    style={{
-                        cursor: withCopy ? 'copy' : 'default',
-                        ...(truncateTitle && {
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                        })
-                    }}
-                >
-                    {title}
-                </Title>
-                <Text
-                    c="dimmed"
-                    onClick={() => withCopy && copy(subtitle)}
-                    size="xs"
-                    style={{ cursor: withCopy ? 'copy' : 'default' }}
-                >
-                    {subtitle}
-                </Text>
-            </Stack>
+            <Title
+                onClick={() => withCopy && copy(title)}
+                order={titleOrder}
+                style={{
+                    cursor: withCopy ? 'copy' : 'default',
+                    ...(truncateTitle && {
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                    })
+                }}
+            >
+                {title}
+            </Title>
 
             {openEntity && <CopyEntityLinkButton entity={openEntity.entity} id={openEntity.id} />}
         </Group>

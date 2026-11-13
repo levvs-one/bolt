@@ -172,14 +172,7 @@ export const NodesConfigProfilesDrawer = NiceModal.create((props: IProps) => {
             }
         >
             <Stack className={classes.drawerContent} gap="md">
-                <Box
-                    bdrs="md"
-                    p="md"
-                    style={{
-                        border: '1px solid rgb(255, 255, 255, 0.08)',
-                        background: 'rgb(255, 255, 255, 0.02)'
-                    }}
-                >
+                <Box bdrs="md" p="md">
                     <Group align="center" justify="space-between" wrap="nowrap">
                         <Box>
                             {selectedInbounds.size > 0 && selectedProfileUuid ? (
@@ -187,8 +180,7 @@ export const NodesConfigProfilesDrawer = NiceModal.create((props: IProps) => {
                                     <Text fw={700} size="sm">
                                         {filteredProfiles.find(
                                             (p) => p.uuid === selectedProfileUuid
-                                        )?.name ||
-                                            t('common.message.no-profile-selected')}
+                                        )?.name || t('common.message.no-profile-selected')}
                                     </Text>
                                     <Text c="dimmed" size="xs">
                                         {t('internal-squads.drawer.widget.selected-inbounds', {
@@ -235,6 +227,7 @@ export const NodesConfigProfilesDrawer = NiceModal.create((props: IProps) => {
                 </Box>
 
                 <TextInput
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={(event) => setSearchQuery(event.currentTarget.value)}
                     placeholder={t('common.message.search-profiles-or-inbounds')}

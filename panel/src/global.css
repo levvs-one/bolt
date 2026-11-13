@@ -153,3 +153,15 @@ body {
         min-height: 44px;
     }
 }
+
+/* Поиск очищается своей кнопкой Mantine; системный крестик WebKit лишний. */
+input[type='search']::-webkit-search-cancel-button {
+    appearance: none;
+}
+
+/* Карточки в карточке нет: вложенная поверхность растворяется в группе, остаётся только её содержимое. */
+.mantine-Card-root :is(.mantine-Card-root, .mantine-Paper-root, .mantine-Fieldset-root) {
+    padding: 0;
+    border-color: transparent;
+    background: transparent;
+}

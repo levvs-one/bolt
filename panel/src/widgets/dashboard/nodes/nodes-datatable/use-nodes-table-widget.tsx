@@ -72,6 +72,7 @@ export function getNodesTableColumns(
             filter: (
                 <TextInput
                     label={t('common.field.name')}
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={(e) => filters.setNameQuery(e.currentTarget.value)}
                     rightSection={
@@ -143,6 +144,7 @@ export function getNodesTableColumns(
                             value: 'disconnected'
                         }
                     ]}
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={(value) => filters.setSelectedStatuses(value as NodeStatusFilter[])}
                     renderOption={({ option }) => (
@@ -232,6 +234,7 @@ export function getNodesTableColumns(
                     comboboxProps={{ withinPortal: false }}
                     data={filters.availableConfigProfiles}
                     label={t('use-nodes-table-widget.config-profile')}
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={filters.setSelectedConfigProfiles}
                     searchable
@@ -251,6 +254,7 @@ export function getNodesTableColumns(
                     comboboxProps={{ withinPortal: false }}
                     data={filters.availableInbounds}
                     label={t('common.field.inbounds')}
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={filters.setSelectedInbounds}
                     searchable
@@ -306,6 +310,7 @@ export function getNodesTableColumns(
                     comboboxProps={{ withinPortal: false }}
                     data={filters.availableProviders}
                     label={t('use-nodes-table-widget.provider')}
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={filters.setSelectedProviders}
                     searchable
@@ -346,6 +351,7 @@ export function getNodesTableColumns(
                     comboboxProps={{ withinPortal: false }}
                     data={filters.availableTags}
                     label={t('common.field.tags')}
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={filters.setSelectedTags}
                     searchable
@@ -363,6 +369,7 @@ export function getNodesTableColumns(
                     comboboxProps={{ withinPortal: false }}
                     data={filters.availablePlugins}
                     label="Plugin"
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={filters.setSelectedPlugins}
                     searchable
@@ -384,6 +391,7 @@ export function getNodesTableColumns(
                     comboboxProps={{ withinPortal: false }}
                     data={filters.availableIntegrations}
                     label={t('node-integrations.modal.title')}
+                    type="search"
                     leftSection={<TbSearch size={16} />}
                     onChange={filters.setSelectedIntegrations}
                     searchable

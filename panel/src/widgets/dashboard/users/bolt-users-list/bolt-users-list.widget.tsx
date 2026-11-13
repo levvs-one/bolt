@@ -50,7 +50,15 @@ function isOnline(user: TUser, now: number) {
     return onlineAt !== null && now - onlineAt.getTime() < ONLINE_WINDOW_MS
 }
 
-function UserRow({ user, isSelected, onToggle }: { isSelected: boolean; onToggle: () => void; user: TUser }) {
+function UserRow({
+    user,
+    isSelected,
+    onToggle
+}: {
+    isSelected: boolean
+    onToggle: () => void
+    user: TUser
+}) {
     const { t, i18n } = useTranslation()
     const now = useNow()
     const used = compactBytesUtil(user.userTraffic.usedTrafficBytes)
@@ -175,6 +183,7 @@ export function BoltUsersListWidget() {
                     aria-label={t('bolt.users.search')}
                     className={classes.search}
                     classNames={{ input: classes.searchInput }}
+                    type="search"
                     leftSection={<TbSearch size={18} strokeWidth={ICON_STROKE} />}
                     onChange={(event) => {
                         setSearch(event.currentTarget.value)
@@ -219,7 +228,11 @@ export function BoltUsersListWidget() {
                         <TbPlus size={20} strokeWidth={2} />
                     </ActionIcon>
                 ) : (
-                    <Button h={40} onClick={() => showModal('users_createUserModal')} variant="filled">
+                    <Button
+                        h={40}
+                        onClick={() => showModal('users_createUserModal')}
+                        variant="filled"
+                    >
                         {t('bolt.users.create')}
                     </Button>
                 )}

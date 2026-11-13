@@ -219,15 +219,7 @@ export const BulkManyUsersActionsModal = NiceModal.create((props: IProps) => {
                     variant="soft"
                     withConfirmation
                 />
-                <Paper
-                    bg="rgba(255, 255, 255, 0.02)"
-                    p="md"
-                    shadow="sm"
-                    style={{
-                        border: '1px solid rgba(255, 255, 255, 0.08)'
-                    }}
-                    withBorder
-                >
+                <Paper p="md" shadow="sm" withBorder>
                     <Stack gap="md">
                         <Group gap="md" justify="space-between" wrap="nowrap">
                             <Group gap="md" wrap="nowrap">

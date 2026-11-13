@@ -394,6 +394,7 @@ function buildStatusColumn(t: TFunction, filters: HostsTableFilters): DataTableC
                     { label: t('use-hosts-table-widget.enabled'), value: 'enabled' },
                     { label: t('use-hosts-table-widget.hidden'), value: 'hidden' }
                 ]}
+                type="search"
                 leftSection={<TbSearch size={16} />}
                 onChange={(value) => filters.setSelectedStatuses(value)}
                 renderOption={({ option }) => (

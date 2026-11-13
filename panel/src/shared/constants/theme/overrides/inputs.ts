@@ -9,7 +9,7 @@ export default {
         classNames: classes
     }),
     Input: Input.extend({
-        classNames: { input: classes.input }
+        classNames: { input: classes.input, section: classes.section, wrapper: classes.wrapper }
     }),
     InputBase: InputBase.extend({
         defaultProps: {

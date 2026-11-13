@@ -1,16 +1,16 @@
 .option.option:where([data-combobox-selected]) {
-    background-color: rgb(255, 255, 255, 0.07);
+    background-color: var(--bolt-surface-hover);
     color: inherit;
 }
 
 @media (hover: hover) {
     .option.option:hover:where(:not([data-combobox-disabled])) {
-        background-color: rgb(255, 255, 255, 0.05);
+        background-color: var(--bolt-surface-hover);
     }
 }
 
 @media (hover: none) {
     .option.option:active:where(:not([data-combobox-disabled])) {
-        background-color: rgb(255, 255, 255, 0.05);
+        background-color: var(--bolt-surface-hover);
     }
 }

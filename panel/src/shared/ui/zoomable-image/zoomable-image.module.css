@@ -26,14 +26,14 @@
     align-items: center;
     gap: 2px;
     padding: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 0;
     border-radius: 12px;
     background: rgba(15, 15, 20, 0.72);
     backdrop-filter: blur(16px) saturate(1.6);
     -webkit-backdrop-filter: blur(16px) saturate(1.6);
     box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 0 0 0.5px rgba(255, 255, 255, 0.04);
+        inset 0 0 0 0.5px var(--bolt-line);
 }
 
 .controlGroup {
@@ -48,7 +48,7 @@
     height: 20px;
     margin: 0 4px;
     border-radius: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bolt-surface-raised);
 }
 
 .controlButton {
@@ -58,13 +58,13 @@
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--bolt-text);
     transition:
         background 150ms ease,
         color 150ms ease;
 }
 
 .controlButton:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bolt-surface-raised);
     color: #fff;
 }

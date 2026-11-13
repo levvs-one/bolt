@@ -60,10 +60,7 @@ export const InternalSquadsListWidget = memo((props: IProps) => {
                             filteredInternalSquads.length === 0
                                 ? 200
                                 : Math.min(200, filteredInternalSquads.length * 80),
-                        overflow: 'auto',
-                        border: '1px solid var(--mantine-color-gray-7)',
-                        borderRadius: '8px',
-                        padding: '8px'
+                        overflow: 'auto'
                     }}
                 >
                     <div

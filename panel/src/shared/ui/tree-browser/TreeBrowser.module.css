@@ -3,9 +3,9 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 0;
     border-radius: var(--mantine-radius-md);
-    background: rgba(255, 255, 255, 0.02);
+    background: transparent;
 }
 
 .panel:focus {
@@ -15,8 +15,8 @@
 .panelHeader {
     flex-shrink: 0;
     padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(255, 255, 255, 0.015);
+    border-bottom: 1px solid var(--bolt-line);
+    background: transparent;
 }
 
 .levels {
@@ -36,7 +36,7 @@
 
 .crumb:hover {
     color: var(--mantine-color-text);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bolt-surface-hover);
 }
 
 .crumbCurrent {
@@ -58,15 +58,15 @@
 }
 
 .row:not(:last-child) {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--bolt-line);
 }
 
 .row:nth-child(even) {
-    background: rgba(255, 255, 255, 0.012);
+    background: transparent;
 }
 
 .row:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bolt-surface-hover);
 }
 
 .row:focus-visible {

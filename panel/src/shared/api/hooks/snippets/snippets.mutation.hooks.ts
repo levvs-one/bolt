@@ -5,6 +5,7 @@ import {
     UpdateSnippetCommand,
     SyncSnippetCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -16,16 +17,13 @@ export const useUpdateSnippet = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Snippet updated successfully',
+                message: t('bolt.toast.snippet-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Snippet`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -39,16 +37,13 @@ export const useDeleteSnippet = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Snippet deleted successfully',
+                message: t('bolt.toast.snippet-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Snippet`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -63,16 +58,13 @@ export const useCreateSnippet = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Snippet created successfully',
+                message: t('bolt.toast.snippet-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Snippet`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -86,16 +78,13 @@ export const useSyncSnippet = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Snippet synced successfully',
+                message: t('bolt.toast.snippet-synced'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Sync Snippet`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

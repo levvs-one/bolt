@@ -13,6 +13,7 @@ import {
     RestartNodeCommand,
     UpdateNodeCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -24,16 +25,13 @@ export const useCreateNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node created successfully',
+                message: t('bolt.toast.node-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -48,16 +46,13 @@ export const useUpdateNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node updated successfully',
+                message: t('bolt.toast.node-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -71,16 +66,13 @@ export const useDeleteNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node deleted successfully',
+                message: t('bolt.toast.node-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -95,16 +87,13 @@ export const useEnableNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node enabled successfully',
+                message: t('bolt.toast.node-enabled'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Enable Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -119,16 +108,13 @@ export const useDisableNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node disabled successfully',
+                message: t('bolt.toast.node-disabled'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Disable Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -142,16 +128,13 @@ export const useRestartAllNodes = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Please wait for the nodes to reconnect',
+                message: t('bolt.toast.please-wait-for-the-nodes-to-reconnect'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Restart All Nodes`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -165,9 +148,7 @@ export const useReorderNodes = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Reorder Nodes`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -182,16 +163,13 @@ export const useRestartNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node restarted successfully',
+                message: t('bolt.toast.node-restarted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Restart Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -205,16 +183,13 @@ export const useResetNodeTraffic = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node traffic reset successfully',
+                message: t('bolt.toast.node-traffic-reset'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Reset Node Traffic`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -228,16 +203,13 @@ export const useBulkNodesProfileModification = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Task added to queue successfully.',
+                message: t('bolt.toast.task-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Nodes Profile Modification`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -251,16 +223,13 @@ export const useBulkNodesActions = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Actions added to queue successfully.',
+                message: t('bolt.toast.actions-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Nodes Actions`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -274,16 +243,13 @@ export const useBulkNodesUpdate = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Nodes updated successfully.',
+                message: t('bolt.toast.nodes-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Nodes Update`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

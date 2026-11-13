@@ -9,6 +9,7 @@ import {
     UpdateInfraBillingNodeCommand,
     UpdateInfraProviderCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -20,16 +21,13 @@ export const useUpdateInfraProvider = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Infra Provider updated successfully',
+                message: t('bolt.toast.infra-provider-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Infra Provider`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -43,16 +41,13 @@ export const useDeleteInfraProvider = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Infra Provider deleted successfully',
+                message: t('bolt.toast.infra-provider-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Infra Provider`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -67,16 +62,13 @@ export const useCreateInfraProvider = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Infra Provider created successfully',
+                message: t('bolt.toast.infra-provider-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Infra Provider`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -90,16 +82,13 @@ export const useDeleteInfraBillingHistoryRecord = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Infra Billing History Record deleted successfully',
+                message: t('bolt.toast.infra-billing-history-record-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Infra Billing History Record`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -114,16 +103,13 @@ export const useCreateInfraBillingHistoryRecord = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Infra Billing History Record created successfully',
+                message: t('bolt.toast.infra-billing-history-record-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Infra Billing History Record`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -138,16 +124,13 @@ export const useCreateInfraBillingNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Infra Billing Node created successfully',
+                message: t('bolt.toast.infra-billing-node-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Infra Billing Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -161,16 +144,13 @@ export const useDeleteInfraBillingNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Infra Billing Node deleted successfully',
+                message: t('bolt.toast.infra-billing-node-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Infra Billing Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -185,16 +165,13 @@ export const useUpdateInfraBillingNode = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Infra Billing Node updated successfully',
+                message: t('bolt.toast.infra-billing-node-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Infra Billing Node`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

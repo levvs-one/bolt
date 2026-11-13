@@ -6,6 +6,7 @@ import {
     SetConfigProfileTagsCommand,
     UpdateConfigProfileCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -17,16 +18,13 @@ export const useUpdateConfigProfile = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Config updated successfully',
+                message: t('bolt.toast.config-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Config Profile`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -40,16 +38,13 @@ export const useDeleteConfigProfile = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Config deleted successfully',
+                message: t('bolt.toast.config-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Config Profile`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -64,16 +59,13 @@ export const useCreateConfigProfile = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Config created successfully',
+                message: t('bolt.toast.config-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Config Profile`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -88,9 +80,7 @@ export const useReorderConfigProfiles = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Reorder Config Profiles`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -105,9 +95,7 @@ export const useSetConfigProfilesTags = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: 'Update tags',
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

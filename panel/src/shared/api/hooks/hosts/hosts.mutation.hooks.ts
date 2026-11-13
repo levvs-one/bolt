@@ -10,6 +10,7 @@ import {
     UpdateHostCommand,
     UpdateManyHostsCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -21,9 +22,7 @@ export const useCreateHost = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Create Host`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -38,9 +37,7 @@ export const useCloneHost = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Clone Host`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -55,16 +52,13 @@ export const useUpdateHost = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Host updated successfully',
+                message: t('bolt.toast.host-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Host`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -78,16 +72,13 @@ export const useDeleteHost = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Host deleted successfully',
+                message: t('bolt.toast.host-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Host`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -102,9 +93,7 @@ export const useReorderHosts = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Reorder Hosts`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -118,16 +107,13 @@ export const useBulkDeleteHosts = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Hosts deleted successfully',
+                message: t('bolt.toast.hosts-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Delete Hosts`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -141,16 +127,13 @@ export const useBulkEnableHosts = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Hosts enabled successfully',
+                message: t('bolt.toast.hosts-enabled'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Enable Hosts`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -164,16 +147,13 @@ export const useBulkDisableHosts = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Hosts disabled successfully',
+                message: t('bolt.toast.hosts-disabled'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Disable Hosts`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -187,16 +167,13 @@ export const useUpdateManyHosts = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Hosts updated successfully',
+                message: t('bolt.toast.hosts-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Many Hosts`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

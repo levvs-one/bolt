@@ -4,6 +4,7 @@ import {
     DeleteApiTokenCommand,
     GetOttCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '@shared/api/tsq-helpers/create-mutation-hook'
 
@@ -15,16 +16,13 @@ export const useCreateApiToken = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Api token created successfully',
+                message: t('bolt.toast.api-token-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Api Token`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -38,16 +36,13 @@ export const useDeleteApiToken = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Api token deleted successfully',
+                message: t('bolt.toast.api-token-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Api Token`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

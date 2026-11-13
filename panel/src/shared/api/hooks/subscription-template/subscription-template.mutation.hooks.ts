@@ -6,6 +6,7 @@ import {
     SetSubscriptionTemplateTagsCommand,
     UpdateSubscriptionTemplateCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -17,16 +18,13 @@ export const useUpdateSubscriptionTemplate = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Subscription template updated successfully',
+                message: t('bolt.toast.subscription-template-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Subscription Template`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -41,16 +39,13 @@ export const useCreateSubscriptionTemplate = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Subscription template created successfully',
+                message: t('bolt.toast.subscription-template-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Subscription Template`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -64,16 +59,13 @@ export const useDeleteSubscriptionTemplate = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Subscription template deleted successfully',
+                message: t('bolt.toast.subscription-template-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Subscription Template`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -88,9 +80,7 @@ export const useReorderSubscriptionTemplates = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Reorder Subscription Templates`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -105,9 +95,7 @@ export const useSetSubscriptionTemplatesTags = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: 'Update tags',
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

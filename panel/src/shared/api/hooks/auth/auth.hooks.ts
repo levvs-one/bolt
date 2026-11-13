@@ -6,6 +6,7 @@ import {
     RegisterCommand,
     VerifyPasskeyAuthenticationCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { setToken } from '@entities/auth/session-store'
 
@@ -24,7 +25,6 @@ export const useLogin = createMutationHook({
         },
         onError: (error) => {
             notifications.show({
-                title: 'Login',
                 message: error.message,
                 color: 'red'
             })
@@ -40,15 +40,13 @@ export const useRegister = createMutationHook({
     rMutationParams: {
         onSuccess: (data) => {
             notifications.show({
-                title: 'Register',
-                message: 'User registered successfully',
+                message: t('bolt.toast.user-registered'),
                 color: 'teal'
             })
             setToken({ token: data.accessToken })
         },
         onError: (error) => {
             notifications.show({
-                title: 'Register',
                 message: error.message,
                 color: 'red'
             })
@@ -76,7 +74,6 @@ export const useOAuth2Authorize = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: 'OAuth2 Authorize',
                 message: error.message,
                 color: 'red'
             })
@@ -92,8 +89,7 @@ export const usePasskeyAuthenticationVerify = createMutationHook({
     rMutationParams: {
         onSuccess: (data) => {
             notifications.show({
-                title: 'Passkey Verified',
-                message: 'Passkey authenticated successfully',
+                message: t('bolt.toast.passkey-authenticated'),
                 color: 'teal'
             })
 

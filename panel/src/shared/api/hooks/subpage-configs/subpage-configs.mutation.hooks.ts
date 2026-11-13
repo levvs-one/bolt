@@ -7,6 +7,7 @@ import {
     SetSubpageConfigTagsCommand,
     UpdateSubpageConfigCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -18,16 +19,13 @@ export const useUpdateSubpageConfig = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Subscription page config updated successfully',
+                message: t('bolt.toast.subscription-page-config-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Subscription Page Config`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -42,16 +40,13 @@ export const useCreateSubpageConfig = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Subscription page config created successfully',
+                message: t('bolt.toast.subscription-page-config-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Subscription Page Config`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -65,16 +60,13 @@ export const useDeleteSubpageConfig = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Subscription page config deleted successfully',
+                message: t('bolt.toast.subscription-page-config-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Subscription Page Config`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -89,9 +81,7 @@ export const useReorderSubpageConfigs = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Reorder Subscription Page Configs`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -106,16 +96,13 @@ export const useCloneSubpageConfig = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Subscription page config cloned successfully',
+                message: t('bolt.toast.subscription-page-config-cloned'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Clone Subscription Page Config`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -130,9 +117,7 @@ export const useSetSubpageConfigsTags = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: 'Update tags',
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

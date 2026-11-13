@@ -19,6 +19,7 @@ import {
     RevokeUserSubscriptionCommand,
     UpdateUserCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -31,16 +32,13 @@ export const useCreateUser = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'User created successfully',
+                message: t('bolt.toast.user-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create User`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -55,16 +53,13 @@ export const useUpdateUser = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'User updated successfully',
+                message: t('bolt.toast.user-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update User`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -78,16 +73,13 @@ export const useDeleteUser = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'User deleted successfully',
+                message: t('bolt.toast.user-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete User`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -103,16 +95,13 @@ export const useRevokeUserSubscription = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'User subscription revoked successfully',
+                message: t('bolt.toast.user-subscription-revoked'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Revoke User Subscription`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -127,16 +116,13 @@ export const useEnableUser = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'User enabled successfully',
+                message: t('bolt.toast.user-enabled'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Enable User`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -151,16 +137,13 @@ export const useDisableUser = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'User disabled successfully',
+                message: t('bolt.toast.user-disabled'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Disable User`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -175,16 +158,13 @@ export const useResetUserTraffic = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'User traffic reset successfully',
+                message: t('bolt.toast.user-traffic-reset'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Reset User Traffic`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -204,16 +184,13 @@ export const useBulkUpdateUsers = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Task added to queue successfully',
+                message: t('bolt.toast.task-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Update Users`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -227,16 +204,13 @@ export const useBulkResetTraffic = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Task added to queue successfully',
+                message: t('bolt.toast.task-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Reset Traffic`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -250,16 +224,13 @@ export const useBulkRevokeUsersSubscription = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Task added to queue successfully',
+                message: t('bolt.toast.task-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Revoke Users Subscription`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -273,16 +244,13 @@ export const useBulkDeleteUsers = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Task added to queue successfully',
+                message: t('bolt.toast.task-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Delete Users`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -296,16 +264,13 @@ export const useBulkSetActiveInternalSquads = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Task added to queue successfully',
+                message: t('bolt.toast.task-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Set Active Inbounds`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -319,16 +284,13 @@ export const useBulkAllUpdateUsers = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Task added to queue successfully',
+                message: t('bolt.toast.task-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk All Update Users`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -341,16 +303,13 @@ export const useBulkAllResetTrafficUsers = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Task added to queue successfully',
+                message: t('bolt.toast.task-added-to-queue'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk All Reset Traffic Users`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -364,16 +323,13 @@ export const useBulkExtendUsersExpirationDate = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Users expiration date extended successfully',
+                message: t('bolt.toast.users-expiration-date-extended'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk Extend Users Expiration Date`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -387,16 +343,13 @@ export const useBulkAllExtendUsersExpirationDate = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'All users expiration date extended successfully',
+                message: t('bolt.toast.all-users-expiration-date-extended'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Bulk All Extend Users Expiration Date`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -411,9 +364,7 @@ export const useResolveUser = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Resolve User`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

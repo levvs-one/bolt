@@ -8,6 +8,7 @@ import {
     SetExternalSquadTagsCommand,
     UpdateExternalSquadCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -19,16 +20,13 @@ export const useUpdateExternalSquad = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'External Squad updated successfully',
+                message: t('bolt.toast.external-squad-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update External Squad`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -42,16 +40,13 @@ export const useDeleteExternalSquad = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'External Squad deleted successfully',
+                message: t('bolt.toast.external-squad-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete External Squad`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -66,16 +61,13 @@ export const useCreateExternalSquad = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'External Squad created successfully',
+                message: t('bolt.toast.external-squad-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create External Squad`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -89,9 +81,7 @@ export const useAddUsersToExternalSquad = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Add Users to External Squad`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -105,9 +95,7 @@ export const useDeleteUsersFromExternalSquad = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Remove Users from External Squad`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -122,9 +110,7 @@ export const useReorderExternalSquads = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Reorder External Squads`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -139,9 +125,7 @@ export const useSetExternalSquadsTags = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: 'Update tags',
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

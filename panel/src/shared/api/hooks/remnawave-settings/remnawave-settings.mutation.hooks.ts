@@ -1,5 +1,6 @@
 import { notifications } from '@mantine/notifications'
 import { UpdateRemnawaveSettingsCommand } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -11,8 +12,7 @@ export const useUpdateRemnawaveSettings = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Remnawave settings updated successfully',
+                message: t('bolt.toast.remnawave-settings-updated'),
                 color: 'teal'
             })
         }

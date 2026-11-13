@@ -4,6 +4,7 @@ import {
     UpdatePasskeyCommand,
     VerifyPasskeyRegistrationCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -15,8 +16,7 @@ export const usePasskeyRegistrationVerify = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Passkey Verified',
-                message: 'Passkey verification successful',
+                message: t('bolt.toast.passkey-verification-successful'),
                 color: 'teal'
             })
         }
@@ -30,8 +30,7 @@ export const useDeletePasskey = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Passkey Deleted',
-                message: 'Passkey deleted successfully',
+                message: t('bolt.toast.passkey-deleted'),
                 color: 'teal'
             })
         }
@@ -46,8 +45,7 @@ export const useUpdatePasskey = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Passkey Updated',
-                message: 'Passkey updated successfully',
+                message: t('bolt.toast.passkey-updated'),
                 color: 'teal'
             })
         }

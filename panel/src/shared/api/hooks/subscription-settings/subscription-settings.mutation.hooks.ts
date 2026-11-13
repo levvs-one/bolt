@@ -1,5 +1,6 @@
 import { notifications } from '@mantine/notifications'
 import { UpdateSubscriptionSettingsCommand } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -11,16 +12,13 @@ export const useUpdateSubscriptionSettings = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Subscription settings updated successfully',
+                message: t('bolt.toast.subscription-settings-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: 'Update Subscription Settings',
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

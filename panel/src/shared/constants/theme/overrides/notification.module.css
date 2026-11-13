@@ -1,0 +1,26 @@
+/* Уведомление — как баннер macOS: плоская поверхность и текст, без цветной полосы слева. */
+.root {
+    padding: 12px 12px 12px 16px;
+    border-color: var(--bolt-line);
+    background: var(--bolt-surface-raised);
+
+    &::before {
+        display: none;
+    }
+}
+
+.title {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.description {
+    color: var(--bolt-text);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.icon {
+    background: transparent;
+    color: var(--bolt-text);
+}

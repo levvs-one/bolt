@@ -14,6 +14,7 @@ import {
     UpdateNodePluginCommand,
     UpdateSharedListCommand
 } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { createMutationHook } from '../../tsq-helpers'
 
@@ -25,16 +26,13 @@ export const useUpdateNodePlugin = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node plugin updated successfully',
+                message: t('bolt.toast.node-plugin-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Node Plugin`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -49,16 +47,13 @@ export const useCreateNodePlugin = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node plugin created successfully',
+                message: t('bolt.toast.node-plugin-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Node Plugin`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -72,16 +67,13 @@ export const useDeleteNodePlugin = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node plugin deleted successfully',
+                message: t('bolt.toast.node-plugin-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Node Plugin`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -96,9 +88,7 @@ export const useReorderNodePlugins = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: `Reorder Node Plugins`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -113,16 +103,13 @@ export const useCloneNodePlugin = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Node plugin cloned successfully',
+                message: t('bolt.toast.node-plugin-cloned'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Clone Node Plugin`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -136,16 +123,13 @@ export const useNodePluginExecutor = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Request sent',
+                message: t('bolt.toast.request-sent'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Node Plugin Executor`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -158,16 +142,13 @@ export const useTruncateTorrentBlockerReports = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Reports truncated successfully',
+                message: t('bolt.toast.reports-truncated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Truncate Torrent Blocker Reports`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -181,16 +162,13 @@ export const useSyncNodePlugin = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Sync queued for nodes with this plugin',
+                message: t('bolt.toast.sync-queued-for-nodes-with-this-plugin'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Sync Node Plugin`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -205,16 +183,13 @@ export const useCreateSharedList = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Shared list created successfully',
+                message: t('bolt.toast.shared-list-created'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Create Shared List`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -229,16 +204,13 @@ export const useUpdateSharedList = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Shared list updated successfully',
+                message: t('bolt.toast.shared-list-updated'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Update Shared List`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -252,16 +224,13 @@ export const useDeleteSharedList = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Shared list deleted successfully',
+                message: t('bolt.toast.shared-list-deleted'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Delete Shared List`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -275,16 +244,13 @@ export const useSyncSharedList = createMutationHook({
     rMutationParams: {
         onSuccess: () => {
             notifications.show({
-                title: 'Success',
-                message: 'Sync queued for nodes using this list',
+                message: t('bolt.toast.sync-queued-for-nodes-using-this-list'),
                 color: 'teal'
             })
         },
         onError: (error) => {
             notifications.show({
-                title: `Sync Shared List`,
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }
@@ -299,9 +265,7 @@ export const useSetNodePluginsTags = createMutationHook({
     rMutationParams: {
         onError: (error) => {
             notifications.show({
-                title: 'Update tags',
-                message:
-                    error instanceof Error ? error.message : `Request failed with unknown error.`,
+                message: error instanceof Error ? error.message : t('bolt.toast.unknown-error'),
                 color: 'red'
             })
         }

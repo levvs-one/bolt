@@ -112,7 +112,7 @@
       "usage-stats": "Статистика использования",
       "user-agent": "User-Agent",
       "user-status": "Статус пользователя",
-      "username": "Юзернейм"
+      "username": "Логин"
     },
     "message": {
       "click-to-see-all": "Нажмите, чтобы увидеть все",
@@ -270,7 +270,7 @@
       "pick-value": "Выберите значение",
       "traffic-reset-strategy": "Стратегия сброса трафика",
       "traffic-reset-strategy-description": "Как часто обнулять статистику трафика пользователя",
-      "username-cannot-be-changed-later": "Юзернейм потом не изменить",
+      "username-cannot-be-changed-later": "Логин потом не изменить",
       "create-user": "Создать пользователя",
       "1-month": "+1 месяц",
       "3-months": "+3 месяца",

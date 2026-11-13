@@ -44,7 +44,6 @@ export const LoginFormFeature = () => {
                     <TextInput
                         label={t('common.field.username')}
                         name="username"
-                        placeholder={t('common.field.username')}
                         required
                         {...form.getInputProps('username')}
                     />
@@ -52,7 +51,6 @@ export const LoginFormFeature = () => {
                         label={t('common.field.password')}
                         mt="md"
                         name="password"
-                        placeholder={t('login-form.feature.your-password')}
                         required
                         {...form.getInputProps('password')}
                     />

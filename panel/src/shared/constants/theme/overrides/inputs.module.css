@@ -8,6 +8,11 @@
     display: none;
 }
 
+/* Звёздочек обязательности нет, как в формах macOS: пустое обязательное поле подсветит проверка. */
+.required {
+    display: none;
+}
+
 .error {
     font-size: 13px;
     font-weight: 600;

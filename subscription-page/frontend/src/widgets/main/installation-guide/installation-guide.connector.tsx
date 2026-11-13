@@ -1,21 +1,22 @@
+import { Button, Menu, UnstyledButton } from '@mantine/core'
+import { useClipboard } from '@mantine/hooks'
+import { notifications } from '@mantine/notifications'
 import {
     TSubscriptionPageButtonConfig,
     TSubscriptionPagePlatformKey
 } from '@remnawave/subscription-page-types'
 import { IconApps, IconCheck, IconChevronDown, IconDevices } from '@tabler/icons-react'
-import { Button, Menu, UnstyledButton } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
-import { useClipboard } from '@mantine/hooks'
 import { useState } from 'react'
 
-import { constructSubscriptionUrl } from '@shared/utils/construct-subscription-url'
-import { useSubscription } from '@entities/subscription-info-store'
-import { getLocalizedText } from '@shared/utils/config-parser'
-import { TemplateEngine } from '@shared/utils/template-engine'
-import { useAppConfig } from '@entities/app-config-store'
 import { boltText } from '@shared/constants/bolt-texts'
-import { vibrate } from '@shared/utils/vibrate'
 import { useTranslation } from '@shared/hooks'
+import { getLocalizedText } from '@shared/utils/config-parser'
+import { constructSubscriptionUrl } from '@shared/utils/construct-subscription-url'
+import { TemplateEngine } from '@shared/utils/template-engine'
+import { vibrate } from '@shared/utils/vibrate'
+
+import { useAppConfig } from '@entities/app-config-store'
+import { useSubscription } from '@entities/subscription-info-store'
 
 import classes from './installation-guide.module.css'
 
@@ -157,19 +158,20 @@ export const InstallationGuideConnector = ({ hasPlatformApps, platform }: IProps
 
             {selectedApp?.blocks.map((block, index) => {
                 const primary = block.buttons.filter((button) => button.type === 'subscriptionLink')
-                const secondary = block.buttons.filter((button) => button.type !== 'subscriptionLink')
+                const secondary = block.buttons.filter(
+                    (button) => button.type !== 'subscriptionLink'
+                )
 
                 return (
                     <div className={classes.step} key={`${selectedApp.name}-${index}`}>
-                        <div className={classes.stepNumber}>
-                            {boltText('step', currentLang, { n: index + 1 })}
+                        <div className={classes.stepTitle}>
+                            <span className={classes.stepNumber}>{index + 1}</span>
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html: getLocalizedText(block.title, currentLang)
+                                }}
+                            />
                         </div>
-                        <div
-                            className={classes.stepTitle}
-                            dangerouslySetInnerHTML={{
-                                __html: getLocalizedText(block.title, currentLang)
-                            }}
-                        />
                         <div
                             className={classes.stepText}
                             dangerouslySetInnerHTML={{

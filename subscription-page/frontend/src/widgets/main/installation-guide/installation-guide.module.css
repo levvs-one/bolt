@@ -57,15 +57,18 @@
     background: var(--bolt-surface);
 }
 
-.stepNumber {
-    font-size: 13px;
-    font-weight: 600;
-}
-
+/* Номер шага стоит в строке заголовка, а не надзаголовком над ним. */
 .stepTitle {
-    margin-top: 2px;
+    display: flex;
+    gap: 10px;
     font-size: 17px;
     font-weight: 700;
+    line-height: 1.35;
+}
+
+.stepNumber {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
 }
 
 .stepText {

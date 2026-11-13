@@ -255,14 +255,14 @@ export const HostsConfigProfilesDrawer = NiceModal.create((props: IProps) => {
                                                 onInboundToggle={handleInboundToggle}
                                                 onSelectAllInbounds={() => {
                                                     notifications.show({
-                                                        message: 'Nice try!',
+                                                        message: t('bolt.text.nice-try'),
                                                         color: 'red',
                                                         autoClose: 2000
                                                     })
                                                 }}
                                                 onUnselectAllInbounds={() => {
                                                     notifications.show({
-                                                        message: 'Nice try!',
+                                                        message: t('bolt.text.nice-try'),
                                                         color: 'red',
                                                         autoClose: 2000
                                                     })

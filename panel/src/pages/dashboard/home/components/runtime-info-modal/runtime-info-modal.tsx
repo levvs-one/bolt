@@ -59,7 +59,7 @@ export function RuntimeInfoModalContent() {
                             />
                         }
                         Icon={TbClock}
-                        title="Scheduler"
+                        title={t('bolt.text.rt-scheduler')}
                     />
                     <ProcessCard
                         color="teal"
@@ -70,7 +70,7 @@ export function RuntimeInfoModalContent() {
                             />
                         }
                         Icon={TbStack2}
-                        title="Processor"
+                        title={t('bolt.text.rt-processor')}
                     />
                 </SimpleGrid>
             </SectionShell>
@@ -80,7 +80,7 @@ export function RuntimeInfoModalContent() {
                 color="teal"
                 description={t('home.runtime-info.memory-description')}
                 Icon={TbServer}
-                title="Memory"
+                title={t('bolt.text.rt-memory')}
             >
                 <Stack gap="md">
                     <MetricEntry
@@ -92,7 +92,7 @@ export function RuntimeInfoModalContent() {
                             />
                         }
                         Icon={TbStack3}
-                        title="Heap"
+                        title={t('bolt.text.rt-heap')}
                     />
                     <MetricEntry
                         color="cyan"
@@ -114,7 +114,7 @@ export function RuntimeInfoModalContent() {
                             />
                         }
                         Icon={TbPackage}
-                        title="External"
+                        title={t('bolt.text.rt-external')}
                     />
                     <MetricEntry
                         color="green"
@@ -125,7 +125,7 @@ export function RuntimeInfoModalContent() {
                             />
                         }
                         Icon={TbBraces}
-                        title="Array Buffers"
+                        title={t('bolt.text.rt-array-buffers')}
                     />
                 </Stack>
             </SectionShell>
@@ -135,7 +135,7 @@ export function RuntimeInfoModalContent() {
                 color="violet"
                 description={t('home.runtime-info.event-loop-description')}
                 Icon={TbBolt}
-                title="Event Loop"
+                title={t('bolt.text.rt-event-loop')}
             >
                 <Stack gap="md">
                     <MetricEntry
@@ -147,7 +147,7 @@ export function RuntimeInfoModalContent() {
                             />
                         }
                         Icon={TbStopwatch}
-                        title="Delay"
+                        title={t('bolt.text.rt-delay')}
                     />
                     <MetricEntry
                         color="grape"
@@ -169,7 +169,7 @@ export function RuntimeInfoModalContent() {
                             />
                         }
                         Icon={TbPlug}
-                        title="Active Handles"
+                        title={t('bolt.text.rt-handles')}
                     />
                 </Stack>
             </SectionShell>

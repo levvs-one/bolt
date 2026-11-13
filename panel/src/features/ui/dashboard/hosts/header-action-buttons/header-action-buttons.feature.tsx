@@ -39,7 +39,7 @@ export const HeaderActionButtonsFeature = (props: IProps) => {
             <UniversalSpotlightActionIconShared />
 
             <ActionIconGroup>
-                <Tooltip label="Toggle view mode">
+                <Tooltip label={t('bolt.text.toggle-view')}>
                     <ActionIcon
                         color="gray"
                         onClick={() =>

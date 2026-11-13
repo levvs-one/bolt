@@ -3,6 +3,7 @@ import { MRT_Column } from '@kastov/mantine-react-table-open'
 import { Group, NativeSelect, NumberInput } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { GetUsersCommand } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 import { useEffect, useRef, useState } from 'react'
 
 import {
@@ -93,7 +94,7 @@ export const TrafficLimitRangeFilter = ({ column }: IProps) => {
                 hideControls
                 miw={0}
                 onChange={(value) => setValues(([, currentMax]) => [value, currentMax])}
-                placeholder="Min"
+                placeholder={t('bolt.text.min')}
                 size="xs"
                 thousandSeparator=","
                 value={values[0]}
@@ -104,7 +105,7 @@ export const TrafficLimitRangeFilter = ({ column }: IProps) => {
                 hideControls
                 miw={0}
                 onChange={(value) => setValues(([currentMin]) => [currentMin, value])}
-                placeholder="Max"
+                placeholder={t('bolt.text.max')}
                 size="xs"
                 thousandSeparator=","
                 value={values[1]}

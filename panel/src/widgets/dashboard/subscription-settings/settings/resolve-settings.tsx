@@ -58,7 +58,7 @@ export function resolveSubscriptionSetting(
 
         default:
             return {
-                label: 'Unknown setting'
+                label: t('bolt.text.unknown-setting')
             }
     }
 }

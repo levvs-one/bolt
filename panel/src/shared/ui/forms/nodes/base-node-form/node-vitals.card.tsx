@@ -127,7 +127,7 @@ export const NodeVitalsCard = <
 
                             <NumberInput
                                 key={form.key('port')}
-                                label="Node Port"
+                                label={t('bolt.text.node-port')}
                                 {...form.getInputProps('port')}
                                 allowDecimal={false}
                                 allowNegative={false}

@@ -46,7 +46,7 @@ export const NodeSystemCardWidget = memo((props: IProps) => {
             notifications.show({
                 color: 'red',
                 message: `${error instanceof Error ? error.message : 'Unknown error'}`,
-                title: 'Error'
+                title: t('bolt.text.error')
             })
         } finally {
             setCopying(false)
@@ -208,8 +208,7 @@ export const NodeSystemCardWidget = memo((props: IProps) => {
                                             {interfaceData.rxSpeed}
                                         </Text>
                                         <Text c="dimmed" ff="monospace" size="10px">
-                                            {t('common.field.total')}:{' '}
-                                            {interfaceData.rxTotal}
+                                            {t('common.field.total')}: {interfaceData.rxTotal}
                                         </Text>
                                     </Stack>
                                     <Stack gap={0}>
@@ -226,8 +225,7 @@ export const NodeSystemCardWidget = memo((props: IProps) => {
                                             {interfaceData.txSpeed}
                                         </Text>
                                         <Text c="dimmed" ff="monospace" size="10px">
-                                            {t('common.field.total')}:{' '}
-                                            {interfaceData.txTotal}
+                                            {t('common.field.total')}: {interfaceData.txTotal}
                                         </Text>
                                     </Stack>
                                 </Group>

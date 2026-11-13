@@ -45,7 +45,6 @@ export function BulkContactInformationCard(props: IProps) {
                             key={form.key('telegramId')}
                             label="Telegram ID"
                             leftSection={<PiTelegramLogoDuotone size="16px" />}
-                            placeholder="Enter user's Telegram ID (optional)"
                             {...form.getInputProps('telegramId')}
                             styles={{
                                 label: { fontWeight: 500 }
@@ -54,9 +53,8 @@ export function BulkContactInformationCard(props: IProps) {
 
                         <TextInput
                             key={form.key('email')}
-                            label="Email"
+                            label={t('bolt.text.email')}
                             leftSection={<PiEnvelopeDuotone size="16px" />}
-                            placeholder="Enter user's email (optional)"
                             {...form.getInputProps('email')}
                             styles={{
                                 label: { fontWeight: 500 }

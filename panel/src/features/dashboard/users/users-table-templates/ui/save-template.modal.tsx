@@ -41,7 +41,7 @@ export const SaveTemplateModal = (props: IProps) => {
                 onKeyDown={(event) => {
                     if (event.key === 'Enter') handleSave()
                 }}
-                placeholder="ACTIVE users with sort"
+                placeholder={t('bolt.text.template-placeholder')}
                 value={name}
             />
 

@@ -255,7 +255,7 @@ export const QuickLinksModalShared = NiceModal.create((props: IProps) => {
                                 data={[
                                     { label: 'Modals', value: 'modal' },
                                     { label: 'Routes', value: 'route' },
-                                    { label: 'External', value: 'external' }
+                                    { label: t('bolt.text.rt-external'), value: 'external' }
                                 ]}
                                 fullWidth
                                 onChange={(value) => switchKind(value as TAddKind)}

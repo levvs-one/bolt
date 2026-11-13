@@ -71,7 +71,7 @@ export const GeocheckResultWidget = (props: IProps) => {
         notifications.show({
             color: 'red',
             message: `${error instanceof Error ? error.message : 'Unknown error'}`,
-            title: 'Error'
+            title: t('bolt.text.error')
         })
     }
 

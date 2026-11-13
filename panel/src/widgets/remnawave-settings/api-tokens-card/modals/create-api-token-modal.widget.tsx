@@ -169,13 +169,13 @@ export const CreateApiTokenContentWidget = ({ isMobile }: IProps) => {
             }
             setSelectedEndpoints(new Set(expandScopesToKeys(resources, parsed as string[])))
             notifications.show({
-                title: 'Scopes pasted',
+                title: t('bolt.text.scopes-pasted'),
                 message: `Imported ${parsed.length} scope(s) from clipboard`,
                 color: 'teal'
             })
         } catch {
             notifications.show({
-                title: 'Invalid scopes',
+                title: t('bolt.text.scopes-invalid'),
                 message: 'Clipboard must contain a JSON array of scope strings',
                 color: 'red'
             })

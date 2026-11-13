@@ -175,7 +175,7 @@ export const CreateInfraBillingNodeModal = NiceModal.create(() => {
                             key={form.key('name')}
                             label={t('create-infra-billing-node.modal.widget.custom')}
                             leftSection={<TbCursorText size="16px" />}
-                            placeholder="Management Server"
+                            placeholder={t('bolt.text.server-placeholder')}
                             {...form.getInputProps('name')}
                         />
                     )}

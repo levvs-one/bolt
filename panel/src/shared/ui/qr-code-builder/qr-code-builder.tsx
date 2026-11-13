@@ -89,7 +89,7 @@ export function QrCodeBuilder({ data, title }: IProps) {
             notifications.show({
                 color: 'red',
                 message: `${error instanceof Error ? error.message : 'Unknown error'}`,
-                title: 'Error'
+                title: t('bolt.text.error')
             })
         } finally {
             setCopying(false)
@@ -109,7 +109,7 @@ export function QrCodeBuilder({ data, title }: IProps) {
             notifications.show({
                 color: 'red',
                 message: `${error instanceof Error ? error.message : 'Unknown error'}`,
-                title: 'Error'
+                title: t('bolt.text.error')
             })
         } finally {
             setDownloading(false)
@@ -119,7 +119,7 @@ export function QrCodeBuilder({ data, title }: IProps) {
     const leftControls = (
         <Stack gap="sm" style={{ flexShrink: 0 }}>
             <div className={classes.controlPanel}>
-                <div className={classes.controlLabel}>Foreground color</div>
+                <div className={classes.controlLabel}>{t('bolt.text.qr-fg')}</div>
                 <ColorPicker
                     format="hex"
                     fullWidth
@@ -133,7 +133,7 @@ export function QrCodeBuilder({ data, title }: IProps) {
             </div>
 
             <div className={classes.controlPanel}>
-                <div className={classes.controlLabel}>Background color</div>
+                <div className={classes.controlLabel}>{t('bolt.text.qr-bg')}</div>
                 <ColorPicker
                     format="hex"
                     fullWidth

@@ -8,6 +8,7 @@ import {
 import { NodePluginEditorSchema, SharedListConfigSchema } from '@remnawave/node-plugins'
 import axios from 'axios'
 import consola from 'consola'
+import { t } from 'i18next'
 import { app } from 'src/config'
 
 import { registerJsonSchema } from '@shared/utils/monaco/json-schema-registry'
@@ -239,7 +240,7 @@ export const MonacoSetupFeature = {
                 type: 'array',
                 items: {
                     ...snippetSchema,
-                    title: 'Snippet name'
+                    title: t('bolt.text.snippet-name')
                 },
                 minItems: 1
             }

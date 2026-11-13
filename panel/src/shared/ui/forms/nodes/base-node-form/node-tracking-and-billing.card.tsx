@@ -172,7 +172,7 @@ export const NodeTrackingAndBillingCard = <
                             label={t('common.field.tags')}
                             leftSection={<PiTagDuotone size="16px" />}
                             maxTags={10}
-                            placeholder="Enter tags (comma, space, semicolon)"
+                            placeholder={t('bolt.text.tags-placeholder')}
                             splitChars={[',', ' ', ';']}
                             {...form.getInputProps('tags')}
                             error={

@@ -56,7 +56,7 @@ export function resolveHostFormFields(
 
         default:
             return {
-                label: 'Unknown setting'
+                label: t('bolt.text.unknown-setting')
             }
     }
 }

@@ -56,9 +56,7 @@ export const BulkAccessSettingsCard = (props: IProps) => {
                             data={userStatusValues.filter(
                                 (status) => status.value !== 'EXPIRED' && status.value !== 'LIMITED'
                             )}
-                            description={t(
-                                'common.field.user-status'
-                            )}
+                            description={t('common.field.user-status')}
                             key={form.key('fields.status')}
                             label={t('common.field.status')}
                             leftSection={<TbStatusChange size="16px" />}
@@ -116,7 +114,7 @@ export const BulkAccessSettingsCard = (props: IProps) => {
 
                                 if (date === 'Invalid Date') {
                                     notifications.show({
-                                        title: 'Invalid date',
+                                        title: t('bolt.text.invalid-date'),
                                         message:
                                             'Please select a valid date. Defaulting to 1 month from now.',
                                         color: 'red'

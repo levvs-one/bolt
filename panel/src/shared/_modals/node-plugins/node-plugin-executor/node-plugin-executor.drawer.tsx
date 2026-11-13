@@ -1,5 +1,6 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { Modal } from '@mantine/core'
+import { t } from 'i18next'
 import { motion } from 'motion/react'
 import { TbTerminal } from 'react-icons/tb'
 
@@ -25,7 +26,7 @@ export const NodePluginExecutorDrawer = NiceModal.create(() => {
                     iconColor="cyan"
                     IconComponent={TbTerminal}
                     iconVariant="soft"
-                    title="Executor"
+                    title={t('bolt.text.executor')}
                 />
             }
         >

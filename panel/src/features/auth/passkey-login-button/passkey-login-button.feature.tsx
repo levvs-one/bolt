@@ -5,6 +5,7 @@ import {
     type PublicKeyCredentialRequestOptionsJSON,
     startAuthentication
 } from '@simplewebauthn/browser'
+import { t } from 'i18next'
 import { useState } from 'react'
 import { TbFingerprint } from 'react-icons/tb'
 
@@ -52,13 +53,13 @@ export const PasskeyLoginButtonFeature = (props: IProps) => {
                 if (error.name === 'NotAllowedError') {
                     notifications.show({
                         title: 'Passkey Authentication',
-                        message: 'Authentication was cancelled',
+                        message: t('bolt.text.auth-cancelled'),
                         color: 'yellow'
                     })
                 } else if (error.name === 'NotSupportedError') {
                     notifications.show({
                         title: 'Passkey Authentication',
-                        message: 'Passkeys are not supported on this device',
+                        message: t('bolt.text.passkey-unsupported'),
                         color: 'red'
                     })
                 }

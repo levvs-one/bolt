@@ -122,7 +122,7 @@ export const AccessSettingsCard = <
 
                                 if (date === 'Invalid Date') {
                                     notifications.show({
-                                        title: 'Invalid date',
+                                        title: t('bolt.text.invalid-date'),
                                         message:
                                             'Please select a valid date. Defaulting to 1 month from now.',
                                         color: 'red'

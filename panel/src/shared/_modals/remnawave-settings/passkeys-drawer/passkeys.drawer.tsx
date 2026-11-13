@@ -134,19 +134,19 @@ export const PasskeysDrawer = NiceModal.create(() => {
                 if (error.name === 'NotAllowedError') {
                     notifications.show({
                         title: 'Passkey Registration',
-                        message: 'Registration was cancelled',
+                        message: t('bolt.text.registration-cancelled'),
                         color: 'red'
                     })
                 } else if (error.name === 'NotSupportedError') {
                     notifications.show({
                         title: 'Passkey Registration',
-                        message: 'Passkeys are not supported on this device',
+                        message: t('bolt.text.passkey-unsupported'),
                         color: 'red'
                     })
                 } else if (error.name === 'InvalidStateError') {
                     notifications.show({
                         title: 'Passkey Registration',
-                        message: 'This device is already registered',
+                        message: t('bolt.text.device-registered'),
                         color: 'red'
                     })
                 } else {
@@ -160,7 +160,7 @@ export const PasskeysDrawer = NiceModal.create(() => {
                 consola.error(error)
                 notifications.show({
                     title: 'Passkey Registration Error',
-                    message: 'An unexpected error occurred',
+                    message: t('bolt.text.unexpected-error'),
                     color: 'red'
                 })
             }

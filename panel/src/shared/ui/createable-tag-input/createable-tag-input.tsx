@@ -1,6 +1,7 @@
 import type { IProps } from './interfaces/props.interface'
 
 import { CloseButton, Combobox, InputBase, useCombobox } from '@mantine/core'
+import { t } from 'i18next'
 import { useEffect, useState } from 'react'
 import { PiTagDuotone } from 'react-icons/pi'
 
@@ -70,9 +71,8 @@ export function CreateableTagInputShared(props: IProps) {
             <Combobox.Target>
                 <InputBase
                     {...restProps}
-                    description="Create or select a tag"
                     error={error || restProps.error}
-                    label="Tag"
+                    label={t('bolt.text.tag')}
                     leftSection={<PiTagDuotone size="16px" />}
                     onBlur={() => {
                         combobox.closeDropdown()

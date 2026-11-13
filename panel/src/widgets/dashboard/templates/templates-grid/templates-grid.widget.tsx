@@ -1,4 +1,5 @@
 import { modals } from '@mantine/modals'
+import { t } from 'i18next'
 import { useMemo } from 'react'
 
 import {
@@ -52,7 +53,7 @@ export function TemplatesGridWidget(props: IProps) {
 
     const handleDeleteTemplate = (templateUuid: string) => {
         modals.openConfirmModal({
-            title: 'Confirm deletion',
+            title: t('bolt.text.confirm-delete'),
             children: 'Are you sure you want to perform this action? This action cannot be undone.',
             labels: {
                 confirm: 'Delete',

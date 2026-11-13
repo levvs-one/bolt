@@ -130,7 +130,7 @@ export const KeypairGeneratorWidget = () => {
 
                                 <Stack gap="xs">
                                     <CopyableAreaShared
-                                        label="Both keys"
+                                        label={t('bolt.text.both-keys')}
                                         value={`"mldsa65Seed": "${mlDsa65KeyPair.mldsa65Seed}", 
 "mldsa65Verify": "${mlDsa65KeyPair.mldsa65Verify}",`}
                                     />
@@ -162,12 +162,12 @@ export const KeypairGeneratorWidget = () => {
                             <Stack gap="md" style={styles}>
                                 <Stack gap="xs">
                                     <CopyableFieldShared
-                                        label="Server side, used in decryption"
+                                        label={t('bolt.text.server-key')}
                                         value={mlKem768KeyPair.mlkem768Seed}
                                     />
 
                                     <CopyableFieldShared
-                                        label="Client side, used in encryption"
+                                        label={t('bolt.text.client-key')}
                                         value={mlKem768KeyPair.mlkem768PublicKey}
                                     />
                                 </Stack>

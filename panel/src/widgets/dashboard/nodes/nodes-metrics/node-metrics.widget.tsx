@@ -14,6 +14,7 @@ import {
 } from '@mantine/core'
 import { GetNodesMetricsCommand } from '@remnawave/backend-contract'
 import { VirtuosoMasonry } from '@virtuoso.dev/masonry'
+import { t } from 'i18next'
 import { useCallback, useMemo } from 'react'
 import {
     PiGlobeSimple,
@@ -75,7 +76,7 @@ export const NodeMetricsWidget = () => {
                         <ThemeIcon color="gray" size="xl" variant="light">
                             <PiProhibitDuotone size="32px" />
                         </ThemeIcon>
-                        <Text size="lg">No nodes metrics available</Text>
+                        <Text size="lg">{t('bolt.text.no-metrics')}</Text>
                     </Stack>
                 </Center>
             </Card>

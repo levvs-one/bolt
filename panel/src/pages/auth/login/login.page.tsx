@@ -4,6 +4,7 @@ import { PasskeyLoginButtonFeature } from '@features/auth/passkey-login-button'
 import { RegisterFormFeature } from '@features/auth/register-form'
 import { Box, Center, Divider, Image, Stack, Text } from '@mantine/core'
 import { GetStatusCommand } from '@remnawave/backend-contract'
+import { t } from 'i18next'
 
 import { useGetAuthStatus } from '@shared/api/hooks/auth/auth.query.hooks'
 import { Logo, Page } from '@shared/ui'
@@ -71,7 +72,7 @@ export const LoginPage = () => {
     const authMethods = getAuthMethods(authStatus)
 
     return (
-        <Page title="Login">
+        <Page title={t('bolt.text.login')}>
             <Stack align="center" gap="xs">
                 <div className={classes.brand}>
                     <BrandLogo logoUrl={authStatus?.branding.logoUrl} />
@@ -88,7 +89,7 @@ export const LoginPage = () => {
                             {authMethods.hasPrimaryMethods && authMethods.hasAlternativeMethods && (
                                 <Center>
                                     <Divider
-                                        label="OR"
+                                        label={t('bolt.text.or')}
                                         labelPosition="center"
                                         maw="400px"
                                         w="100%"

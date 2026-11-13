@@ -1,4 +1,5 @@
 import { notifications } from '@mantine/notifications'
+import { t } from 'i18next'
 import { TbCheck as IconCheck } from 'react-icons/tb'
 
 export const baseNotificationsMutations = (id: string, refetch: () => void) => {
@@ -7,8 +8,8 @@ export const baseNotificationsMutations = (id: string, refetch: () => void) => {
             notifications.show({
                 id,
                 loading: true,
-                title: 'Processing',
-                message: 'This operation may take some time...',
+                title: t('bolt.text.processing'),
+                message: t('bolt.text.may-take-time'),
                 autoClose: false,
                 withCloseButton: false
             })
@@ -20,7 +21,7 @@ export const baseNotificationsMutations = (id: string, refetch: () => void) => {
                 notifications.update({
                     id,
                     color: 'red',
-                    title: 'Error',
+                    title: t('bolt.text.error'),
                     message: error instanceof Error ? error.message : 'Unknown error',
                     loading: false,
                     autoClose: 5000
@@ -32,8 +33,8 @@ export const baseNotificationsMutations = (id: string, refetch: () => void) => {
                 icon: <IconCheck size={18} />,
                 id,
                 color: 'teal',
-                title: 'Success',
-                message: 'Task added to queue. Please wait for it to be processed.',
+                title: t('bolt.text.success'),
+                message: t('bolt.text.task-queued'),
                 loading: false,
                 autoClose: 3000
             })

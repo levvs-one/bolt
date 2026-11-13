@@ -1,4 +1,5 @@
 import { TagsInput } from '@mantine/core'
+import { t } from 'i18next'
 
 import { useSettingsRowControl } from '@shared/ui/settings-row'
 import { TagInputPill } from '@shared/ui/tag-input-pill'
@@ -15,7 +16,7 @@ export function TagsOption() {
             data={hostTags ?? []}
             key={form.key('tags')}
             maxTags={10}
-            placeholder="Enter tags (comma, space, semicolon)"
+            placeholder={t('bolt.text.tags-placeholder')}
             splitChars={[',', ' ', ';']}
             w="100%"
             {...rowControl}

@@ -90,7 +90,7 @@ export function DeviceTagSettingsCard<
                                 hideControls
                                 key={form.key('hwidDeviceLimit')}
                                 leftSection={<TbDevices2 size="16px" />}
-                                placeholder="Fallback Device Limit in use"
+                                placeholder={t('bolt.text.device-limit-fallback')}
                                 {...form.getInputProps('hwidDeviceLimit')}
                             />
                         </Stack>

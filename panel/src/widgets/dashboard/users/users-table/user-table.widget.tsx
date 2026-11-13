@@ -247,8 +247,8 @@ export function UserTableWidget() {
             onClick: async () => {
                 if (row.id === 'mrt-row-empty' || row.original.id === undefined) {
                     notifications.show({
-                        title: 'Nice try!',
-                        message: 'Nothing to show...',
+                        title: t('bolt.text.nice-try'),
+                        message: t('bolt.text.nothing-to-show'),
                         color: 'indigo'
                     })
                     return

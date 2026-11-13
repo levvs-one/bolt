@@ -228,7 +228,7 @@ export const MultiSelectHostsFeature = (props: IProps) => {
 
                                 {activeTag === null && (
                                     <ActionIcon.Group style={{ width: '100%' }}>
-                                        <Tooltip label="Move to top" withArrow>
+                                        <Tooltip label={t('bolt.text.move-top')} withArrow>
                                             <ActionIcon
                                                 color="gray"
                                                 onClick={() => moveSelected('top')}
@@ -240,7 +240,7 @@ export const MultiSelectHostsFeature = (props: IProps) => {
                                             </ActionIcon>
                                         </Tooltip>
 
-                                        <Tooltip label="Move up" withArrow>
+                                        <Tooltip label={t('bolt.text.move-up')} withArrow>
                                             <ActionIcon
                                                 color="gray"
                                                 onClick={() => moveSelected('up')}
@@ -252,7 +252,7 @@ export const MultiSelectHostsFeature = (props: IProps) => {
                                             </ActionIcon>
                                         </Tooltip>
 
-                                        <Tooltip label="Move down" withArrow>
+                                        <Tooltip label={t('bolt.text.move-down')} withArrow>
                                             <ActionIcon
                                                 color="gray"
                                                 onClick={() => moveSelected('down')}
@@ -264,7 +264,7 @@ export const MultiSelectHostsFeature = (props: IProps) => {
                                             </ActionIcon>
                                         </Tooltip>
 
-                                        <Tooltip label="Move to bottom" withArrow>
+                                        <Tooltip label={t('bolt.text.move-bottom')} withArrow>
                                             <ActionIcon
                                                 color="gray"
                                                 onClick={() => moveSelected('bottom')}

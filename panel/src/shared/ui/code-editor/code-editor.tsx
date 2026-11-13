@@ -4,6 +4,7 @@ import { Box, Text } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import Editor, { EditorProps, OnMount } from '@monaco-editor/react'
 import clsx from 'clsx'
+import { t } from 'i18next'
 import { parse } from 'jsonc-parser'
 import { Fragment, ReactNode, useRef, useState } from 'react'
 
@@ -19,9 +20,9 @@ const REPAIR_ACTION_ID = 'remnawave.repairJson'
 const REPAIR_LABEL = 'Repair JSON'
 
 const RESULT_COLORS: Record<RepairResult, { color: string; message: string }> = {
-    failed: { color: 'red', message: 'Could not repair this JSON' },
+    failed: { color: 'red', message: t('bolt.text.json-repair-failed') },
     repaired: { color: 'teal', message: 'JSON repaired' },
-    unchanged: { color: 'gray', message: 'Nothing to repair' }
+    unchanged: { color: 'gray', message: t('bolt.text.json-nothing') }
 }
 
 interface Props extends Omit<EditorProps, 'wrapperProps'> {

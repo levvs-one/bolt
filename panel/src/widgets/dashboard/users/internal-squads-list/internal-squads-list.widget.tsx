@@ -18,6 +18,9 @@ export interface IProps {
     setSearchQuery: (value: string) => void
 }
 
+const ROW_HEIGHT = 48
+const LIST_MAX_HEIGHT = 200
+
 export const InternalSquadsListWidget = memo((props: IProps) => {
     const {
         filteredInternalSquads,
@@ -37,12 +40,12 @@ export const InternalSquadsListWidget = memo((props: IProps) => {
     const virtualizer = useVirtualizer({
         count: filteredInternalSquads.length,
         getScrollElement: () => parentRef.current,
-        estimateSize: () => 60,
+        estimateSize: () => ROW_HEIGHT,
         overscan: 10
     })
 
     return (
-        <Stack gap="md">
+        <Stack gap="sm">
             <TextInput
                 description={description}
                 label={label}
@@ -59,7 +62,7 @@ export const InternalSquadsListWidget = memo((props: IProps) => {
                         height:
                             filteredInternalSquads.length === 0
                                 ? 200
-                                : Math.min(200, filteredInternalSquads.length * 80),
+                                : Math.min(LIST_MAX_HEIGHT, filteredInternalSquads.length * ROW_HEIGHT),
                         overflow: 'auto'
                     }}
                 >

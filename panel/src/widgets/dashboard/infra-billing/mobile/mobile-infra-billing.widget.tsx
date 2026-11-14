@@ -13,7 +13,7 @@ import { LoadingScreen } from '@shared/ui'
 
 import { MobileNodesListWidget } from './mobile-nodes-list.widget'
 import { MobileProvidersListWidget } from './mobile-providers-list.widget'
-import { MobileStatsWidget } from './mobile-stats.widget'
+import { StatsWidget } from '../stats-widget/stats.widget'
 import { VirtualizedRecordsList } from './virtualized-records-list.widget'
 
 const RECORDS_HEIGHT = 'calc(100vh - 280px)'
@@ -89,7 +89,7 @@ export function MobileInfraBillingWidget() {
 
     return (
         <Stack gap="xs" pos="relative">
-            <MobileStatsWidget />
+            <StatsWidget />
 
             <Tabs
                 color="cyan"
@@ -169,17 +169,18 @@ export function MobileInfraBillingWidget() {
                 </Tabs.Panel>
             </Tabs>
 
+            {/* Над нижней панелью вкладок, а не под ней: высота панели — 72 px плюс безопасная зона. */}
             <Group
-                bottom={16}
                 gap={8}
                 pos="fixed"
-                right={15}
+                right={16}
                 style={{
+                    bottom: 'calc(84px + env(safe-area-inset-bottom, 0px))',
                     zIndex: 100,
-                    backgroundColor: 'var(--mantine-color-dark-6)',
-                    padding: 6,
+                    padding: 4,
+                    border: '1px solid var(--bolt-line)',
                     borderRadius: 'var(--mantine-radius-md)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)'
+                    backgroundColor: 'var(--bolt-surface-raised)'
                 }}
             >
                 <ActionIcon

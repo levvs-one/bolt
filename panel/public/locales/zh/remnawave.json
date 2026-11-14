@@ -1653,13 +1653,6 @@
       "no-results-for-ip": "未找到与 IP “{{ip}}” 匹配的用户"
     }
   },
-  "mobile-stats": {
-    "widget": {
-      "upcoming": "即将到来",
-      "per-month": "每月",
-      "total-spent": "合计花费"
-    }
-  },
   "mobile-providers-list": {
     "widget": {
       "invoices": "发票"

@@ -1,8 +1,6 @@
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
-import { FaServer } from 'react-icons/fa'
-import { MdPayment, MdTrendingUp } from 'react-icons/md'
-import { TbAlertTriangle } from 'react-icons/tb'
+import { TbAlertTriangle, TbCreditCard, TbServer, TbTrendingUp } from 'react-icons/tb'
 
 import { useGetInfraBillingNodes } from '@shared/api/hooks'
 import {
@@ -41,7 +39,7 @@ export function StatsWidget() {
             title: t('stats.widget.upcoming-in', { month: currentMonthOnly }),
             value: nodes?.stats.upcomingNodesCount ?? 0,
             subtitle: t('stats.widget.nodes-pending-payment'),
-            IconComponent: FaServer,
+            IconComponent: TbServer,
             iconColor: 'orange',
             iconVariant: 'soft'
         },
@@ -49,7 +47,7 @@ export function StatsWidget() {
             title: t('stats.widget.payments-in', { month: currentMonthOnly }),
             value: formatCurrency(nodes?.stats.currentMonthPayments ?? 0),
             subtitle: t('stats.widget.total-payments-made'),
-            IconComponent: MdPayment,
+            IconComponent: TbCreditCard,
             iconColor: 'green',
             iconVariant: 'soft'
         },
@@ -57,7 +55,7 @@ export function StatsWidget() {
             title: t('stats.widget.total-spent'),
             value: formatCurrency(nodes?.stats.totalSpent ?? 0),
             subtitle: t('stats.widget.lifetime-spending'),
-            IconComponent: MdTrendingUp,
+            IconComponent: TbTrendingUp,
             iconColor: 'violet',
             iconVariant: 'soft'
         }

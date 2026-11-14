@@ -1653,13 +1653,6 @@
       "no-results-for-ip": "No users found with IP matching \"{{ip}}\""
     }
   },
-  "mobile-stats": {
-    "widget": {
-      "upcoming": "Upcoming",
-      "per-month": "Per month",
-      "total-spent": "Total spent"
-    }
-  },
   "mobile-providers-list": {
     "widget": {
       "invoices": "Invoices"

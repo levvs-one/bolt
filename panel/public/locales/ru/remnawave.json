@@ -889,9 +889,9 @@
   },
   "stats": {
     "widget": {
-      "upcoming-in": "Предстоит в {{month}}",
+      "upcoming-in": "К оплате в этом месяце",
       "nodes-pending-payment": "нод ждут оплаты",
-      "payments-in": "Платежи в {{month}}",
+      "payments-in": "Платежи в этом месяце",
       "total-payments-made": "платежей проведено",
       "total-spent": "Всего потрачено",
       "lifetime-spending": "за всё время",
@@ -1651,13 +1651,6 @@
       "clear-results": "Очистить результаты",
       "search-by-ip": "Поиск по IP-адресу...",
       "no-results-for-ip": "Пользователей с IP «{{ip}}» не найдено"
-    }
-  },
-  "mobile-stats": {
-    "widget": {
-      "upcoming": "Предстоит",
-      "per-month": "За месяц",
-      "total-spent": "Всего потрачено"
     }
   },
   "mobile-providers-list": {

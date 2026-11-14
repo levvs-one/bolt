@@ -1,28 +1,15 @@
-import {
-    Box,
-    Button,
-    Collapse,
-    Group,
-    NumberInput,
-    Stack,
-    Switch,
-    TagsInput,
-    Text,
-    Textarea
-} from '@mantine/core'
+import { Button, Collapse, NumberInput, Stack, Switch, TagsInput, Textarea } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 import { CreateNodeCommand, UpdateNodeCommand } from '@remnawave/backend-contract'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PiTagDuotone } from 'react-icons/pi'
-import { TbBell, TbChartBar, TbChartLine, TbClock, TbExternalLink } from 'react-icons/tb'
+import { TbBell, TbCalendar, TbChartArcs, TbChartLine } from 'react-icons/tb'
 
 import { useGetNodesTags } from '@shared/api/hooks'
+import { BoltField, BoltGroup } from '@shared/ui/bolt-list'
 import { TrafficLimitInput } from '@shared/ui/forms/traffic-limit-input'
 import { SelectInfraProviderShared } from '@shared/ui/infra-billing/select-infra-provider/select-infra-provider.shared'
-import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
-import { SectionCard } from '@shared/ui/section-card'
 import { TagInputPill } from '@shared/ui/tag-input-pill'
 
 import classes from './node-tracking-and-billing.card.module.css'
@@ -64,157 +51,112 @@ export const NodeTrackingAndBillingCard = <
 
     return (
         <MotionWrapper variants={cardVariants}>
-            <SectionCard.Root>
-                <SectionCard.Section>
-                    <BaseOverlayHeader
-                        iconColor="yellow"
-                        IconComponent={TbChartBar}
-                        iconVariant="soft"
-                        title={t('base-node-form.tracking-and-billing')}
-                        titleOrder={5}
-                    />
-                </SectionCard.Section>
-                <SectionCard.Section>
-                    <Stack gap="md">
-                        <SelectInfraProviderShared
-                            selectedInfraProviderUuid={form.getValues().providerUuid}
-                            setSelectedInfraProviderUuid={(providerUuid) => {
-                                form.setFieldValue('providerUuid', providerUuid as never)
-                            }}
-                        />
-
-                        <Box className={classes.trackingCard}>
-                            <Group gap="xs" justify="space-between">
-                                <Group gap="xs">
-                                    <TbChartLine size={20} strokeWidth={1.75} />
-                                    <Text fw={600} size="md">
-                                        {t('base-node-form.traffic-tracking')}
-                                    </Text>
-                                </Group>
-                                <Switch
-                                    key={form.key('isTrafficTrackingActive')}
-                                    {...form.getInputProps('isTrafficTrackingActive', {
-                                        type: 'checkbox'
-                                    })}
-                                    onChange={(event) => {
-                                        form.getInputProps('isTrafficTrackingActive').onChange(
-                                            event
-                                        )
-                                        setAdvancedOpened(event.currentTarget.checked)
-                                    }}
-                                    size="md"
-                                />
-                            </Group>
-
-                            <Collapse expanded={advancedOpened}>
-                                <Stack gap="sm">
-                                    <Group gap="md" grow justify="space-between" w="100%">
-                                        <TrafficLimitInput
-                                            hideControls
-                                            key={form.key('trafficLimitBytes')}
-                                            label={t('base-node-form.limit')}
-                                            leftSection={<TbChartLine size={16} />}
-                                            {...form.getInputProps('trafficLimitBytes')}
-                                            styles={{
-                                                label: { fontWeight: 500 }
-                                            }}
-                                        />
-                                    </Group>
-
-                                    <Group gap="md" grow justify="space-between" w="100%">
-                                        <NumberInput
-                                            key={form.key('trafficResetDay')}
-                                            label={t('base-node-form.reset-day')}
-                                            {...form.getInputProps('trafficResetDay')}
-                                            allowDecimal={false}
-                                            allowNegative={false}
-                                            clampBehavior="strict"
-                                            decimalScale={0}
-                                            hideControls
-                                            leftSection={<TbClock size={16} />}
-                                            max={31}
-                                            min={1}
-                                            placeholder={t('base-node-form.e-g-1-31')}
-                                            styles={{
-                                                label: { fontWeight: 500 }
-                                            }}
-                                        />
-
-                                        <NumberInput
-                                            key={form.key('notifyPercent')}
-                                            label={t('base-node-form.notify-percent')}
-                                            {...form.getInputProps('notifyPercent')}
-                                            allowDecimal={false}
-                                            allowNegative={false}
-                                            clampBehavior="strict"
-                                            decimalScale={0}
-                                            hideControls
-                                            leftSection={<TbBell size={16} />}
-                                            max={100}
-                                            placeholder={t('base-node-form.e-g-50')}
-                                            styles={{
-                                                label: {
-                                                    fontWeight: 500,
-                                                    whiteSpace: 'nowrap',
-                                                    textOverflow: 'ellipsis'
-                                                }
-                                            }}
-                                        />
-                                    </Group>
-                                </Stack>
-                            </Collapse>
-                        </Box>
-
-                        <TagsInput
-                            clearable
-                            data={nodesTags?.tags || []}
-                            key={form.key('tags')}
-                            label={t('common.field.tags')}
-                            leftSection={<PiTagDuotone size="16px" />}
-                            maxTags={10}
-                            placeholder={t('bolt.text.tags-placeholder')}
-                            splitChars={[',', ' ', ';']}
-                            {...form.getInputProps('tags')}
-                            error={
-                                Object.keys(form.errors)
-                                    .filter((key) => key.startsWith('tags.'))
-                                    .map((key) => form.errors[key])
-                                    .join(', ') || form.getInputProps('tags').error
-                            }
-                            renderPill={({ value, onRemove }) => (
-                                <TagInputPill onRemove={onRemove} value={value} />
-                            )}
-                        />
-
-                        <Stack gap={6}>
-                            <Textarea
-                                key={form.key('note')}
-                                label={t('node-tracking-and-billing.card.note')}
-                                resize="vertical"
-                                {...form.getInputProps('note')}
-                                styles={{
-                                    label: { fontWeight: 500 }
+            <Stack gap={12}>
+                <BoltGroup>
+                    <BoltField icon={TbChartLine} label={t('base-node-form.traffic-tracking')}>
+                        <span className={classes.switch}>
+                            <Switch
+                                key={form.key('isTrafficTrackingActive')}
+                                {...form.getInputProps('isTrafficTrackingActive', {
+                                    type: 'checkbox'
+                                })}
+                                onChange={(event) => {
+                                    form.getInputProps('isTrafficTrackingActive').onChange(event)
+                                    setAdvancedOpened(event.currentTarget.checked)
                                 }}
                             />
-                            {firstNoteUrl && (
-                                <Button
-                                    component="a"
-                                    href={firstNoteUrl}
-                                    leftSection={<TbExternalLink size={14} />}
-                                    maw="100%"
-                                    rel="noopener noreferrer"
-                                    size="xs"
-                                    target="_blank"
-                                    variant="soft"
-                                    w="fit-content"
-                                >
-                                    {t('common.action.open')}
-                                </Button>
-                            )}
-                        </Stack>
+                        </span>
+                    </BoltField>
+                    <Collapse expanded={advancedOpened}>
+                        <BoltField icon={TbChartArcs} label={t('base-node-form.limit')}>
+                            <TrafficLimitInput
+                                hideControls
+                                key={form.key('trafficLimitBytes')}
+                                {...form.getInputProps('trafficLimitBytes')}
+                            />
+                        </BoltField>
+                        <BoltField icon={TbCalendar} label={t('base-node-form.reset-day')}>
+                            <NumberInput
+                                key={form.key('trafficResetDay')}
+                                {...form.getInputProps('trafficResetDay')}
+                                allowDecimal={false}
+                                allowNegative={false}
+                                clampBehavior="strict"
+                                decimalScale={0}
+                                hideControls
+                                max={31}
+                                min={1}
+                                placeholder={t('base-node-form.e-g-1-31')}
+                            />
+                        </BoltField>
+                        <BoltField icon={TbBell} label={t('base-node-form.notify-percent')}>
+                            <NumberInput
+                                key={form.key('notifyPercent')}
+                                {...form.getInputProps('notifyPercent')}
+                                allowDecimal={false}
+                                allowNegative={false}
+                                clampBehavior="strict"
+                                decimalScale={0}
+                                hideControls
+                                max={100}
+                                placeholder={t('base-node-form.e-g-50')}
+                            />
+                        </BoltField>
+                    </Collapse>
+                </BoltGroup>
+
+                <BoltGroup className={classes.form}>
+                    <SelectInfraProviderShared
+                        selectedInfraProviderUuid={form.getValues().providerUuid}
+                        setSelectedInfraProviderUuid={(providerUuid) => {
+                            form.setFieldValue('providerUuid', providerUuid as never)
+                        }}
+                    />
+
+                    <TagsInput
+                        clearable
+                        data={nodesTags?.tags || []}
+                        key={form.key('tags')}
+                        label={t('common.field.tags')}
+                        maxTags={10}
+                        placeholder={t('bolt.text.tags-placeholder')}
+                        splitChars={[',', ' ', ';']}
+                        {...form.getInputProps('tags')}
+                        error={
+                            Object.keys(form.errors)
+                                .filter((key) => key.startsWith('tags.'))
+                                .map((key) => form.errors[key])
+                                .join(', ') || form.getInputProps('tags').error
+                        }
+                        renderPill={({ value, onRemove }) => (
+                            <TagInputPill onRemove={onRemove} value={value} />
+                        )}
+                    />
+
+                    <Stack gap={6}>
+                        <Textarea
+                            key={form.key('note')}
+                            label={t('node-tracking-and-billing.card.note')}
+                            resize="vertical"
+                            {...form.getInputProps('note')}
+                        />
+                        {firstNoteUrl && (
+                            <Button
+                                component="a"
+                                href={firstNoteUrl}
+                                maw="100%"
+                                rel="noopener noreferrer"
+                                size="xs"
+                                target="_blank"
+                                variant="soft"
+                                w="fit-content"
+                            >
+                                {t('common.action.open')}
+                            </Button>
+                        )}
                     </Stack>
-                </SectionCard.Section>
-            </SectionCard.Root>
+                </BoltGroup>
+            </Stack>
         </MotionWrapper>
     )
 }

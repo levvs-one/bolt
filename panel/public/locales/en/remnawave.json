@@ -2228,7 +2228,14 @@
       "node-connecting": "Connecting",
       "pick-profile": "Pick a profile and inbounds",
       "base-translations": "Base translations",
-      "configure": "Configure"
+      "configure": "Configure",
+      "variant-collapsed": "Collapsed",
+      "variant-expanded": "Expanded",
+      "variant-cards": "Cards",
+      "variant-hidden": "Hidden",
+      "variant-accordion": "Accordion",
+      "variant-minimal": "Minimal",
+      "variant-timeline": "Timeline"
     }
   }
 }

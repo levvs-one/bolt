@@ -2232,7 +2232,14 @@
       "node-connecting": "Подключаемся",
       "pick-profile": "Выберите профиль и инбаунды",
       "base-translations": "Базовые переводы",
-      "configure": "Настроить"
+      "configure": "Настроить",
+      "variant-collapsed": "Свёрнуто",
+      "variant-expanded": "Развёрнуто",
+      "variant-cards": "Карточки",
+      "variant-hidden": "Скрыто",
+      "variant-accordion": "Аккордеон",
+      "variant-minimal": "Минимально",
+      "variant-timeline": "Шаги"
     }
   }
 }

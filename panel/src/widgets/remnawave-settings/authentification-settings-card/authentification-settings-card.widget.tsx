@@ -8,8 +8,7 @@ import {
     Switch,
     TagsInput,
     Text,
-    TextInput,
-    ThemeIcon
+    TextInput
 } from '@mantine/core'
 import { useForm, schemaResolver } from '@mantine/form'
 import { modals } from '@mantine/modals'
@@ -19,10 +18,19 @@ import {
 } from '@remnawave/backend-contract'
 import { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
-import { BiLogoGithub, BiLogoTelegram } from 'react-icons/bi'
 import { PiGlobe, PiKey } from 'react-icons/pi'
-import { SiKeycloak } from 'react-icons/si'
-import { TbAlertCircle, TbFingerprint, TbKey, TbPassword, TbServer } from 'react-icons/tb'
+import {
+    TbAlertCircle,
+    TbBrandGithub,
+    TbBrandTelegram,
+    TbBrandYandex,
+    TbFingerprint,
+    TbId,
+    TbKey,
+    TbPassword,
+    TbServer,
+    TbShieldLock
+} from 'react-icons/tb'
 
 import { showModal } from '@shared/_modals/show-modal'
 import { HelpActionIconShared } from '@shared/_modals/universal'
@@ -31,11 +39,13 @@ import { queryClient } from '@shared/api'
 import { QueryKeys } from '@shared/api/hooks/keys-factory'
 import { useUpdateRemnawaveSettings } from '@shared/api/hooks/remnawave-settings/remnawave-settings.mutation.hooks'
 import { CheckboxCardShared } from '@shared/ui/checkbox-card/checkbox-card.shared'
-import { PocketidLogo, YandexLogo } from '@shared/ui/logos'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { SettingsCardShared } from '@shared/ui/settings-card'
 import { TagInputPill } from '@shared/ui/tag-input-pill'
 import { handleFormErrors } from '@shared/utils/misc'
+
+const ICON_SIZE = 20
+const ICON_STROKE = 1.75
 
 interface IProps {
     oauth2Settings: NonNullable<GetRemnawaveSettingsCommand.Response['response']['oauth2Settings']>
@@ -52,22 +62,19 @@ const getOAuth2ProvidersConfig = () =>
         {
             key: 'telegram' as const,
             title: 'Telegram',
-            icon: <BiLogoTelegram size={24} />,
-            iconColor: '#0088cc',
+            icon: <TbBrandTelegram size={ICON_SIZE} strokeWidth={ICON_STROKE} />,
             fields: ['clientId', 'clientSecret', 'frontendDomain', 'allowedIds'] as const
         },
         {
             key: 'github' as const,
             title: 'GitHub',
-            icon: <BiLogoGithub size={24} />,
-            iconColor: '#1B1F24',
+            icon: <TbBrandGithub size={ICON_SIZE} strokeWidth={ICON_STROKE} />,
             fields: ['clientId', 'clientSecret', 'allowedEmails'] as const
         },
         {
             key: 'pocketid' as const,
             title: 'PocketID',
-            icon: <PocketidLogo size={24} />,
-            iconColor: '#000',
+            icon: <TbId size={ICON_SIZE} strokeWidth={ICON_STROKE} />,
             fields: [
                 'clientId',
                 'clientSecret',
@@ -79,15 +86,13 @@ const getOAuth2ProvidersConfig = () =>
         {
             key: 'yandex' as const,
             title: 'Yandex',
-            icon: <YandexLogo size={24} />,
-            iconColor: '#FC3F1D',
+            icon: <TbBrandYandex size={ICON_SIZE} strokeWidth={ICON_STROKE} />,
             fields: ['clientId', 'clientSecret', 'allowedEmails'] as const
         },
         {
             key: 'keycloak' as const,
             title: 'Keycloak',
-            icon: <SiKeycloak color="#FFFFFF" size={24} />,
-            iconColor: '#000000',
+            icon: <TbShieldLock size={ICON_SIZE} strokeWidth={ICON_STROKE} />,
             fields: [
                 'clientId',
                 'clientSecret',
@@ -100,8 +105,7 @@ const getOAuth2ProvidersConfig = () =>
         {
             key: 'generic' as const,
             title: 'Generic OAuth2',
-            icon: <TbKey size={24} />,
-            iconColor: '#000000',
+            icon: <TbKey size={ICON_SIZE} strokeWidth={ICON_STROKE} />,
             fields: [
                 'clientId',
                 'clientSecret',
@@ -291,15 +295,9 @@ export const AuthentificationSettingsCardWidget = (props: IProps) => {
         return (
             <Accordion.Item key={config.key} value={config.key}>
                 <Center>
-                    <Accordion.Control
-                        icon={
-                            <ThemeIcon color={config.iconColor} size="lg" variant="filled">
-                                {config.icon}
-                            </ThemeIcon>
-                        }
-                    >
+                    <Accordion.Control icon={config.icon}>
                         <Group justify="space-between" pr="md">
-                            <Text fw={500}>{config.title}</Text>
+                            <Text fw={600}>{config.title}</Text>
                         </Group>
                     </Accordion.Control>
                     <Group gap="xs" justify="flex-end" pr="xs" wrap="nowrap">
@@ -396,11 +394,7 @@ export const AuthentificationSettingsCardWidget = (props: IProps) => {
                             <Center>
                                 <Accordion.Control
                                     disabled
-                                    icon={
-                                        <ThemeIcon color="orange" size="lg" variant="light">
-                                            <TbPassword size={24} />
-                                        </ThemeIcon>
-                                    }
+                                    icon={<TbPassword size={ICON_SIZE} strokeWidth={ICON_STROKE} />}
                                     style={{ opacity: 1.0 }}
                                     styles={{
                                         chevron: {
@@ -409,7 +403,7 @@ export const AuthentificationSettingsCardWidget = (props: IProps) => {
                                     }}
                                 >
                                     <Group justify="space-between">
-                                        <Text fw={500}>{t('auth-settings.password.title')}</Text>
+                                        <Text fw={600}>{t('auth-settings.password.title')}</Text>
                                     </Group>
                                 </Accordion.Control>
                                 <Group gap="xs" justify="flex-end" pr="xs" wrap="nowrap">
@@ -440,13 +434,11 @@ export const AuthentificationSettingsCardWidget = (props: IProps) => {
                             <Center>
                                 <Accordion.Control
                                     icon={
-                                        <ThemeIcon color="cyan" size="lg" variant="light">
-                                            <TbFingerprint size={24} />
-                                        </ThemeIcon>
+                                        <TbFingerprint size={ICON_SIZE} strokeWidth={ICON_STROKE} />
                                     }
                                 >
                                     <Group justify="space-between" pr="md">
-                                        <Text fw={500}>{t('auth-settings.passkey.title')}</Text>
+                                        <Text fw={600}>{t('auth-settings.passkey.title')}</Text>
                                     </Group>
                                 </Accordion.Control>
                                 <Group justify="flex-end" pr="xs" wrap="nowrap">

@@ -1,13 +1,15 @@
-import { Alert, Badge, Button, Code, Group, Paper, Stack, Text } from '@mantine/core'
+import { Button, Stack, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TbAlertCircle, TbCheck, TbLink, TbX } from 'react-icons/tb'
 
 import { showModal } from '@shared/_modals/show-modal'
 import { useGetNode } from '@shared/api/hooks'
+import { BoltGroup } from '@shared/ui/bolt-list'
 import { LottieLinkShared } from '@shared/ui/lotties'
 import { LottieCheckmarkShared } from '@shared/ui/lotties/checkmark'
 import { LottieStopShared } from '@shared/ui/lotties/stop'
+
+import classes from './create-node-step-3-status.module.css'
 
 interface IProps {
     nodeUuid?: string
@@ -62,100 +64,53 @@ export const CreateNodeStep3Status = ({ nodeUuid, onClose }: IProps) => {
         }, 300)
     }
 
+    const statusTitle = {
+        [STATUS.CONNECTING]: t('bolt.text.node-connecting'),
+        [STATUS.CONNECTED]: t('create-node-modal.widget.connection-successful'),
+        [STATUS.ERROR]: t('create-node-modal.widget.connection-failed')
+    }[status]
+
+    const statusText = {
+        [STATUS.CONNECTING]: t('create-node-step-3-status.establishing-mtls-connection'),
+        [STATUS.CONNECTED]: t('create-node-step-3-status.xray-core-is-up-and-running'),
+        [STATUS.ERROR]: t('create-node-step-3-status.remnawave-will-try-to-reconnect-shortly')
+    }[status]
+
     return (
-        <Stack gap="lg" mih={400}>
-            <Paper
-                p="xl"
-                shadow="sm"
-                style={{
-                    background: 'var(--bolt-surface)'
-                }}
-                withBorder
-            >
-                <Stack align="center" gap="xl">
-                    <div style={{ height: 120, display: 'flex', alignItems: 'center' }}>
-                        {status === STATUS.CONNECTING && <LottieLinkShared />}
-                        {status === STATUS.CONNECTED && <LottieCheckmarkShared />}
-                        {status === STATUS.ERROR && <LottieStopShared />}
-                    </div>
-
-                    <Stack align="center" gap="xs">
-                        {status === STATUS.CONNECTING && (
-                            <>
-                                <Badge color="blue" size="lg" variant="light">
-                                    Connecting...
-                                </Badge>
-
-                                <Text c="dimmed" fw={600} size="sm" ta="center">
-                                    {t('create-node-step-3-status.establishing-mtls-connection')}
-                                </Text>
-                            </>
-                        )}
-
-                        {status === STATUS.CONNECTED && (
-                            <>
-                                <Badge color="teal" size="lg" variant="light">
-                                    {t('create-node-modal.widget.connection-successful')}
-                                </Badge>
-                                <Text c="dimmed" fw={600} size="sm" ta="center">
-                                    {t('create-node-step-3-status.xray-core-is-up-and-running')}
-                                </Text>
-                            </>
-                        )}
-
-                        {status === STATUS.ERROR && (
-                            <>
-                                <Badge color="red" size="lg" variant="light">
-                                    {t('create-node-modal.widget.connection-failed')}
-                                </Badge>
-
-                                <Text c="dimmed" fw={600} size="sm" ta="center">
-                                    {t(
-                                        'create-node-step-3-status.remnawave-will-try-to-reconnect-shortly'
-                                    )}
-                                </Text>
-                            </>
-                        )}
-                    </Stack>
-                </Stack>
-            </Paper>
-
-            {!errorMessage && (
-                <Alert
-                    color="teal"
-                    icon={<TbCheck size={20} />}
-                    title={t('create-node-step-3-status.no-errors-so-far')}
-                    variant="light"
-                />
-            )}
+        <Stack gap={12} mih={400}>
+            <BoltGroup className={classes.status}>
+                <div className={classes.animation}>
+                    {status === STATUS.CONNECTING && <LottieLinkShared />}
+                    {status === STATUS.CONNECTED && <LottieCheckmarkShared />}
+                    {status === STATUS.ERROR && <LottieStopShared />}
+                </div>
+                <Text fw={700} size="lg" ta="center">
+                    {statusTitle}
+                </Text>
+                <Text fw={500} size="sm" ta="center">
+                    {statusText}
+                </Text>
+            </BoltGroup>
 
             {errorMessage && (
-                <Alert
-                    color="red"
-                    icon={<TbAlertCircle size={20} />}
-                    title={t('common.message.last-error-message')}
-                    variant="light"
-                >
-                    <Code color="dark.7">{errorMessage}</Code>
-                </Alert>
+                <BoltGroup className={classes.error}>
+                    <Text fw={600} size="sm">
+                        {t('common.message.last-error-message')}
+                    </Text>
+                    <Text className={classes.errorText} size="sm">
+                        {errorMessage}
+                    </Text>
+                </BoltGroup>
             )}
 
-            <Group gap="md" justify="space-between" mt="auto">
-                <Button color="gray" leftSection={<TbX size={18} />} onClick={onClose} size="md">
-                    {t('common.action.close')}
-                </Button>
-
-                <Button
-                    color={status === STATUS.CONNECTED ? 'teal' : 'blue'}
-                    leftSection={
-                        status === STATUS.CONNECTED ? <TbCheck size={18} /> : <TbLink size={18} />
-                    }
-                    onClick={handleOpenNode}
-                    size="md"
-                >
+            <Stack gap={8} mt="auto">
+                <Button fullWidth onClick={handleOpenNode} size="lg" variant="filled">
                     {t('create-node-modal.widget.open-node')}
                 </Button>
-            </Group>
+                <Button fullWidth onClick={onClose} size="lg">
+                    {t('common.action.close')}
+                </Button>
+            </Stack>
         </Stack>
     )
 }

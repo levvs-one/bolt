@@ -2228,7 +2228,9 @@
       "icons_one": "{{count}} иконка",
       "icons_few": "{{count}} иконки",
       "icons_many": "{{count}} иконок",
-      "icons_other": "{{count}} иконки"
+      "icons_other": "{{count}} иконки",
+      "node-connecting": "Подключаемся",
+      "pick-profile": "Выберите профиль и инбаунды"
     }
   }
 }

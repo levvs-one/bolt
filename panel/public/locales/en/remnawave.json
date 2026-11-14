@@ -2224,7 +2224,9 @@
       "node-version": "Node version",
       "no-change": "No change",
       "icons_one": "{{count}} icon",
-      "icons_other": "{{count}} icons"
+      "icons_other": "{{count}} icons",
+      "node-connecting": "Connecting",
+      "pick-profile": "Pick a profile and inbounds"
     }
   }
 }

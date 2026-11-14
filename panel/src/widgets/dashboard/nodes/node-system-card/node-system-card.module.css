@@ -29,8 +29,8 @@
 
 .memorySection {
     composes: subsection;
-    background: rgba(45, 212, 191, 0.06);
-    border-color: rgba(45, 212, 191, 0.12);
+    background: transparent;
+    border-color: transparent;
     height: 100%;
 }
 
@@ -57,15 +57,15 @@
 
 .interfaceSection {
     composes: subsection;
-    background: rgba(34, 211, 238, 0.06);
-    border-color: rgba(34, 211, 238, 0.12);
+    background: transparent;
+    border-color: transparent;
     height: 100%;
 }
 
 .infoSection {
     composes: subsection;
-    background: rgba(139, 92, 246, 0.06);
-    border-color: rgba(139, 92, 246, 0.12);
+    background: transparent;
+    border-color: transparent;
     height: 100%;
     container-type: inline-size;
 }

@@ -1,4 +1,4 @@
-import { Badge, Card, Divider, Group, ScrollArea, SimpleGrid, Stack } from '@mantine/core'
+import { Card, Group, ScrollArea, SimpleGrid, Stack } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 import {
     getLanguagesArray,
@@ -49,16 +49,10 @@ export function LocalizationBlockComponent({ form }: IProps) {
                         title={t('subpage-config-visual-editor.widget.localization')}
                         titleOrder={5}
                     />
-
-                    <Badge color="teal" size="sm" variant="light">
-                        {locales.length} active
-                    </Badge>
                 </Group>
 
-                <Divider className={styles.divider} />
-
                 <ScrollArea.Autosize mah={200} type="always">
-                    <SimpleGrid cols={{ base: 1, md: 2 }} ml="md" mr="md" spacing="xs">
+                    <SimpleGrid cols={{ base: 1, md: 2 }} spacing={4}>
                         {ALL_LANGUAGES.map((lang) => {
                             const isActive = locales.includes(lang.code)
                             return (

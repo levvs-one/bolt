@@ -2224,7 +2224,11 @@
       "in-days_other": "Через {{count}} дня",
       "xray-uptime": "Xray работает",
       "node-version": "Версия ноды",
-      "no-change": "Не менять"
+      "no-change": "Не менять",
+      "icons_one": "{{count}} иконка",
+      "icons_few": "{{count}} иконки",
+      "icons_many": "{{count}} иконок",
+      "icons_other": "{{count}} иконки"
     }
   }
 }

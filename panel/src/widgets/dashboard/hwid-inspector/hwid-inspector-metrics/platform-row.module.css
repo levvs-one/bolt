@@ -1,7 +1,7 @@
 .item {
     cursor: pointer;
     border: 0;
-    background: rgba(0, 0, 0, 0.1);
+    background: transparent;
     transition: background 150ms ease;
 }
 

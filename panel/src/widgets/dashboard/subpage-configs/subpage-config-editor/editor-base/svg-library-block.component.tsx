@@ -38,7 +38,7 @@ export function SvgLibraryBlockComponent(props: IProps) {
                             titleOrder={5}
                         />
                         <Badge color="violet" size="sm" variant="light">
-                            {iconCount} icons
+                            {t('bolt.text.icons', { count: iconCount })}
                         </Badge>
                     </Group>
 

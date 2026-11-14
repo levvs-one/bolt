@@ -1,7 +1,10 @@
-import { Badge, Group, Text, UnstyledButton } from '@mantine/core'
+import { Group, Text, UnstyledButton } from '@mantine/core'
 import { getLanguageInfo, TSubscriptionPageLanguageCode } from '@remnawave/subscription-page-types'
+import { TbCheck } from 'react-icons/tb'
 
 import styles from '../subpage-config-visual-editor.module.css'
+
+const CHECK_SIZE = 18
 
 interface IProps {
     code: TSubscriptionPageLanguageCode
@@ -19,33 +22,23 @@ export function LocaleCard(props: IProps) {
         return null
     }
 
+    // Язык — строка: название, самоназвание мельче, у включённого — галочка справа.
     return (
         <UnstyledButton
-            className={isActive ? styles.localeCardActive : styles.localeCard}
+            className={styles.localeCard}
             disabled={isToggleDisabled}
             onClick={onToggle}
         >
-            <Group gap="xs" justify="space-between" wrap="nowrap">
-                <Group gap="xs" style={{ flex: 1, minWidth: 0 }} wrap="nowrap">
-                    <Text size="lg" style={{ lineHeight: 1 }}>
-                        {localeInfo.emoji}
+            <Group gap="sm" justify="space-between" wrap="nowrap">
+                <div className={styles.localeNames}>
+                    <Text fw={600} size="md" truncate>
+                        {localeInfo.name}
                     </Text>
-                    <div style={{ minWidth: 0, flex: 1 }}>
-                        <Text c={isActive ? 'white' : 'dimmed'} fw={500} size="xs" truncate>
-                            {localeInfo.name}
-                        </Text>
-                        <Text c="dimmed" size="xs" truncate>
-                            {localeInfo.nativeName}
-                        </Text>
-                    </div>
-                </Group>
-                <Badge
-                    color={isActive ? 'teal' : 'gray'}
-                    size="xs"
-                    variant={isActive ? 'filled' : 'light'}
-                >
-                    {code.toUpperCase()}
-                </Badge>
+                    <Text fw={500} size="xs" truncate>
+                        {localeInfo.nativeName}
+                    </Text>
+                </div>
+                {isActive && <TbCheck size={CHECK_SIZE} strokeWidth={2} />}
             </Group>
         </UnstyledButton>
     )

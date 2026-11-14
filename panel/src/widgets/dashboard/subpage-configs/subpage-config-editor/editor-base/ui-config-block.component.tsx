@@ -36,7 +36,6 @@ export function UiConfigBlockComponent({ form }: IProps) {
                 <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
                     <Select
                         allowDeselect={false}
-                        classNames={{ input: styles.selectDark }}
                         data={SUBSCRIPTION_INFO_BLOCK_VARIANTS_VALUES}
                         key={form.key('uiConfig.subscriptionInfoBlockType')}
                         label={t(
@@ -48,7 +47,6 @@ export function UiConfigBlockComponent({ form }: IProps) {
 
                     <Select
                         allowDeselect={false}
-                        classNames={{ input: styles.selectDark }}
                         data={INSTALLATION_GUIDE_BLOCKS_VARIANTS_VALUES}
                         key={form.key('uiConfig.installationGuidesBlockType')}
                         label={t('subpage-config-visual-editor.widget.installation-guides-design')}

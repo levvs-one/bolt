@@ -125,7 +125,6 @@ export function AppEditorDrawerContent(props: IProps) {
                         </Group>
 
                         <TextInput
-                            classNames={{ input: styles.inputDark }}
                             label={t('app-editor-drawer-content.component.app-name')}
                             onChange={(e) => onChange({ ...app, name: e.target.value })}
                             placeholder={t('app-editor-drawer-content.component.app-name')}

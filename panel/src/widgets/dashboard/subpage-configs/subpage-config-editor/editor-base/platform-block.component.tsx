@@ -76,7 +76,6 @@ export function PlatformBlockComponent(props: IProps) {
                     {availablePlatformsToAdd.length > 0 && (
                         <Select
                             allowDeselect={false}
-                            classNames={{ input: styles.selectDark }}
                             data={availablePlatformsToAdd}
                             leftSection={<IconPlus size={20} />}
                             onChange={(value) => {

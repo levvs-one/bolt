@@ -129,7 +129,6 @@ export function ButtonEditor(props: IProps) {
                     <Stack gap="sm" pt="sm">
                         <Select
                             allowDeselect={false}
-                            classNames={{ input: styles.selectDark }}
                             data={BUTTON_TYPES_VALUES}
                             label={t('button-editor.component.type')}
                             leftSection={<TbExternalLink size={16} />}
@@ -143,7 +142,6 @@ export function ButtonEditor(props: IProps) {
                         />
 
                         <TextInput
-                            classNames={{ input: styles.inputDark }}
                             label={t('button-editor.component.link')}
                             leftSection={
                                 <TemplateInfoPopoverShared

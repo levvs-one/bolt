@@ -1,62 +1,35 @@
 .sectionCard {
-    background: transparent;
+    background: var(--bolt-surface);
     border: 0;
     transition: border-color 0.3s ease;
 }
 
 .sectionCard:hover {
-    border-color: rgba(34, 211, 238, 0.25);
+    border-color: transparent;
 }
 
 .interactiveCard {
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.13);
+    background: var(--bolt-surface-raised);
     border: 0;
     transition: all 0.3s ease;
 }
 
 .interactiveCard:hover {
-    background: rgba(34, 211, 238, 0.04);
-    border-color: rgba(34, 211, 238, 0.12);
-    box-shadow:
-        0 0 0 2px rgba(34, 211, 238, 0.4),
-        0 2px 10px 0 rgba(34, 211, 238, 0.08);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
 }
 
 .buttonCard {
-    background: rgba(0, 0, 0, 0.13);
+    background: var(--bolt-surface-raised);
     border: 0;
     transition: all 0.3s ease;
 }
 
 .buttonCard:hover {
-    background: rgba(34, 211, 238, 0.04);
-    border-color: rgba(34, 211, 238, 0.12);
-}
-
-.inputDark {
     background: transparent;
-    border: 0;
-    color: white;
-}
-
-.inputDark::placeholder {
-    color: var(--bolt-text);
-}
-
-.inputDark:focus {
-    border-color: rgba(34, 211, 238, 0.4);
-}
-
-.selectDark {
-    background: transparent;
-    border: 0;
-    color: white;
-}
-
-.checkboxDark {
-    background: transparent;
-    border: 0;
+    border-color: transparent;
 }
 
 .addButton {
@@ -67,7 +40,7 @@
 
 .addButton:hover {
     background: var(--bolt-surface-hover);
-    border-color: rgba(34, 211, 238, 0.4);
+    border-color: transparent;
 }
 
 .deleteButton {
@@ -124,8 +97,9 @@
     text-align: center;
 }
 
+/* Заголовок секции и содержимое разделены отступом, а не линией. */
 .divider {
-    border-color: var(--bolt-line);
+    display: none;
 }
 
 .accordion {
@@ -157,7 +131,7 @@
 }
 
 .textareaDark textarea:focus {
-    border-color: rgba(34, 211, 238, 0.4);
+    border-color: transparent;
 }
 
 .localizedTextButton {
@@ -171,7 +145,7 @@
 
 .localizedTextButton:hover {
     background: var(--bolt-surface-hover);
-    border-color: rgba(34, 211, 238, 0.3);
+    border-color: transparent;
 }
 
 .localizedTextIcon {
@@ -185,11 +159,16 @@
     white-space: nowrap;
 }
 
+.localeNames {
+    flex: 1;
+    min-width: 0;
+}
+
 .localeCard {
     background: transparent;
     border: 0;
-    border-radius: var(--mantine-radius-md);
-    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+    border-radius: var(--mantine-radius-sm);
+    padding: 6px 12px;
     transition: all 0.2s ease;
     cursor: pointer;
 
@@ -202,25 +181,6 @@
 .localeCard:hover {
     background: var(--bolt-surface-hover);
     border-color: var(--bolt-line);
-}
-
-.localeCardActive {
-    background: rgba(18, 184, 134, 0.08);
-    border: 1px solid rgba(18, 184, 134, 0.25);
-    border-radius: var(--mantine-radius-md);
-    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
-    transition: all 0.2s ease;
-    cursor: pointer;
-
-    &:disabled {
-        cursor: not-allowed;
-        opacity: 0.8;
-    }
-}
-
-.localeCardActive:hover {
-    background: rgba(18, 184, 134, 0.12);
-    border-color: rgba(18, 184, 134, 0.35);
 }
 
 .svgPreviewBox {
@@ -258,11 +218,11 @@
 
 .iconSelectTrigger:hover {
     background: var(--bolt-surface-hover);
-    border-color: rgba(34, 211, 238, 0.3);
+    border-color: transparent;
 }
 
 .iconSelectTrigger[data-selected='true'] {
-    border-color: rgba(34, 211, 238, 0.4);
+    border-color: transparent;
 }
 
 .iconSelectPreview {
@@ -273,7 +233,7 @@
     height: 32px;
     border-radius: var(--mantine-radius-sm);
     background: var(--bolt-surface);
-    border: 1px solid rgba(34, 211, 238, 0.2);
+    border: 0;
     flex-shrink: 0;
 }
 
@@ -336,15 +296,15 @@
 }
 
 .iconSelectItem:hover {
-    background: rgba(34, 211, 238, 0.08);
-    border-color: rgba(34, 211, 238, 0.25);
+    background: transparent;
+    border-color: transparent;
     transform: scale(1.05);
 }
 
 .iconSelectItem[data-selected='true'] {
     background: var(--bolt-surface);
-    border-color: rgba(34, 211, 238, 0.5);
-    box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);
+    border-color: transparent;
+    box-shadow: none;
 }
 
 .iconSelectItemSvg {
@@ -376,12 +336,12 @@
 
 .saveButton {
     background: var(--bolt-surface);
-    border: 1px solid rgba(34, 211, 238, 0.4);
+    border: 0;
     transition: all 0.2s ease;
 }
 
 .saveButton:hover {
     background: var(--bolt-surface);
-    border-color: rgba(34, 211, 238, 0.6);
+    border-color: transparent;
     transform: translateY(-1px);
 }

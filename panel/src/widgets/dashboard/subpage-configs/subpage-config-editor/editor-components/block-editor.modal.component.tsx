@@ -142,7 +142,6 @@ export function BlockEditorModal(props: IProps) {
                             />
 
                             <TextInput
-                                classNames={{ input: styles.inputDark }}
                                 label={t('block-editor.modal.component.icon-color')}
                                 leftSection={
                                     <SubpageTooltips>

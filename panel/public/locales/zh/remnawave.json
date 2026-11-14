@@ -2191,7 +2191,9 @@
       "in-days_other": "In {{count}} days",
       "xray-uptime": "Xray uptime",
       "node-version": "Node version",
-      "no-change": "No change"
+      "no-change": "No change",
+      "icons_one": "{{count}} icon",
+      "icons_other": "{{count}} icons"
     }
   }
 }

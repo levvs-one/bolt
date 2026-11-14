@@ -6,7 +6,6 @@ import {
     Group,
     SimpleGrid,
     Stack,
-    ThemeIcon,
     Tooltip
 } from '@mantine/core'
 import { useForm, schemaResolver } from '@mantine/form'
@@ -35,17 +34,7 @@ import {
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy } from 'react-icons/pi'
-import {
-    TbArrowBackUp,
-    TbCheck,
-    TbCloudDownload,
-    TbDeviceFloppy,
-    TbDownload,
-    TbFile,
-    TbFileImport,
-    TbPalette,
-    TbUpload
-} from 'react-icons/tb'
+import { TbArrowBackUp, TbCheck, TbDownload, TbFile, TbFileImport, TbUpload } from 'react-icons/tb'
 import { useNavigate } from 'react-router'
 
 import { QueryKeys, useUpdateSubpageConfig } from '@shared/api/hooks'
@@ -55,8 +44,6 @@ import { CopyEntityLinkButton, Page, PageHeaderShared } from '@shared/ui'
 import { useDownloadTemplate } from '@shared/ui/load-templates/use-download-template'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { sleep } from '@shared/utils/misc'
-
-import styles from './subpage-config-editor-page.module.css'
 
 interface Props {
     config: GetSubpageConfigCommand.Response['response']
@@ -324,43 +311,17 @@ export const SubpageConfigEditorPageComponent = (props: Props) => {
                 title={config.name}
             />
 
-            <PageHeaderShared
-                actions={
-                    <Group justify="space-between">
-                        <Button
-                            className={styles.saveButton}
-                            leftSection={<TbCloudDownload size={24} />}
-                            onClick={openDownloadModal}
-                            size="md"
-                            variant="light"
-                        >
-                            {t('common.action.load-from-github')}
-                        </Button>
-
-                        <Button
-                            className={styles.saveButton}
-                            disabled={isUpdatingSubscriptionPageConfig}
-                            leftSection={<TbDeviceFloppy size={24} />}
-                            loading={isUpdatingSubscriptionPageConfig}
-                            onClick={handleSave}
-                            size="md"
-                            variant="soft"
-                        >
-                            {t('common.action.save')}
-                        </Button>
-                    </Group>
-                }
-                className={styles.headerCard}
-                customThemeIcon={
-                    <ThemeIcon color="cyan" size="lg" variant="soft">
-                        <TbPalette size={24} />
-                    </ThemeIcon>
-                }
-                description={t(
-                    'subpage-config-visual-editor.widget.edit-your-subscription-page-configuration'
-                )}
-                title={t('subpage-config-visual-editor.widget.subpage-editor')}
-            />
+            <Group gap="xs" justify="flex-end" mb={12}>
+                <Button onClick={openDownloadModal}>{t('common.action.load-from-github')}</Button>
+                <Button
+                    disabled={isUpdatingSubscriptionPageConfig}
+                    loading={isUpdatingSubscriptionPageConfig}
+                    onClick={handleSave}
+                    variant="filled"
+                >
+                    {t('common.action.save')}
+                </Button>
+            </Group>
 
             <Stack gap="lg">
                 <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">

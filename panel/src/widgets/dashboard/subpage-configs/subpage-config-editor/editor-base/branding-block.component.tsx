@@ -31,7 +31,6 @@ export function BrandingBlockComponent({ form }: IProps) {
                 <Divider className={styles.divider} />
 
                 <TextInput
-                    classNames={{ input: styles.inputDark }}
                     key={form.key('brandingSettings.title')}
                     label={t('subpage-config-visual-editor.widget.brand-title')}
                     placeholder={t('subpage-config-visual-editor.widget.your-brand-name')}
@@ -40,7 +39,6 @@ export function BrandingBlockComponent({ form }: IProps) {
                 />
 
                 <TextInput
-                    classNames={{ input: styles.inputDark }}
                     key={form.key('brandingSettings.logoUrl')}
                     label={t('common.field.logo-url')}
                     placeholder="https://example.com/logo.png"
@@ -49,7 +47,6 @@ export function BrandingBlockComponent({ form }: IProps) {
                 />
 
                 <TextInput
-                    classNames={{ input: styles.inputDark }}
                     key={form.key('brandingSettings.supportUrl')}
                     label={t('subpage-config-visual-editor.widget.support-url')}
                     placeholder="https://t.me/support"

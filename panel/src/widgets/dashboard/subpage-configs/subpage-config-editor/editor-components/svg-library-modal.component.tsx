@@ -107,14 +107,14 @@ export function SvgLibraryModal(props: IProps) {
                         iconColor="violet"
                         IconComponent={IconPhoto}
                         iconVariant="soft"
-                        subtitle={`${libraryEntries.length} icons`}
+                        subtitle={t('bolt.text.icons', { count: libraryEntries.length })}
                         title={t('svg-library-modal.component.svg-library')}
                     />
                 }
             >
                 <Stack gap="md">
                     <Alert
-                        bg='var(--bolt-surface)'
+                        bg="var(--bolt-surface)"
                         color="violet.4"
                         icon={<IconBulb size={20} />}
                         radius="md"
@@ -263,7 +263,6 @@ export function SvgLibraryModal(props: IProps) {
             >
                 <Stack gap="md">
                     <TextInput
-                        classNames={{ input: styles.inputDark }}
                         description={t(
                             'svg-library-modal.component.only-latin-characters-no-spaces'
                         )}
@@ -285,7 +284,6 @@ export function SvgLibraryModal(props: IProps) {
                         </Text>
                         <Stack gap="sm">
                             <Textarea
-                                classNames={{ input: styles.inputDark }}
                                 onChange={(e) => setNewSvg(e.target.value)}
                                 placeholder="<svg>...</svg>"
                                 rows={12}

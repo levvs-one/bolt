@@ -44,8 +44,7 @@ export function LocalizedTextEditor(props: IProps) {
 
     const filledCount = enabledLocales.filter((locale) => value[locale]?.trim()).length
     const previewLocale = enabledLocales[0]
-    const previewText =
-        (previewLocale && value[previewLocale]) || t('common.message.not-set')
+    const previewText = (previewLocale && value[previewLocale]) || t('common.message.not-set')
 
     return (
         <>
@@ -61,12 +60,7 @@ export function LocalizedTextEditor(props: IProps) {
                             <Text c="dimmed" size="xs" truncate>
                                 {label}
                             </Text>
-                            <Text
-                               
-                                className={styles.localizedTextPreview}
-                                size="sm"
-                                truncate="end"
-                            >
+                            <Text className={styles.localizedTextPreview} size="sm" truncate="end">
                                 {previewText}
                             </Text>
                         </div>
@@ -98,7 +92,6 @@ export function LocalizedTextEditor(props: IProps) {
                     {enabledLocales.map((locale, index) => (
                         <InputComponent
                             autosize={!!multiline}
-                            classNames={{ input: styles.inputDark }}
                             data-autofocus={index === 0}
                             description={index === 0 ? 'Primary language' : undefined}
                             key={locale}

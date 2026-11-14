@@ -31,9 +31,7 @@
     background: rgba(15, 15, 20, 0.72);
     backdrop-filter: blur(16px) saturate(1.6);
     -webkit-backdrop-filter: blur(16px) saturate(1.6);
-    box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 0 0 0.5px var(--bolt-line);
+    box-shadow: none;
 }
 
 .controlGroup {

@@ -4,7 +4,7 @@
     border-bottom: none;
     background: var(--bolt-surface-hover);
     border: 0;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: none;
     padding: 10px;
     z-index: 100;
 

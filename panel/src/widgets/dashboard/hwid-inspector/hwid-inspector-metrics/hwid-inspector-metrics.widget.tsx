@@ -19,6 +19,9 @@ import {
 import { buildPlatformData } from './hwid-inspector-metrics.utils'
 import { PlatformRow } from './platform-row'
 
+// Пустое состояние графика — компактная строка-заглушка, а не полэкрана пустоты.
+const EMPTY_STATE_HEIGHT = 120
+
 export function HwidInspectorMetrics() {
     const { t } = useTranslation()
 
@@ -73,13 +76,13 @@ export function HwidInspectorMetrics() {
                 </Group>
 
                 {isLoading ? (
-                    <Center mih={280}>
+                    <Center mih={EMPTY_STATE_HEIGHT}>
                         <Loader size="lg" />
                     </Center>
                 ) : platformData.length === 0 ? (
-                    <Center mih={280}>
+                    <Center mih={EMPTY_STATE_HEIGHT}>
                         <Stack align="center" gap="sm">
-                            <PiChartPieDuotone color="var(--mantine-color-gray-6)" size="48px" />
+                            <PiChartPieDuotone color="var(--mantine-color-gray-6)" size="32px" />
                             <Text c="dimmed" size="sm">
                                 {t('hwid-inspector-metrics.widget.no-platform-data')}
                             </Text>

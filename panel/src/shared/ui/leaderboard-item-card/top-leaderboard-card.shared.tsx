@@ -81,7 +81,8 @@ export function TopLeaderboardCardShared<T extends ITopLeaderboardItem>(props: I
         </Stack>
     )
 
-    const contentMinHeight = skeletonCount * 40 + (skeletonCount - 1) * 6
+    // Высота резервируется только под скелетон загрузки: пустой список не растягивает группу.
+    const contentMinHeight = isLoading ? skeletonCount * 40 + (skeletonCount - 1) * 6 : undefined
 
     const innerContent = (
         <Stack gap="sm" mih={contentMinHeight}>

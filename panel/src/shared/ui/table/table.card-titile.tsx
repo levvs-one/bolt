@@ -30,7 +30,7 @@ export const CardTitle = forwardRef<HTMLDivElement, CardTitleProps>(
         return (
             <CardSection
                 className={classes.card}
-                inheritPadding
+                px="md"
                 py={12}
                 ref={ref}
                 style={style}

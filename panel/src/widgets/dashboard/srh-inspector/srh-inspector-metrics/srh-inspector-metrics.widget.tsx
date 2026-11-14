@@ -10,6 +10,9 @@ import { useGetSubscriptionRequestHistoryStats } from '@shared/api/hooks'
 import { TopLeaderboardCardShared } from '@shared/ui/leaderboard-item-card'
 import { formatInt } from '@shared/utils/misc'
 
+// Пустое состояние графика — компактная строка-заглушка, а не полэкрана пустоты.
+const EMPTY_STATE_HEIGHT = 120
+
 export function SrhInspectorMetrics() {
     const { t } = useTranslation()
 
@@ -126,7 +129,7 @@ export function SrhInspectorMetrics() {
     }, [stats?.hourlyRequestStats, t])
 
     const loaderCard = (
-        <Center h={300}>
+        <Center h={EMPTY_STATE_HEIGHT}>
             <Loader size="lg" />
         </Center>
     )
@@ -137,8 +140,7 @@ export function SrhInspectorMetrics() {
                 <Card
                     p="lg"
                     style={{
-                        background:
-                            'var(--bolt-surface)'
+                        background: 'var(--bolt-surface)'
                     }}
                 >
                     <Group align="center" gap="sm" mb="lg" wrap="nowrap">
@@ -175,8 +177,7 @@ export function SrhInspectorMetrics() {
                 <Card
                     p="lg"
                     style={{
-                        background:
-                            'var(--bolt-surface)'
+                        background: 'var(--bolt-surface)'
                     }}
                 >
                     <Group align="center" gap="sm" mb="lg" wrap="nowrap">
@@ -203,9 +204,9 @@ export function SrhInspectorMetrics() {
                             <Chart options={hourlyChartOptions} />
                         </Box>
                     ) : (
-                        <Center h={300}>
+                        <Center h={EMPTY_STATE_HEIGHT}>
                             <Stack align="center" gap="sm">
-                                <PiChartBar color="var(--mantine-color-gray-4)" size="48px" />
+                                <PiChartBar color="var(--mantine-color-gray-4)" size="32px" />
                                 <Text c="dimmed" size="sm">
                                     {t('srh-inspector-metrics.widget.no-hourly-data-available')}
                                 </Text>

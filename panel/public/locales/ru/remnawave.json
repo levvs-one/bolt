@@ -1721,8 +1721,8 @@
     "card": {
       "node-consumption-multiplier-1": "Применяет выбранный множитель к трафику ноды (1.0 = обычный, 0.5 = половина, 2.0 = двойной).",
       "node-consumption-multiplier-2": "Нужен в основном для корректного отображения лимитов, когда включено отслеживание трафика. На подробную статистику (графики) множитель ноды не влияет.",
-      "node-consumption-multiplier": "Множитель расхода ноды",
-      "user-consumption-multiplier": "Множитель расхода пользователя"
+      "node-consumption-multiplier": "Множитель ноды",
+      "user-consumption-multiplier": "Множитель клиентов"
     }
   },
   "keypair-generator": {

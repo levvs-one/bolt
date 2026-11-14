@@ -1,23 +1,13 @@
-import {
-    ActionIcon,
-    Group,
-    HoverCard,
-    NumberInput,
-    NumberInputHandlers,
-    rem,
-    Stack,
-    Text
-} from '@mantine/core'
+import { NumberInput } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 import { CreateNodeCommand, UpdateNodeCommand } from '@remnawave/backend-contract'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'
-import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { HiQuestionMarkCircle } from 'react-icons/hi'
-import { TbChartLine, TbMinus, TbPlus } from 'react-icons/tb'
+import { TbServer, TbUsers } from 'react-icons/tb'
 
-import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
-import { SectionCard } from '@shared/ui/section-card'
+import { BoltField, BoltGroup } from '@shared/ui/bolt-list'
+
+import classes from './node-consumption.card.module.css'
 
 interface IProps {
     cardVariants: Variants
@@ -25,198 +15,51 @@ interface IProps {
     motionWrapper: ForwardRefComponent<HTMLDivElement, HTMLMotionProps<'div'>>
 }
 
+const MULTIPLIER_MAX = 100
+const MULTIPLIER_STEP = 0.1
+
+// Множители расхода — строки со степпером, как числовые поля в настройках macOS.
 export const NodeConsumptionCard = (props: IProps) => {
     const { t } = useTranslation()
-    const { cardVariants, form, motionWrapper } = props
-    const consumptionMultiplierRef = useRef<NumberInputHandlers>(null)
-    const nodeConsumptionRef = useRef<NumberInputHandlers>(null)
+    const { cardVariants, form, motionWrapper: MotionWrapper } = props
 
-    const MotionWrapper = motionWrapper
+    const multiplierProps = {
+        allowDecimal: true,
+        allowedDecimalSeparators: ['.'],
+        allowNegative: false,
+        className: classes.multiplier,
+        clampBehavior: 'strict' as const,
+        decimalScale: 1,
+        fixedDecimalScale: true,
+        max: MULTIPLIER_MAX,
+        min: 0,
+        step: MULTIPLIER_STEP
+    }
 
     return (
         <MotionWrapper variants={cardVariants}>
-            <SectionCard.Root>
-                <SectionCard.Section>
-                    <BaseOverlayHeader
-                        iconColor="indigo"
-                        IconComponent={TbChartLine}
-                        iconVariant="soft"
-                        title={t('base-node-form.consumption')}
-                        titleOrder={5}
+            <BoltGroup>
+                <BoltField
+                    icon={TbUsers}
+                    label={t('node-consumption.card.user-consumption-multiplier')}
+                >
+                    <NumberInput
+                        key={form.key('consumptionMultiplier')}
+                        {...multiplierProps}
+                        {...form.getInputProps('consumptionMultiplier')}
                     />
-                </SectionCard.Section>
-                <SectionCard.Section>
-                    <Stack gap="md">
-                        <NumberInput
-                            allowDecimal
-                            allowedDecimalSeparators={['.']}
-                            allowNegative={false}
-                            clampBehavior="strict"
-                            decimalScale={1}
-                            fixedDecimalScale
-                            handlersRef={consumptionMultiplierRef}
-                            hideControls
-                            key={form.key('consumptionMultiplier')}
-                            leftSection={
-                                <ActionIcon
-                                    color="red"
-                                    onClick={() => consumptionMultiplierRef.current?.decrement()}
-                                    radius="md"
-                                    size={rem(44)}
-                                    variant="light"
-                                >
-                                    <TbMinus size={16} />
-                                </ActionIcon>
-                            }
-                            leftSectionPointerEvents="all"
-                            leftSectionProps={{
-                                style: {
-                                    overflow: 'hidden'
-                                }
-                            }}
-                            leftSectionWidth={40}
-                            max={100.0}
-                            min={0}
-                            rightSection={
-                                <ActionIcon
-                                    color="teal"
-                                    onClick={() => consumptionMultiplierRef.current?.increment()}
-                                    radius="md"
-                                    size={rem(44)}
-                                    variant="light"
-                                >
-                                    <TbPlus size={16} />
-                                </ActionIcon>
-                            }
-                            rightSectionPointerEvents="all"
-                            rightSectionProps={{
-                                style: {
-                                    overflow: 'hidden'
-                                }
-                            }}
-                            rightSectionWidth={40}
-                            step={0.1}
-                            styles={{
-                                input: {
-                                    textAlign: 'center',
-                                    fontWeight: 600
-                                }
-                            }}
-                            {...form.getInputProps('consumptionMultiplier')}
-                            label={
-                                <Group align="center" gap={3}>
-                                    <HoverCard shadow="md" width={280} withArrow>
-                                        <HoverCard.Target>
-                                            <ActionIcon color="gray" size="xs" variant="subtle">
-                                                <HiQuestionMarkCircle size={20} />
-                                            </ActionIcon>
-                                        </HoverCard.Target>
-                                        <HoverCard.Dropdown>
-                                            <Stack gap="sm">
-                                                <Text c="dimmed" size="sm">
-                                                    {t('base-node-form.consumption-m-line-1')}
-                                                </Text>
-                                                <Text c="dimmed" size="sm">
-                                                    {t('base-node-form.consumption-m-line-2')}
-                                                </Text>
-                                            </Stack>
-                                        </HoverCard.Dropdown>
-                                    </HoverCard>
-                                    <Text inherit>
-                                        {t('node-consumption.card.user-consumption-multiplier')}
-                                    </Text>
-                                </Group>
-                            }
-                        />
-
-                        <NumberInput
-                            allowDecimal
-                            allowedDecimalSeparators={['.']}
-                            allowNegative={false}
-                            clampBehavior="strict"
-                            decimalScale={1}
-                            fixedDecimalScale
-                            handlersRef={nodeConsumptionRef}
-                            hideControls
-                            key={form.key('nodeConsumptionMultiplier')}
-                            leftSection={
-                                <ActionIcon
-                                    color="red"
-                                    onClick={() => nodeConsumptionRef.current?.decrement()}
-                                    radius="md"
-                                    size={rem(44)}
-                                    variant="light"
-                                >
-                                    <TbMinus size={16} />
-                                </ActionIcon>
-                            }
-                            leftSectionPointerEvents="all"
-                            leftSectionProps={{
-                                style: {
-                                    overflow: 'hidden'
-                                }
-                            }}
-                            leftSectionWidth={40}
-                            max={100.0}
-                            min={0}
-                            rightSection={
-                                <ActionIcon
-                                    color="teal"
-                                    onClick={() => nodeConsumptionRef.current?.increment()}
-                                    radius="md"
-                                    size={rem(44)}
-                                    variant="light"
-                                >
-                                    <TbPlus size={16} />
-                                </ActionIcon>
-                            }
-                            rightSectionPointerEvents="all"
-                            rightSectionProps={{
-                                style: {
-                                    overflow: 'hidden'
-                                }
-                            }}
-                            rightSectionWidth={40}
-                            step={0.1}
-                            styles={{
-                                input: {
-                                    textAlign: 'center',
-                                    fontWeight: 600
-                                }
-                            }}
-                            {...form.getInputProps('nodeConsumptionMultiplier')}
-                            label={
-                                <Group align="center" gap={3}>
-                                    <HoverCard shadow="md" width={280} withArrow>
-                                        <HoverCard.Target>
-                                            <ActionIcon color="gray" size="xs" variant="subtle">
-                                                <HiQuestionMarkCircle size={20} />
-                                            </ActionIcon>
-                                        </HoverCard.Target>
-                                        <HoverCard.Dropdown>
-                                            <Stack gap="sm">
-                                                <Text c="dimmed" size="sm">
-                                                    {t(
-                                                        'node-consumption.card.node-consumption-multiplier-1'
-                                                    )}
-                                                </Text>
-                                                <Text c="dimmed" size="sm">
-                                                    {t(
-                                                        'node-consumption.card.node-consumption-multiplier-2'
-                                                    )}
-                                                </Text>
-                                            </Stack>
-                                        </HoverCard.Dropdown>
-                                    </HoverCard>
-                                    <Text inherit>
-                                        {t('node-consumption.card.node-consumption-multiplier')}
-                                    </Text>
-                                </Group>
-                            }
-                        />
-                    </Stack>
-                </SectionCard.Section>
-            </SectionCard.Root>
+                </BoltField>
+                <BoltField
+                    icon={TbServer}
+                    label={t('node-consumption.card.node-consumption-multiplier')}
+                >
+                    <NumberInput
+                        key={form.key('nodeConsumptionMultiplier')}
+                        {...multiplierProps}
+                        {...form.getInputProps('nodeConsumptionMultiplier')}
+                    />
+                </BoltField>
+            </BoltGroup>
         </MotionWrapper>
     )
 }

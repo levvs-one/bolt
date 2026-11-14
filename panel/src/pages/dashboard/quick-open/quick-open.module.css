@@ -1,12 +1,10 @@
-.card {
-    background-color: transparent;
+.control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.pattern {
-    overflow: hidden;
-    padding: 2px 6px;
-    background-color: transparent;
-    font-size: 0.7rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.input {
+    flex: 1;
+    min-width: 0;
 }

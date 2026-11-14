@@ -2,12 +2,18 @@ import type { ModalId } from './modal-registry'
 import type { ParseKeys } from 'i18next'
 import type { ComponentType } from 'react'
 
-import { HiServer } from 'react-icons/hi'
-import { PiArrowsInCardinalFill, PiListChecks, PiUsers } from 'react-icons/pi'
-import { TbCirclesRelation, TbPackage, TbWebhook } from 'react-icons/tb'
+import {
+    TbAdjustmentsHorizontal,
+    TbBrowser,
+    TbCirclesRelation,
+    TbListDetails,
+    TbPackage,
+    TbServer,
+    TbUsers,
+    TbWebhook
+} from 'react-icons/tb'
 
 import { OPEN_ENTITY, ROUTES } from '@shared/constants'
-import { XrayLogo } from '@shared/ui/logos'
 import { isValidUuid } from '@shared/utils/misc'
 
 import { showModal } from './show-modal'
@@ -36,8 +42,8 @@ export type TOpenEntityTarget = IModalTarget | IRouteTarget
 
 export const OPEN_ENTITY_TARGETS: Record<string, TOpenEntityTarget> = {
     [OPEN_ENTITY.USER]: {
-        Icon: PiUsers,
-        idPlaceholder: '77',
+        Icon: TbUsers,
+        idPlaceholder: 'ID',
         titleKey: 'constants.users',
         kind: 'modal',
         modalId: 'users_viewUserModal',
@@ -46,8 +52,8 @@ export const OPEN_ENTITY_TARGETS: Record<string, TOpenEntityTarget> = {
         validate: (id) => /^\d+$/.test(id)
     },
     [OPEN_ENTITY.HOST]: {
-        Icon: PiListChecks,
-        idPlaceholder: '00000000-0000-0000-0000-000000000000',
+        Icon: TbListDetails,
+        idPlaceholder: 'UUID',
         titleKey: 'constants.hosts',
         kind: 'modal',
         modalId: 'hosts_editHostDrawer',
@@ -56,8 +62,8 @@ export const OPEN_ENTITY_TARGETS: Record<string, TOpenEntityTarget> = {
         validate: isValidUuid
     },
     [OPEN_ENTITY.NODE]: {
-        Icon: HiServer,
-        idPlaceholder: '00000000-0000-0000-0000-000000000000',
+        Icon: TbServer,
+        idPlaceholder: 'UUID',
         titleKey: 'constants.nodes',
         kind: 'modal',
         modalId: 'nodes_editNodeModal',
@@ -66,8 +72,8 @@ export const OPEN_ENTITY_TARGETS: Record<string, TOpenEntityTarget> = {
         validate: isValidUuid
     },
     [OPEN_ENTITY.CONFIG_PROFILE]: {
-        Icon: XrayLogo,
-        idPlaceholder: '00000000-0000-0000-0000-000000000000',
+        Icon: TbAdjustmentsHorizontal,
+        idPlaceholder: 'UUID',
         titleKey: 'constants.config-profiles',
         kind: 'route',
         buildPath: (id) => ROUTES.DASHBOARD.MANAGEMENT.CONFIG_PROFILE_BY_UUID.replace(':uuid', id),
@@ -76,7 +82,7 @@ export const OPEN_ENTITY_TARGETS: Record<string, TOpenEntityTarget> = {
     },
     [OPEN_ENTITY.INTERNAL_SQUAD]: {
         Icon: TbCirclesRelation,
-        idPlaceholder: '00000000-0000-0000-0000-000000000000',
+        idPlaceholder: 'UUID',
         titleKey: 'constants.internal-squads',
         kind: 'modal',
         modalId: 'internalSquads_internalSquadsInboundsDrawer',
@@ -86,7 +92,7 @@ export const OPEN_ENTITY_TARGETS: Record<string, TOpenEntityTarget> = {
     },
     [OPEN_ENTITY.EXTERNAL_SQUAD]: {
         Icon: TbWebhook,
-        idPlaceholder: '00000000-0000-0000-0000-000000000000',
+        idPlaceholder: 'UUID',
         titleKey: 'constants.external-squads',
         kind: 'modal',
         modalId: 'externalSquads_externalSquadsDrawer',
@@ -96,7 +102,7 @@ export const OPEN_ENTITY_TARGETS: Record<string, TOpenEntityTarget> = {
     },
     [OPEN_ENTITY.NODE_PLUGIN]: {
         Icon: TbPackage,
-        idPlaceholder: '00000000-0000-0000-0000-000000000000',
+        idPlaceholder: 'UUID',
         titleKey: 'constants.node-plugins',
         kind: 'route',
         buildPath: (id) =>
@@ -105,8 +111,8 @@ export const OPEN_ENTITY_TARGETS: Record<string, TOpenEntityTarget> = {
         validate: isValidUuid
     },
     [OPEN_ENTITY.SUBPAGE_CONFIG]: {
-        Icon: PiArrowsInCardinalFill,
-        idPlaceholder: '00000000-0000-0000-0000-000000000000',
+        Icon: TbBrowser,
+        idPlaceholder: 'UUID',
         titleKey: 'constants.subscription-page',
         kind: 'route',
         buildPath: (id) =>

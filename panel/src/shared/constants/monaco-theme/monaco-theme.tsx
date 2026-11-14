@@ -1,3 +1,5 @@
+import { BOLT_TOKENS } from '@shared/constants/theme/tokens'
+
 export const monacoTheme = {
     base: 'vs-dark',
     inherit: true,
@@ -124,30 +126,33 @@ export const monacoTheme = {
     ],
     colors: {
         'editor.foreground': '#c9d1d9',
-        'editor.background': '#161b22',
+        // Фон и выделения — тона Bolt: редактор не выглядит вставкой из другого приложения.
+        'editor.background': BOLT_TOKENS.dark.surface,
         'editor.selectionBackground': '#0969da55',
-        'editor.lineHighlightBackground': '#21262d',
+        'editor.lineHighlightBackground': BOLT_TOKENS.dark.surfaceHover,
+        'minimap.background': BOLT_TOKENS.dark.surface,
+        'scrollbar.shadow': '#00000000',
         'editorCursor.foreground': '#54aeff',
         'editorWhitespace.foreground': '#484f58',
         'editorLineNumber.foreground': '#6e7681',
         'editorLineNumber.activeForeground': '#c9d1d9',
-        'editorWidget.background': '#1c2128',
-        'editorWidget.border': '#30363d',
+        'editorWidget.background': BOLT_TOKENS.dark.surfaceRaised,
+        'editorWidget.border': BOLT_TOKENS.dark.line,
         'editorWidget.foreground': '#c9d1d9',
-        'editorHoverWidget.background': '#1c2128',
-        'editorHoverWidget.border': '#30363d',
+        'editorHoverWidget.background': BOLT_TOKENS.dark.surfaceRaised,
+        'editorHoverWidget.border': BOLT_TOKENS.dark.line,
         'editorHoverWidget.foreground': '#c9d1d9',
-        'editorSuggestWidget.background': '#1c2128',
-        'editorSuggestWidget.border': '#30363d',
+        'editorSuggestWidget.background': BOLT_TOKENS.dark.surfaceRaised,
+        'editorSuggestWidget.border': BOLT_TOKENS.dark.line,
         'editorSuggestWidget.foreground': '#c9d1d9',
-        'editorSuggestWidget.selectedBackground': '#21262d',
+        'editorSuggestWidget.selectedBackground': BOLT_TOKENS.dark.surfaceHover,
         'editorSuggestWidget.highlightForeground': '#54aeff',
 
-        'menu.background': '#1c2128',
+        'menu.background': BOLT_TOKENS.dark.surfaceRaised,
         'menu.foreground': '#c9d1d9',
         'menu.selectionBackground': '#22b8cf29',
         'menu.selectionForeground': '#e6edf3',
-        'menu.separatorBackground': '#30363d',
-        'menu.border': '#30363d'
+        'menu.separatorBackground': BOLT_TOKENS.dark.line,
+        'menu.border': BOLT_TOKENS.dark.line
     }
 }

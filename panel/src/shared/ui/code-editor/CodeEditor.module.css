@@ -19,7 +19,7 @@
     overflow: hidden;
     padding-left: var(--mantine-spacing-md);
     padding-right: 52px;
-    border-bottom: 1px solid var(--mantine-color-dark-4);
+    border-bottom: 1px solid var(--bolt-line);
     background-color: transparent;
 }
 
@@ -70,10 +70,7 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--mantine-spacing-sm);
-    padding: 10px 12px;
-    border: 1px solid var(--mantine-color-default-border);
-    border-top: none;
+    padding: 8px 12px;
     border-radius: 0 0 var(--mantine-radius-md) var(--mantine-radius-md);
-    transition: border-color 150ms ease;
-    background-color: transparent;
+    background-color: var(--bolt-surface);
 }

@@ -2217,7 +2217,11 @@
       "outbound-tag": "Outbound tag",
       "protocol": "Protocol",
       "traffic-reset": "Traffic reset",
-      "none": "None"
+      "none": "None",
+      "in-days_one": "In {{count}} day",
+      "in-days_other": "In {{count}} days",
+      "xray-uptime": "Xray uptime",
+      "node-version": "Node version"
     }
   }
 }

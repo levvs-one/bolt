@@ -2217,7 +2217,13 @@
       "outbound-tag": "Исходящий тег",
       "protocol": "Протокол",
       "traffic-reset": "Сброс трафика",
-      "none": "Нет"
+      "none": "Нет",
+      "in-days_one": "Через {{count}} день",
+      "in-days_few": "Через {{count}} дня",
+      "in-days_many": "Через {{count}} дней",
+      "in-days_other": "Через {{count}} дня",
+      "xray-uptime": "Xray работает",
+      "node-version": "Версия ноды"
     }
   }
 }

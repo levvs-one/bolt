@@ -1,0 +1,8 @@
+.bar {
+    margin: 0 12px 8px;
+    background: var(--bolt-line);
+}
+
+.barFill {
+    background: var(--bolt-accent);
+}

@@ -11,34 +11,39 @@ import {
     Divider,
     Group,
     Loader,
-    Paper,
     Progress,
-    SimpleGrid,
-    Text,
     ThemeIconProps,
     Tooltip
 } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { GetNodeCommand, UpdateNodeCommand } from '@remnawave/backend-contract'
 import { githubDarkTheme, JsonEditor } from 'json-edit-react'
-import { memo, useCallback, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { PiCloudArrowUpDuotone, PiWarningCircle } from 'react-icons/pi'
 import {
-    PiArrowsCounterClockwise,
-    PiCloudArrowUpDuotone,
-    PiUsersDuotone,
-    PiWarningCircle
-} from 'react-icons/pi'
-import { TbJson, TbPower, TbWifi, TbWifiOff } from 'react-icons/tb'
+    TbChartArcs,
+    TbClockHour4,
+    TbCpu,
+    TbJson,
+    TbPower,
+    TbRefresh,
+    TbServer,
+    TbUsers,
+    TbWifi,
+    TbWifiOff
+} from 'react-icons/tb'
 
 import { queryClient } from '@shared/api'
 import { QueryKeys, useDisableNode, useEnableNode, useGetNodeMetadata } from '@shared/api/hooks'
-import { Logo } from '@shared/ui'
+import { BoltRow } from '@shared/ui/bolt-list'
 import { XrayLogo } from '@shared/ui/logos'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { SectionCard } from '@shared/ui/section-card'
 import { prettifyBytesUtil } from '@shared/utils/bytes'
 import { getNodeResetDaysUtil, getXrayUptimeUtil } from '@shared/utils/time-utils'
+
+import classes from './node-details-card.module.css'
 
 interface IProps {
     node: GetNodeCommand.Response['response']
@@ -130,13 +135,6 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
             isUnlimited: !node.isTrafficTrackingActive || node.trafficLimitBytes === 0
         }
     }, [node.trafficUsedBytes, node.trafficLimitBytes, node.isTrafficTrackingActive])
-
-    const getProgressColor = useCallback(() => {
-        if (trafficData.isUnlimited) return 'teal'
-        if (trafficData.percentage > 95) return 'red'
-        if (trafficData.percentage > 80) return 'yellow.4'
-        return 'teal'
-    }, [trafficData.percentage, trafficData.isUnlimited])
 
     const handleToggleNodeStatus = () => {
         if (node.isDisabled) {
@@ -280,122 +278,60 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                 </Group>
             </SectionCard.Section>
 
-            <SectionCard.Section>
-                <Box>
-                    <Group gap="xs" justify="space-between" mb={6}>
-                        <Group gap={6}>
-                            <Text ff="monospace" fw={600} size="sm">
-                                {trafficData.prettyUsedData}
-                            </Text>
-                        </Group>
-                        <Text c="dimmed" size="xs">
-                            {trafficData.maxData}
-                        </Text>
-                    </Group>
-
+            {/* Строки выравниваются по строкам соседних групп: поле карточки 16 px минус поле строки 12 px. */}
+            <SectionCard.Section mx={-12}>
+                <BoltRow
+                    icon={TbChartArcs}
+                    label={t('bolt.create.traffic')}
+                    value={`${trafficData.prettyUsedData} ${t('bolt.user.of-limit', { limit: trafficData.maxData })}`}
+                />
+                {!trafficData.isUnlimited && (
                     <Progress
-                        color={getProgressColor()}
-                        radius="sm"
-                        size="sm"
-                        value={trafficData.isUnlimited ? 100 : trafficData.percentage}
+                        classNames={{ root: classes.bar, section: classes.barFill }}
+                        size={4}
+                        value={trafficData.percentage}
                     />
-
-                    {node.isTrafficTrackingActive && node.trafficResetDay && (
-                        <Group gap={4} justify="center" mt={6}>
-                            <PiArrowsCounterClockwise
-                                color="var(--mantine-color-dimmed)"
-                                size={12}
-                            />
-                            <Text c="dimmed" size="xs">
-                                {t('node-stats.card.traffic-refill-in-days')}{' '}
-                                {getNodeResetDaysUtil(node.trafficResetDay)}
-                            </Text>
-                        </Group>
-                    )}
-                </Box>
-            </SectionCard.Section>
-            {node.isConnected && (
-                <SectionCard.Section>
-                    <SimpleGrid
-                        cols={{
-                            base: 1,
-                            xs: 2,
-                            sm: 3
-                        }}
-                        spacing="xs"
-                    >
-                        <Paper p="xs" radius="md">
-                            <Group gap="xs" justify="center">
-                                <PiUsersDuotone
-                                    color={
-                                        node.usersOnline! > 0
-                                            ? 'var(--mantine-color-teal-5)'
-                                            : 'var(--mantine-color-gray-6)'
-                                    }
-                                    size={16}
-                                />
-                                <Text
-                                    c={node.usersOnline! > 0 ? 'teal.5' : 'gray.6'}
-                                    fw={600}
-                                    size="sm"
-                                >
-                                    {node.usersOnline}
-                                </Text>
-                            </Group>
-                        </Paper>
-
-                        {node.versions && (
-                            <Paper p="xs" radius="md">
-                                <Tooltip label={t('node-details-card.widget.xray-core-version')}>
-                                    <Group gap="xs" justify="center">
-                                        <XrayLogo color="var(--mantine-color-violet-5)" size={16} />
-                                        <Text c="violet.5" fw={600} size="sm">
-                                            {node.versions.xray}
-                                        </Text>
-                                    </Group>
-                                </Tooltip>
-                            </Paper>
-                        )}
-
+                )}
+                {node.isTrafficTrackingActive && node.trafficResetDay && (
+                    <BoltRow
+                        icon={TbRefresh}
+                        label={t('bolt.text.traffic-reset')}
+                        value={t('bolt.text.in-days', {
+                            count: getNodeResetDaysUtil(node.trafficResetDay)
+                        })}
+                    />
+                )}
+                {node.isConnected && (
+                    <>
+                        <BoltRow
+                            icon={TbUsers}
+                            label={t('bolt.users.online')}
+                            value={node.usersOnline ?? 0}
+                        />
                         {node.xrayUptime !== 0 && (
-                            <Paper hiddenFrom="sm" p="xs" radius="md">
-                                <Tooltip
-                                    label={t(
-                                        'node-stats.card.represents-the-uptime-of-the-xray-core'
-                                    )}
-                                >
-                                    <Group gap="xs" justify="center">
-                                        <XrayLogo color="var(--mantine-color-teal-5)" size={16} />
-                                        <Text
-                                            c="teal.5"
-                                            fw={600}
-                                            size="sm"
-                                            style={{ textTransform: 'uppercase' }}
-                                        >
-                                            {getXrayUptimeUtil(node.xrayUptime)}
-                                        </Text>
-                                    </Group>
-                                </Tooltip>
-                            </Paper>
+                            <BoltRow
+                                icon={TbClockHour4}
+                                label={t('bolt.text.xray-uptime')}
+                                value={getXrayUptimeUtil(node.xrayUptime)}
+                            />
                         )}
-
                         {node.versions && (
-                            <Paper p="xs" radius="md">
-                                <Tooltip
-                                    label={t('node-details-card.widget.remnawave-node-version')}
-                                >
-                                    <Group gap="xs" justify="center">
-                                        <Logo color="var(--mantine-color-indigo-5)" size={16} />
-                                        <Text c="indigo.5" fw={600} size="sm">
-                                            {node.versions.node}
-                                        </Text>
-                                    </Group>
-                                </Tooltip>
-                            </Paper>
+                            <>
+                                <BoltRow
+                                    icon={TbCpu}
+                                    label={t('node-details-card.widget.xray-core-version')}
+                                    value={node.versions.xray}
+                                />
+                                <BoltRow
+                                    icon={TbServer}
+                                    label={t('bolt.text.node-version')}
+                                    value={node.versions.node}
+                                />
+                            </>
                         )}
-                    </SimpleGrid>
-                </SectionCard.Section>
-            )}
+                    </>
+                )}
+            </SectionCard.Section>
         </SectionCard.Root>
     )
 })

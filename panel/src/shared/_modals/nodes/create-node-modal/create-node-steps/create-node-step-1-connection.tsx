@@ -1,7 +1,6 @@
 import {
     Anchor,
     Button,
-    Code,
     Divider,
     Group,
     NumberInput,
@@ -17,24 +16,26 @@ import { UseFormReturnType } from '@mantine/form'
 import { CreateNodeCommand } from '@remnawave/backend-contract'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PiArrowRight, PiTagDuotone } from 'react-icons/pi'
+import { PiTagDuotone } from 'react-icons/pi'
 import {
-    TbCertificate,
     TbChevronDown,
-    TbId,
     TbMapPin,
     TbPackage,
+    TbPlug,
+    TbServer,
     TbSettings,
     TbWorld
 } from 'react-icons/tb'
 
 import { useGetNodePlugins, useGetNodesTags } from '@shared/api/hooks'
+import { BoltField, BoltGroup } from '@shared/ui/bolt-list'
 import { CopyableFieldShared } from '@shared/ui/copyable-field/copyable-field'
 import { getCountryOptions } from '@shared/ui/forms/nodes/base-node-form/constants'
 import { SelectInfraProviderShared } from '@shared/ui/infra-billing/select-infra-provider/select-infra-provider.shared'
 import { TagInputPill } from '@shared/ui/tag-input-pill'
 
 import { CopyDockerComposeWidget } from './copy-docker-compose.widget'
+import classes from './create-node-step-1-connection.module.css'
 
 interface IProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,7 +81,7 @@ export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IPr
             <Stack gap="xs" mih={400}>
                 <Text c="dimmed" size="sm">
                     {t('create-node-step-1-connection.copy-the')}{' '}
-                    <Code color="gray.8">docker-compose.yml</Code>{' '}
+                    <strong>docker-compose.yml</strong>{' '}
                     {t('create-node-step-1-connection.content-for-the-remnawave-node-below')}{' '}
                     <Anchor
                         fw="700"
@@ -94,76 +95,55 @@ export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IPr
                     </Anchor>
                 </Text>
 
-                <Divider />
-                <Stack gap="xs">
-                    <CopyableFieldShared
-                        label="Secret Key (SECRET_KEY)"
-                        leftSection={<TbCertificate size={16} />}
-                        size="sm"
-                        value={secretKey ?? ''}
-                    />
+                <Stack gap={12}>
+                    <BoltGroup className={classes.padded}>
+                        <CopyableFieldShared label="SECRET_KEY" size="sm" value={secretKey ?? ''} />
+                    </BoltGroup>
 
-                    <TextInput
-                        key={form.key('name')}
-                        label={t('base-node-form.internal-name')}
-                        leftSection={<TbId size={16} />}
-                        placeholder={t('base-node-form.internal-name-placeholder')}
-                        required
-                        size="sm"
-                        styles={{
-                            label: { fontWeight: 500 }
-                        }}
-                        {...form.getInputProps('name')}
-                    />
-
-                    <Select
-                        key={form.key('countryCode')}
-                        label={t('base-node-form.country')}
-                        {...form.getInputProps('countryCode')}
-                        data={getCountryOptions(i18n.language, t('bolt.text.unknown-country'))}
-                        leftSection={<TbMapPin size={16} />}
-                        placeholder={t('base-node-form.select-country')}
-                        searchable
-                        size="sm"
-                        styles={{
-                            label: { fontWeight: 500 }
-                        }}
-                    />
-
-                    <Group align="flex-start" gap="xs" w="100%">
-                        <TextInput
-                            key={form.key('address')}
+                    <BoltGroup>
+                        <BoltField icon={TbServer} label={t('base-node-form.internal-name')}>
+                            <TextInput
+                                key={form.key('name')}
+                                placeholder={t('base-node-form.internal-name-placeholder')}
+                                {...form.getInputProps('name')}
+                            />
+                        </BoltField>
+                        <BoltField icon={TbMapPin} label={t('base-node-form.country')}>
+                            <Select
+                                key={form.key('countryCode')}
+                                {...form.getInputProps('countryCode')}
+                                data={getCountryOptions(
+                                    i18n.language,
+                                    t('bolt.text.unknown-country')
+                                )}
+                                placeholder={t('bolt.text.unknown-country')}
+                                searchable
+                            />
+                        </BoltField>
+                        <BoltField
+                            icon={TbWorld}
                             label={t('create-node-step-1-connection.domain-or-ip')}
-                            {...form.getInputProps('address')}
-                            leftSection={<TbWorld size={16} />}
-                            placeholder="192.168.1.1"
-                            required
-                            size="sm"
-                            styles={{
-                                label: { fontWeight: 500 }
-                            }}
-                            w="70%"
-                        />
-
-                        <NumberInput
-                            key={form.key('port')}
-                            label={t('bolt.text.node-port')}
-                            {...form.getInputProps('port')}
-                            allowDecimal={false}
-                            allowNegative={false}
-                            clampBehavior="strict"
-                            decimalScale={0}
-                            hideControls
-                            max={65535}
-                            placeholder="2222"
-                            required
-                            size="sm"
-                            styles={{
-                                label: { fontWeight: 500 }
-                            }}
-                            w="25%"
-                        />
-                    </Group>
+                        >
+                            <TextInput
+                                key={form.key('address')}
+                                {...form.getInputProps('address')}
+                                placeholder="192.168.1.1"
+                            />
+                        </BoltField>
+                        <BoltField icon={TbPlug} label={t('bolt.text.node-port')}>
+                            <NumberInput
+                                key={form.key('port')}
+                                {...form.getInputProps('port')}
+                                allowDecimal={false}
+                                allowNegative={false}
+                                clampBehavior="strict"
+                                decimalScale={0}
+                                hideControls
+                                max={65535}
+                                placeholder="2222"
+                            />
+                        </BoltField>
+                    </BoltGroup>
 
                     <Popover
                         closeOnClickOutside={false}
@@ -272,16 +252,9 @@ export const CreateNodeStep1Connection = ({ form, onNext, secretKey, port }: IPr
                 <Stack gap="xs" mt="auto">
                     <CopyDockerComposeWidget port={port} />
 
-                    <Group justify="flex-end" mt="auto">
-                        <Button
-                            color="teal"
-                            rightSection={<PiArrowRight size={18} />}
-                            size="md"
-                            type="submit"
-                        >
-                            {t('common.action.next')}
-                        </Button>
-                    </Group>
+                    <Button fullWidth size="lg" type="submit" variant="filled">
+                        {t('common.action.next')}
+                    </Button>
                 </Stack>
             </Stack>
         </form>

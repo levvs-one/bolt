@@ -385,7 +385,7 @@
     "country": "Страна",
     "select-country": "Выберите страну",
     "internal-name": "Внутреннее название",
-    "internal-name-placeholder": "напр. US-NY-Node-01",
+    "internal-name-placeholder": "NY-01",
     "e-g-example-com": "напр. example.com",
     "traffic-tracking": "Отслеживание трафика",
     "limit": "Лимит",

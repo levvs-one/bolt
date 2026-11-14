@@ -102,29 +102,23 @@ export const CreateNodeModal = NiceModal.create(() => {
             <Stack gap="xl">
                 <Group gap="xs" grow>
                     <Progress
-                        animated
                         color="teal"
                         radius="sm"
                         size="md"
-                        striped
                         transitionDuration={300}
                         value={activeStep >= 0 ? 100 : 0}
                     />
                     <Progress
-                        animated
                         color="teal"
                         radius="sm"
                         size="md"
-                        striped
                         transitionDuration={300}
                         value={activeStep >= 1 ? 100 : 0}
                     />
                     <Progress
-                        animated
                         color="teal"
                         radius="sm"
                         size="md"
-                        striped
                         transitionDuration={300}
                         value={activeStep >= 2 ? 100 : 0}
                     />

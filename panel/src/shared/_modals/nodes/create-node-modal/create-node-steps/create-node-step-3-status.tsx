@@ -68,8 +68,7 @@ export const CreateNodeStep3Status = ({ nodeUuid, onClose }: IProps) => {
                 p="xl"
                 shadow="sm"
                 style={{
-                    background:
-                        'var(--bolt-surface)'
+                    background: 'var(--bolt-surface)'
                 }}
                 withBorder
             >

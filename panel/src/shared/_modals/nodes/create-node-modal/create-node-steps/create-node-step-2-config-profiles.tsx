@@ -97,7 +97,6 @@ export const CreateNodeStep2ConfigProfiles = ({
                                 form.getValues().configProfile?.activeConfigProfileUuid
                             }
                             configProfiles={configProfiles.configProfiles}
-                            errors={form.errors.configProfile}
                             onSaveInbounds={saveInbounds}
                         />
                     )}

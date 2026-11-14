@@ -134,7 +134,7 @@ export function TorrentBlockerReportsTableWidget() {
         },
         enableRowActions: true,
         mantineFilterTextInputProps: () => ({
-            placeholder: 'Filter by...'
+            placeholder: t('bolt.text.filter')
         }),
         mantineTopToolbarProps: {
             style: {

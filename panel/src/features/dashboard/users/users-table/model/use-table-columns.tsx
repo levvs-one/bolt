@@ -334,7 +334,7 @@ export const useUserTableColumns = (
 
             {
                 accessorKey: 'email',
-                header: 'Email',
+                header: t('bolt.text.email'),
                 accessorFn: (originalRow) => originalRow.email || '–',
                 minSize: 100,
                 size: 200,
@@ -477,7 +477,7 @@ export const useUserTableColumns = (
             },
             {
                 accessorKey: 'trojanPassword',
-                header: 'Trojan Password',
+                header: t('bolt.text.trojan-password'),
                 accessorFn: (originalRow) => originalRow.trojanPassword,
                 minSize: 400,
                 maxSize: 800,
@@ -488,7 +488,7 @@ export const useUserTableColumns = (
             },
             {
                 accessorKey: 'hwidDeviceLimit',
-                header: 'HWID Device Limit',
+                header: t('bolt.text.hwid-limit'),
                 accessorFn: (originalRow) => originalRow.hwidDeviceLimit ?? '–',
                 columnFilterModeOptions: [
                     'equals',

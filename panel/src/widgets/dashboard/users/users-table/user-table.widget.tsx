@@ -144,7 +144,7 @@ export function UserTableWidget() {
             sorting: [{ id: 'id', desc: true }]
         },
         mantineFilterTextInputProps: () => ({
-            placeholder: 'Filter by...'
+            placeholder: t('bolt.text.filter')
         }),
         mantineTopToolbarProps: {
             style: {

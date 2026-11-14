@@ -20,7 +20,7 @@ export const useTbReportsTableColumns = (nodes?: GetNodesCommand.Response['respo
         () => [
             {
                 accessorKey: 'user.username',
-                header: 'Username',
+                header: t('bolt.text.username'),
                 accessorFn: (originalRow) => {
                     if (originalRow.user && originalRow.user.username) {
                         return originalRow.user.username
@@ -33,7 +33,7 @@ export const useTbReportsTableColumns = (nodes?: GetNodesCommand.Response['respo
             },
             {
                 accessorKey: 'userId',
-                header: 'User ID',
+                header: t('bolt.text.user-id'),
                 accessorFn: (originalRow) => {
                     if (originalRow.userId) {
                         return originalRow.userId
@@ -46,7 +46,7 @@ export const useTbReportsTableColumns = (nodes?: GetNodesCommand.Response['respo
             },
             {
                 accessorKey: 'node.uuid',
-                header: 'Reported Node',
+                header: t('bolt.text.reported-node'),
                 Cell: ({ cell }) => (
                     <Group
                         align="center"
@@ -108,7 +108,7 @@ export const useTbReportsTableColumns = (nodes?: GetNodesCommand.Response['respo
             },
             {
                 accessorKey: 'report.xrayReport.inboundTag',
-                header: 'Inbound Tag',
+                header: t('bolt.text.inbound-tag'),
                 accessorFn: (originalRow) => {
                     if (
                         originalRow.report &&
@@ -149,7 +149,7 @@ export const useTbReportsTableColumns = (nodes?: GetNodesCommand.Response['respo
 
             {
                 accessorKey: 'report.xrayReport.outboundTag',
-                header: 'Outbound Tag',
+                header: t('bolt.text.outbound-tag'),
                 accessorFn: (originalRow) => {
                     if (
                         originalRow.report &&
@@ -172,7 +172,7 @@ export const useTbReportsTableColumns = (nodes?: GetNodesCommand.Response['respo
 
             {
                 accessorKey: 'report.xrayReport.protocol',
-                header: 'Protocol',
+                header: t('bolt.text.protocol'),
                 accessorFn: (originalRow) => {
                     if (
                         originalRow.report &&

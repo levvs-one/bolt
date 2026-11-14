@@ -2206,7 +2206,16 @@
       "scopes-invalid": "Invalid scopes",
       "unknown-country": "Unknown",
       "per-day": "Daily average",
-      "top": "Top {{count}}"
+      "top": "Top {{count}}",
+      "user-id": "User ID",
+      "trojan-password": "Trojan password",
+      "hwid-limit": "Device limit",
+      "filter": "Filter",
+      "username": "Username",
+      "reported-node": "Node",
+      "inbound-tag": "Inbound tag",
+      "outbound-tag": "Outbound tag",
+      "protocol": "Protocol"
     }
   }
 }

@@ -13,7 +13,7 @@ export const useHwidInspectorTableColumns = () => {
         () => [
             {
                 accessorKey: 'userId',
-                header: 'User ID',
+                header: t('bolt.text.user-id'),
                 accessorFn: (originalRow) => originalRow.userId,
                 size: 130
             },

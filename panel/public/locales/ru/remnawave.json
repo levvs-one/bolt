@@ -2206,7 +2206,16 @@
       "scopes-invalid": "Права не распознаны",
       "unknown-country": "Неизвестно",
       "per-day": "В среднем за день",
-      "top": "Топ {{count}}"
+      "top": "Топ {{count}}",
+      "user-id": "ID клиента",
+      "trojan-password": "Пароль Trojan",
+      "hwid-limit": "Лимит устройств",
+      "filter": "Фильтр",
+      "username": "Логин",
+      "reported-node": "Нода",
+      "inbound-tag": "Входящий тег",
+      "outbound-tag": "Исходящий тег",
+      "protocol": "Протокол"
     }
   }
 }

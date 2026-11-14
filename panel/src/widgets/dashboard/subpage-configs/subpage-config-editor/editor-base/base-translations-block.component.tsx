@@ -8,6 +8,7 @@ import {
     TSubscriptionPageRawConfig
 } from '@remnawave/subscription-page-types'
 import { IconLanguage } from '@tabler/icons-react'
+import { useTranslation } from 'react-i18next'
 
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 
@@ -23,6 +24,7 @@ interface IProps {
 }
 
 export function BaseTranslationsBlockComponent({ form }: IProps) {
+    const { t } = useTranslation()
     const values = form.getValues()
 
     const [drawerOpened, { close: closeDrawer, open: openDrawer }] = useDisclosure(false)
@@ -52,7 +54,7 @@ export function BaseTranslationsBlockComponent({ form }: IProps) {
                             IconComponent={IconLanguage}
                             iconSize={20}
                             iconVariant="soft"
-                            title="Base Translations"
+                            title={t('bolt.text.base-translations')}
                             titleOrder={5}
                         />
                         <Badge
@@ -69,7 +71,7 @@ export function BaseTranslationsBlockComponent({ form }: IProps) {
                         leftSection={<IconLanguage size={16} />}
                         onClick={openDrawer}
                     >
-                        Configure
+                        {t('bolt.text.configure')}
                     </Button>
                 </Group>
             </Card>

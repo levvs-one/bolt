@@ -2226,7 +2226,9 @@
       "icons_one": "{{count}} icon",
       "icons_other": "{{count}} icons",
       "node-connecting": "Connecting",
-      "pick-profile": "Pick a profile and inbounds"
+      "pick-profile": "Pick a profile and inbounds",
+      "base-translations": "Base translations",
+      "configure": "Configure"
     }
   }
 }

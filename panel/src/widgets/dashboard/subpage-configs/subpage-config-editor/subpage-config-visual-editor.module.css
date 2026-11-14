@@ -110,23 +110,16 @@
 .accordionItem {
     border: 0 !important;
     background: transparent !important;
-    border-radius: var(--mantine-radius-md);
-    margin-bottom: var(--mantine-spacing-sm);
-    transition: border-color 0.2s ease;
-}
-
-.accordionItem:hover {
-    border-color: var(--bolt-line) !important;
+    border-radius: var(--mantine-radius-sm);
 }
 
 .accordionControl {
-    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+    padding: 0 12px;
 }
 
 .textareaDark textarea {
     background: transparent;
     border: 0;
-    color: white;
     min-height: 80px;
 }
 

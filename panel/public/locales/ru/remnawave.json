@@ -2230,7 +2230,9 @@
       "icons_many": "{{count}} иконок",
       "icons_other": "{{count}} иконки",
       "node-connecting": "Подключаемся",
-      "pick-profile": "Выберите профиль и инбаунды"
+      "pick-profile": "Выберите профиль и инбаунды",
+      "base-translations": "Базовые переводы",
+      "configure": "Настроить"
     }
   }
 }

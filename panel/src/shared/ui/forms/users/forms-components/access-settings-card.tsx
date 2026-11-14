@@ -13,11 +13,11 @@ import dayjs from 'dayjs'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PiCalendarDuotone } from 'react-icons/pi'
-import { TbShield, TbWebhook } from 'react-icons/tb'
+import { TbCalendar, TbWebhook } from 'react-icons/tb'
 
-import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
-import { SectionCard } from '@shared/ui/section-card'
+import { BoltField, BoltGroup } from '@shared/ui/bolt-list'
+
+import classes from './access-settings-card.module.css'
 
 interface IProps<T extends CreateUserCommand.RequestBody | UpdateUserCommand.RequestBody> {
     cardVariants: Variants
@@ -57,26 +57,14 @@ export const AccessSettingsCard = <
 
     return (
         <MotionWrapper variants={cardVariants}>
-            <SectionCard.Root>
-                <SectionCard.Section>
-                    <BaseOverlayHeader
-                        iconColor="indigo"
-                        IconComponent={TbShield}
-                        iconSize={20}
-                        iconVariant="soft"
-                        title={t('access-settings-card.access-settings')}
-                        titleOrder={5}
-                    />
-                </SectionCard.Section>
-
-                <SectionCard.Section>
-                    <Stack gap="md">
+            <Stack gap={12}>
+                <BoltGroup>
+                    <BoltField icon={TbCalendar} label={t('bolt.user.expires')}>
                         <DateTimePicker
                             dropdownType="modal"
                             headerControlsOrder={['previous', 'next', 'level']}
                             highlightToday
                             key={form.key('expireAt')}
-                            label={t('create-user-modal.widget.expiry-date')}
                             locale={i18n.language}
                             minDate={new Date()}
                             modalProps={{
@@ -86,8 +74,7 @@ export const AccessSettingsCard = <
                                 calendarHeaderLevel: {
                                     justifyContent: 'flex-start',
                                     paddingInlineStart: 8
-                                },
-                                label: { fontWeight: 500 }
+                                }
                             }}
                             submitButtonProps={{
                                 style: {
@@ -110,10 +97,8 @@ export const AccessSettingsCard = <
                                     interval: '01:30:00'
                                 })
                             }}
-                            valueFormat="MMMM D, YYYY - HH:mm"
+                            valueFormat="D MMM YYYY, HH:mm"
                             {...form.getInputProps('expireAt')}
-                            description={t('create-user-modal.widget.expire-at-description')}
-                            leftSection={<PiCalendarDuotone size="16px" />}
                             onChange={(date) => {
                                 const formInputProps = form.getInputProps('expireAt')
                                 if (formInputProps.onChange) {
@@ -160,17 +145,8 @@ export const AccessSettingsCard = <
                                 }
                             ]}
                         />
-
-                        <InternalSquadsListWidget
-                            description={t('create-user-modal.widget.internal-squads-description')}
-                            filteredInternalSquads={filteredInternalSquads}
-                            formKey={form.key('activeInternalSquads')}
-                            label={t('common.field.internal-squads')}
-                            searchQuery={searchQuery}
-                            setSearchQuery={setSearchQuery}
-                            {...form.getInputProps('activeInternalSquads')}
-                        />
-
+                    </BoltField>
+                    <BoltField icon={TbWebhook} label={t('access-settings-card.external-squad')}>
                         <Select
                             allowDeselect={true}
                             clearable
@@ -180,18 +156,23 @@ export const AccessSettingsCard = <
                             }))}
                             limit={100}
                             defaultValue={form.values.externalSquadUuid}
-                            description={t(
-                                'access-settings-card.select-an-external-squad-to-apply-custom-settings-to-this-user'
-                            )}
                             key={form.key('externalSquadUuid')}
-                            label={t('access-settings-card.external-squad')}
-                            leftSection={<TbWebhook size="16px" />}
-                            placeholder={t('access-settings-card.select-an-external-squad')}
+                            placeholder={t('bolt.text.none')}
                             {...form.getInputProps('externalSquadUuid')}
                         />
-                    </Stack>
-                </SectionCard.Section>
-            </SectionCard.Root>
+                    </BoltField>
+                </BoltGroup>
+
+                <BoltGroup className={classes.squads}>
+                    <InternalSquadsListWidget
+                        filteredInternalSquads={filteredInternalSquads}
+                        formKey={form.key('activeInternalSquads')}
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                        {...form.getInputProps('activeInternalSquads')}
+                    />
+                </BoltGroup>
+            </Stack>
         </MotionWrapper>
     )
 }

@@ -2182,7 +2182,7 @@
       "node-port": "Порт ноды",
       "invalid-date": "Неверная дата",
       "email": "Эл. почта",
-      "device-limit-fallback": "Лимит по умолчанию",
+      "device-limit-fallback": "По умолчанию",
       "processing": "Выполняется",
       "may-take-time": "Это может занять время",
       "error": "Ошибка",
@@ -2215,7 +2215,9 @@
       "reported-node": "Нода",
       "inbound-tag": "Входящий тег",
       "outbound-tag": "Исходящий тег",
-      "protocol": "Протокол"
+      "protocol": "Протокол",
+      "traffic-reset": "Сброс трафика",
+      "none": "Нет"
     }
   }
 }

@@ -97,6 +97,13 @@
     text-align: end;
 }
 
+/* Значок выпадающего списка справа не должен наезжать на значение. */
+.fieldControl
+    :global(.mantine-Input-wrapper[data-with-right-section])
+    :global(.mantine-Input-input) {
+    padding-inline-end: var(--input-right-section-size, 36px);
+}
+
 .picker {
     padding: 0 8px 8px;
 }

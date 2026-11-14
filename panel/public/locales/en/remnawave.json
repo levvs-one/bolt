@@ -2182,7 +2182,7 @@
       "node-port": "Node port",
       "invalid-date": "Invalid date",
       "email": "Email",
-      "device-limit-fallback": "Default limit",
+      "device-limit-fallback": "Default",
       "processing": "Processing",
       "may-take-time": "This may take a while",
       "error": "Error",
@@ -2215,7 +2215,9 @@
       "reported-node": "Node",
       "inbound-tag": "Inbound tag",
       "outbound-tag": "Outbound tag",
-      "protocol": "Protocol"
+      "protocol": "Protocol",
+      "traffic-reset": "Traffic reset",
+      "none": "None"
     }
   }
 }

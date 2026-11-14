@@ -1,13 +1,11 @@
-import { NumberInput, Stack, TextInput } from '@mantine/core'
+import { NumberInput, TextInput } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 import { CreateUserCommand, UpdateUserCommand } from '@remnawave/backend-contract'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'
 import { useTranslation } from 'react-i18next'
-import { PiEnvelopeDuotone, PiTelegramLogoDuotone } from 'react-icons/pi'
-import { TbMail } from 'react-icons/tb'
+import { TbBrandTelegram, TbMail } from 'react-icons/tb'
 
-import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
-import { SectionCard } from '@shared/ui/section-card'
+import { BoltField, BoltGroup } from '@shared/ui/bolt-list'
 
 interface IProps<T extends CreateUserCommand.RequestBody | UpdateUserCommand.RequestBody> {
     cardVariants: Variants
@@ -26,45 +24,20 @@ export function ContactInformationCard<
 
     return (
         <MotionWrapper variants={cardVariants}>
-            <SectionCard.Root>
-                <SectionCard.Section>
-                    <BaseOverlayHeader
-                        iconColor="teal"
-                        IconComponent={TbMail}
-                        iconSize={20}
-                        iconVariant="soft"
-                        title={t('contact-information-card.contact-information')}
-                        titleOrder={5}
+            <BoltGroup>
+                <BoltField icon={TbBrandTelegram} label="Telegram ID">
+                    <NumberInput
+                        allowDecimal={false}
+                        allowNegative={false}
+                        hideControls
+                        key={form.key('telegramId')}
+                        {...form.getInputProps('telegramId')}
                     />
-                </SectionCard.Section>
-
-                <SectionCard.Section>
-                    <Stack gap="md">
-                        <NumberInput
-                            allowDecimal={false}
-                            allowNegative={false}
-                            hideControls
-                            key={form.key('telegramId')}
-                            label="Telegram ID"
-                            leftSection={<PiTelegramLogoDuotone size="16px" />}
-                            {...form.getInputProps('telegramId')}
-                            styles={{
-                                label: { fontWeight: 500 }
-                            }}
-                        />
-
-                        <TextInput
-                            key={form.key('email')}
-                            label={t('bolt.text.email')}
-                            leftSection={<PiEnvelopeDuotone size="16px" />}
-                            {...form.getInputProps('email')}
-                            styles={{
-                                label: { fontWeight: 500 }
-                            }}
-                        />
-                    </Stack>
-                </SectionCard.Section>
-            </SectionCard.Root>
+                </BoltField>
+                <BoltField icon={TbMail} label={t('bolt.text.email')}>
+                    <TextInput key={form.key('email')} {...form.getInputProps('email')} />
+                </BoltField>
+            </BoltGroup>
         </MotionWrapper>
     )
 }

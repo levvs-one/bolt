@@ -4,9 +4,9 @@ import { GetHttpStatsCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { TbDivide, TbFlame, TbRoute, TbTrendingUp } from 'react-icons/tb'
 
+import { BoltGroup } from '@shared/ui/bolt-list'
 import { EmptyPageLayout } from '@shared/ui/layouts/empty-page'
 import { MetricCardShared, MetricGridShared } from '@shared/ui/metrics/metric-card'
-import { SectionCard } from '@shared/ui/section-card'
 
 import { HttpStatRow } from './http-stat-row'
 
@@ -72,23 +72,21 @@ export const HttpStatsTableWidget = ({ httpStats }: IProps) => {
                 />
             </MetricGridShared>
 
-            <SectionCard.Root>
-                <SectionCard.Section>
-                    {httpStats.routes.length === 0 ? (
-                        <EmptyPageLayout icon={<TbRoute size="3rem" />} />
-                    ) : (
-                        <Stack gap="xs" ref={listRef}>
-                            {httpStats.routes.map((route) => (
-                                <HttpStatRow
-                                    key={`${route.method}|${route.route}`}
-                                    percentOfTotal={total > 0 ? (route.count / total) * 100 : 0}
-                                    route={route}
-                                />
-                            ))}
-                        </Stack>
-                    )}
-                </SectionCard.Section>
-            </SectionCard.Root>
+            <BoltGroup>
+                {httpStats.routes.length === 0 ? (
+                    <EmptyPageLayout icon={<TbRoute size="3rem" />} />
+                ) : (
+                    <div ref={listRef}>
+                        {httpStats.routes.map((route) => (
+                            <HttpStatRow
+                                key={`${route.method}|${route.route}`}
+                                percentOfTotal={total > 0 ? (route.count / total) * 100 : 0}
+                                route={route}
+                            />
+                        ))}
+                    </div>
+                )}
+            </BoltGroup>
         </Stack>
     )
 }

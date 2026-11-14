@@ -102,7 +102,6 @@ export const BaseNodeForm = <T extends UpdateNodeCommand.RequestBody>(props: IPr
                         motionWrapper={MotionWrapper}
                         nodeIntegrations={nodeIntegrations}
                         nodePlugins={nodePlugins}
-                        nodeUuid={node.uuid}
                         secretKey={secretKey}
                     />
 
@@ -152,7 +151,6 @@ export const BaseNodeForm = <T extends UpdateNodeCommand.RequestBody>(props: IPr
                             motionWrapper={MotionWrapper}
                             nodeIntegrations={nodeIntegrations}
                             nodePlugins={nodePlugins}
-                            nodeUuid={node.uuid}
                             secretKey={secretKey}
                         />
 

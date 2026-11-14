@@ -2,8 +2,6 @@ import {
     MantineReactTable,
     MRT_ColumnFilterFnsState,
     MRT_ShowHideColumnsButton,
-    MRT_ToggleDensePaddingButton,
-    MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
 import { MRT_Localization_RU } from '@kastov/mantine-react-table-open/locales/ru/index.esm.mjs'
@@ -31,9 +29,11 @@ import {
     useTruncateTorrentBlockerReports
 } from '@shared/api/hooks'
 import { usePreventTableBackScroll } from '@shared/hooks'
+import { useIsMobile } from '@shared/hooks'
 import { DEFAULT_PAGINATION_STATE, useMrtTableBinding } from '@shared/lib/mrt-table-store'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { DataTableShared } from '@shared/ui/table'
+import { getBoltTableOptions } from '@shared/ui/table'
 import { sToMs } from '@shared/utils/time-utils'
 
 import {
@@ -45,6 +45,7 @@ import { useTbReportsTableColumns } from './use-tb-reports-table-columns'
 
 export function TorrentBlockerReportsTableWidget() {
     const { t, i18n } = useTranslation()
+    const isMobile = useIsMobile()
 
     const { data: nodes } = useGetNodes()
     const { refetch: refetchTorrentBlockerStats } = useGetTorrentBlockerStats()
@@ -92,9 +93,9 @@ export function TorrentBlockerReportsTableWidget() {
 
     const table = useMantineReactTable({
         localization: i18n.language.startsWith('ru') ? MRT_Localization_RU : undefined,
+        ...getBoltTableOptions(isMobile),
         columns: tableColumns,
         data: tbReportsResponse?.records ?? [],
-        enableFullScreenToggle: true,
         enableSortingRemoval: true,
         enableGlobalFilter: false,
         enableClickToCopy: true,
@@ -108,8 +109,6 @@ export function TorrentBlockerReportsTableWidget() {
         manualFiltering: true,
         manualPagination: true,
         manualSorting: true,
-
-        enableColumnResizing: true,
 
         /* prettier-ignore */
         mantineToolbarAlertBannerProps: isError ? {
@@ -223,11 +222,7 @@ export function TorrentBlockerReportsTableWidget() {
             'mrt-row-actions': { size: 130 }
         },
         renderToolbarInternalActions: ({ table: tableInstance }) => (
-            <>
-                <MRT_ToggleDensePaddingButton table={tableInstance} />
-                <MRT_ToggleFullScreenButton table={tableInstance} />
-                <MRT_ShowHideColumnsButton table={tableInstance} />
-            </>
+            <MRT_ShowHideColumnsButton table={tableInstance} />
         )
     })
 

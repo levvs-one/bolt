@@ -170,3 +170,37 @@ input[type='search']::-webkit-search-cancel-button {
     letter-spacing: normal !important;
     text-transform: none !important;
 }
+
+/* Таблицы MRT в стиле Bolt: значки в шапке колонок 16 px, пустое состояние обычным шрифтом. */
+[class*='MRT_TableHeadCell-module_root'] svg {
+    width: 16px;
+    height: 16px;
+}
+
+[class*='MRT_TableHeadCell-module_root'] .mantine-ActionIcon-root {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+/* Ручка изменения ширины колонки видна только при наведении на шапку. */
+[class*='MRT_TableHeadCellResizeHandle'] {
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+
+th:hover [class*='MRT_TableHeadCellResizeHandle'] {
+    opacity: 1;
+}
+
+/* MRT задаёт курсив пустой таблицы inline-стилем, поэтому переопределение с !important. */
+.mrt-table-body-cell,
+.mrt-table-body-cell * {
+    font-style: normal !important;
+}
+
+/* Тело таблицы MRT — на той же поверхности, что и её группа. */
+[class*='MRT_TablePaper-module_root'] {
+    --mrt-base-background-color: var(--bolt-surface);
+}

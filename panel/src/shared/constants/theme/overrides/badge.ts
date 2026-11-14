@@ -16,7 +16,12 @@ export default {
             variant: 'transparent'
         },
         styles: {
+            // Без подложки значок занимает только свой размер, а не квадрат кнопки.
             root: {
+                width: 'auto',
+                height: 'auto',
+                minWidth: 0,
+                minHeight: 0,
                 background: 'transparent',
                 border: 0,
                 color: 'var(--bolt-text)'

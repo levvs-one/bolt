@@ -51,7 +51,7 @@ export const UserActionGroupFeature = (props: IProps) => {
     }
 
     return (
-        <Group grow preventGrowOverflow={false} wrap="wrap">
+        <Group gap={4} wrap="nowrap">
             <ActionIconGroup>
                 <UsersTableTemplatesFeature table={table} />
 

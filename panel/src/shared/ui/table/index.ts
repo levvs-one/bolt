@@ -7,3 +7,4 @@ export const DataTableShared = {
     Container: TableContainerShared,
     Content: DataTableContent
 }
+export { getBoltTableOptions } from './table.bolt-options'

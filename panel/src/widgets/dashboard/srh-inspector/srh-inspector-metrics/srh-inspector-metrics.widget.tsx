@@ -138,19 +138,19 @@ export function SrhInspectorMetrics() {
         <Stack gap="xl">
             <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
                 <Card
-                    p="lg"
+                    p="md"
                     style={{
                         background: 'var(--bolt-surface)'
                     }}
                 >
-                    <Group align="center" gap="sm" mb="lg" wrap="nowrap">
+                    <Group align="center" gap="sm" mb="sm" wrap="nowrap">
                         <ThemeIcon color="teal" size="lg" variant="outline">
                             <PiAppWindowDuotone size="20px" />
                         </ThemeIcon>
 
                         <Text
                             fw={600}
-                            size="lg"
+                            size="md"
                             style={{
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
@@ -175,19 +175,19 @@ export function SrhInspectorMetrics() {
                 </Card>
 
                 <Card
-                    p="lg"
+                    p="md"
                     style={{
                         background: 'var(--bolt-surface)'
                     }}
                 >
-                    <Group align="center" gap="sm" mb="lg" wrap="nowrap">
+                    <Group align="center" gap="sm" mb="sm" wrap="nowrap">
                         <ThemeIcon color="blue" size="lg" variant="outline">
                             <PiChartBar size="20px" />
                         </ThemeIcon>
 
                         <Text
                             fw={600}
-                            size="lg"
+                            size="md"
                             style={{
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',

@@ -3,8 +3,6 @@ import {
     MantineReactTable,
     MRT_ColumnFilterFnsState,
     MRT_ShowHideColumnsButton,
-    MRT_ToggleDensePaddingButton,
-    MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
 import { MRT_Localization_RU } from '@kastov/mantine-react-table-open/locales/ru/index.esm.mjs'
@@ -21,9 +19,11 @@ import {
 
 import { useGetSubscriptionRequestHistory } from '@shared/api/hooks'
 import { usePreventTableBackScroll } from '@shared/hooks'
+import { useIsMobile } from '@shared/hooks'
 import { DEFAULT_PAGINATION_STATE, useMrtTableBinding } from '@shared/lib/mrt-table-store'
 import { ResolveUserActionShared } from '@shared/ui/resolve-user-action-icon'
 import { DataTableShared } from '@shared/ui/table'
+import { getBoltTableOptions } from '@shared/ui/table'
 import { sToMs } from '@shared/utils/time-utils'
 
 import {
@@ -33,6 +33,7 @@ import {
 
 export function SrhInspectorTableWidget() {
     const { t, i18n } = useTranslation()
+    const isMobile = useIsMobile()
 
     const actions = useSrhInspectorTableStoreActions()
     const tableColumns = useSrhInspectorTableColumns()
@@ -69,9 +70,9 @@ export function SrhInspectorTableWidget() {
 
     const table = useMantineReactTable({
         localization: i18n.language.startsWith('ru') ? MRT_Localization_RU : undefined,
+        ...getBoltTableOptions(isMobile),
         columns: tableColumns,
         data: usersResponse?.records ?? [],
-        enableFullScreenToggle: true,
         enableSortingRemoval: true,
         enableGlobalFilter: false,
         enableClickToCopy: true,
@@ -85,8 +86,6 @@ export function SrhInspectorTableWidget() {
         manualFiltering: true,
         manualPagination: true,
         manualSorting: true,
-
-        enableColumnResizing: true,
 
         /* prettier-ignore */
         mantineToolbarAlertBannerProps: isError ? {
@@ -155,11 +154,7 @@ export function SrhInspectorTableWidget() {
             'mrt-row-actions': { size: 110 }
         },
         renderToolbarInternalActions: ({ table: tableInstance }) => (
-            <>
-                <MRT_ToggleDensePaddingButton table={tableInstance} />
-                <MRT_ToggleFullScreenButton table={tableInstance} />
-                <MRT_ShowHideColumnsButton table={tableInstance} />
-            </>
+            <MRT_ShowHideColumnsButton table={tableInstance} />
         )
     })
 

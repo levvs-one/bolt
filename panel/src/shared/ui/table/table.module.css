@@ -1,6 +1,6 @@
 .headerWrapper {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
@@ -8,9 +8,11 @@
 
 .title {
     min-width: 0;
-    font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 17px;
     font-weight: 700;
-    letter-spacing: -0.01em;
 }
 
 .actionsSection {
@@ -23,4 +25,24 @@
 
 .card {
     position: relative;
+}
+
+/* Кнопки заголовка таблицы — как в панели инструментов macOS: голая иконка 20 px в кнопке 36 px. */
+.actionsSection :global(.mantine-ActionIcon-root) {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    border-color: transparent;
+    background: transparent;
+    color: var(--bolt-text);
+
+    @mixin hover {
+        background: var(--bolt-surface-hover);
+    }
+}
+
+.actionsSection :global(.mantine-ActionIcon-root) svg {
+    width: 20px;
+    height: 20px;
 }

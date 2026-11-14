@@ -5,8 +5,6 @@ import {
     MantineReactTable,
     MRT_ColumnFilterFnsState,
     MRT_ShowHideColumnsButton,
-    MRT_ToggleDensePaddingButton,
-    MRT_ToggleFullScreenButton,
     useMantineReactTable
 } from '@kastov/mantine-react-table-open'
 import { MRT_Localization_RU } from '@kastov/mantine-react-table-open/locales/ru/index.esm.mjs'
@@ -26,8 +24,10 @@ import {
     useGetUserTags
 } from '@shared/api/hooks'
 import { usePreventTableBackScroll } from '@shared/hooks'
+import { useIsMobile } from '@shared/hooks'
 import { DEFAULT_PAGINATION_STATE, useMrtTableBinding } from '@shared/lib/mrt-table-store'
 import { DataTableShared } from '@shared/ui/table'
+import { getBoltTableOptions } from '@shared/ui/table'
 import { sToMs } from '@shared/utils/time-utils'
 
 import {
@@ -38,6 +38,7 @@ import { useUsersTableStore } from '@entities/dashboard/users/users-table-store'
 
 export function UserTableWidget() {
     const { t, i18n } = useTranslation()
+    const isMobile = useIsMobile()
 
     const { data: internalSquads } = useGetInternalSquads()
     const { data: externalSquads } = useGetExternalSquads()
@@ -96,6 +97,9 @@ export function UserTableWidget() {
 
     const table = useMantineReactTable({
         localization: i18n.language.startsWith('ru') ? MRT_Localization_RU : undefined,
+        ...getBoltTableOptions(isMobile),
+        // Массовые действия живут в верхней панели — на телефоне она нужна.
+        enableTopToolbar: true,
         columns: tableColumns,
         data: usersResponse?.users ?? [],
         enableFacetedValues: true,
@@ -110,7 +114,6 @@ export function UserTableWidget() {
             }
             return new Map<string, number>()
         },
-        columnFilterDisplayMode: 'subheader',
         mantineFilterSelectProps: ({ column }) => {
             const value = column.getFilterValue()
             return {
@@ -131,7 +134,6 @@ export function UserTableWidget() {
             }
         },
         // mantineTableBodyCellProps: { style: { padding: '2px 6px' } },
-        enableFullScreenToggle: true,
         enableSortingRemoval: true,
         enableGlobalFilter: false,
         enableClickToCopy: false,
@@ -167,11 +169,9 @@ export function UserTableWidget() {
             },
             withBorder: false
         },
-        enableDensityToggle: true,
         manualFiltering: true,
         manualPagination: true,
         manualSorting: true,
-        enableColumnResizing: true,
         /* prettier-ignore */
         mantineToolbarAlertBannerProps: isError ? {
             color: 'red',
@@ -227,11 +227,7 @@ export function UserTableWidget() {
                         </ActionIcon>
                     </Tooltip>
                 </ActionIconGroup>
-                <ActionIconGroup>
-                    <MRT_ToggleDensePaddingButton table={tableInstance} />
-                    <MRT_ToggleFullScreenButton table={tableInstance} />
-                    <MRT_ShowHideColumnsButton table={tableInstance} />
-                </ActionIconGroup>
+                <MRT_ShowHideColumnsButton table={tableInstance} />
             </>
         ),
         state: {
@@ -274,7 +270,7 @@ export function UserTableWidget() {
                     <UserActionGroupFeature isLoading={isLoading} refetch={refetch} table={table} />
                 }
                 icon={<PiUsersDuotone size={24} />}
-                title={t('user-table.widget.table-title')}
+                title={null}
             />
 
             <DataTableShared.Content>

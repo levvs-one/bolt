@@ -1,15 +1,13 @@
-import { Select, Stack } from '@mantine/core'
+import { Select } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 import { BulkAllUpdateUsersCommand } from '@remnawave/backend-contract'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'
 import { useTranslation } from 'react-i18next'
-import { PiClockDuotone } from 'react-icons/pi'
-import { TbChartLine } from 'react-icons/tb'
+import { TbChartArcs, TbRefresh } from 'react-icons/tb'
 
 import { resetDataStrategy } from '@shared/constants/forms'
+import { BoltField, BoltGroup } from '@shared/ui/bolt-list'
 import { TrafficLimitInput } from '@shared/ui/forms/traffic-limit-input'
-import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
-import { SectionCard } from '@shared/ui/section-card'
 
 interface IProps {
     cardVariants: Variants
@@ -26,52 +24,28 @@ export const BulkTrafficLimitsCard = (props: IProps) => {
 
     return (
         <MotionWrapper variants={cardVariants}>
-            <SectionCard.Root>
-                <SectionCard.Section>
-                    <BaseOverlayHeader
-                        iconColor="violet"
-                        IconComponent={TbChartLine}
-                        iconSize={20}
-                        iconVariant="soft"
-                        title={t('traffic-limits-card.traffic-and-limits')}
-                        titleOrder={5}
+            <BoltGroup>
+                <BoltField icon={TbChartArcs} label={t('traffic-limits-card.traffic-limit')}>
+                    <TrafficLimitInput
+                        key={form.key('trafficLimitBytes')}
+                        {...form.getInputProps('trafficLimitBytes')}
                     />
-                </SectionCard.Section>
-                <SectionCard.Section>
-                    <Stack gap="md">
-                        <TrafficLimitInput
-                            description={t('traffic-limits-card.traffic-limit-description')}
-                            key={form.key('trafficLimitBytes')}
-                            label={t('traffic-limits-card.traffic-limit')}
-                            leftSection={<TbChartLine size={16} />}
-                            {...form.getInputProps('trafficLimitBytes')}
-                            styles={{
-                                label: { fontWeight: 500 }
-                            }}
-                        />
+                </BoltField>
 
-                        <Select
-                            allowDeselect={false}
-                            comboboxProps={{
-                                transitionProps: { transition: 'fade', duration: 200 }
-                            }}
-                            data={resetDataStrategy(t)}
-                            defaultValue={form.values.trafficLimitStrategy}
-                            description={t(
-                                'create-user-modal.widget.traffic-reset-strategy-description'
-                            )}
-                            key={form.key('trafficLimitStrategy')}
-                            label={t('create-user-modal.widget.traffic-reset-strategy')}
-                            leftSection={<PiClockDuotone size="16px" />}
-                            placeholder={t('create-user-modal.widget.pick-value')}
-                            {...form.getInputProps('trafficLimitStrategy')}
-                            styles={{
-                                label: { fontWeight: 500 }
-                            }}
-                        />
-                    </Stack>
-                </SectionCard.Section>
-            </SectionCard.Root>
+                <BoltField icon={TbRefresh} label={t('bolt.text.traffic-reset')}>
+                    <Select
+                        allowDeselect={false}
+                        comboboxProps={{
+                            transitionProps: { transition: 'fade', duration: 200 }
+                        }}
+                        data={resetDataStrategy(t)}
+                        defaultValue={form.values.trafficLimitStrategy}
+                        key={form.key('trafficLimitStrategy')}
+                        placeholder={t('bolt.text.no-change')}
+                        {...form.getInputProps('trafficLimitStrategy')}
+                    />
+                </BoltField>
+            </BoltGroup>
         </MotionWrapper>
     )
 }

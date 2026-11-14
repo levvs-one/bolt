@@ -2223,7 +2223,8 @@
       "in-days_many": "Через {{count}} дней",
       "in-days_other": "Через {{count}} дня",
       "xray-uptime": "Xray работает",
-      "node-version": "Версия ноды"
+      "node-version": "Версия ноды",
+      "no-change": "Не менять"
     }
   }
 }

@@ -220,7 +220,7 @@ export const BulkAllUsersUpdateModal = NiceModal.create(() => {
                             handleBulkUpdate()
                         }}
                         size="md"
-                        variant="light"
+                        variant="filled"
                     >
                         {t('common.action.update')}
                     </Button>

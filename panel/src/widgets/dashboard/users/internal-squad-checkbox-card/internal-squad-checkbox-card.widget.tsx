@@ -54,7 +54,6 @@ export const InternalSquadCheckboxCard = memo((props: IProps) => {
                     </Badge>
                     {!hideEditButton && (
                         <ActionIcon
-                            color="cyan"
                             component="a"
                             onClick={(e) => {
                                 e.preventDefault()
@@ -63,10 +62,9 @@ export const InternalSquadCheckboxCard = memo((props: IProps) => {
 
                                 handleOpenEditModal(internalSquad.uuid)
                             }}
-                            size="lg"
-                            variant="default"
+                            size={36}
                         >
-                            <TbEdit size={16} />
+                            <TbEdit size={20} strokeWidth={1.75} />
                         </ActionIcon>
                     )}
                 </Group>

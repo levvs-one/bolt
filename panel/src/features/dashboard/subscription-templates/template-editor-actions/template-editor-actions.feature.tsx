@@ -1,7 +1,7 @@
 import type { editor } from 'monaco-editor'
 
 import { ActionIcon, Button, Group, Menu } from '@mantine/core'
-import { useClipboard, useDisclosure } from '@mantine/hooks'
+import { useClipboard } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications'
 import { GetSubscriptionTemplateCommand } from '@remnawave/backend-contract'
 import { encode } from '@stablelib/base64'
@@ -22,8 +22,6 @@ import { QueryKeys, useUpdateSubscriptionTemplate } from '@shared/api/hooks'
 import { useIsMobile } from '@shared/hooks'
 import { useDownloadTemplate } from '@shared/ui/load-templates/use-download-template'
 
-import classes from './template-editor-actions.module.css'
-
 interface Props {
     editorRef: RefObject<editor.IStandaloneCodeEditor | null>
     editorType: 'json' | 'yaml'
@@ -36,7 +34,6 @@ export function TemplateEditorActionsFeature(props: Props) {
 
     const isMobile = useIsMobile()
     const clipboard = useClipboard({ timeout: 500 })
-    const [opened, handlers] = useDisclosure(false)
 
     const { mutate: updateConfig, isPending: isUpdating } = useUpdateSubscriptionTemplate({
         mutationFns: {
@@ -164,21 +161,11 @@ export function TemplateEditorActionsFeature(props: Props) {
                 {t('common.action.save')}
             </Button>
 
-            <Group gap={0} wrap="nowrap">
-                <Menu
-                    onClose={() => handlers.close()}
-                    onOpen={() => handlers.open()}
-                    shadow="md"
-                    trigger="click-hover"
-                    withinPortal
-                >
+            <Group gap={8} wrap="nowrap">
+                <Menu shadow="md" trigger="click-hover" withinPortal>
                     <Menu.Target>
-                        <ActionIcon
-                            className={classes.actionIconLeft}
-                            size={36}
-                            variant={opened ? 'outline' : 'default'}
-                        >
-                            <TbMenuDeep size={20} />
+                        <ActionIcon size={36}>
+                            <TbMenuDeep size={20} strokeWidth={1.75} />
                         </ActionIcon>
                     </Menu.Target>
 
@@ -221,7 +208,6 @@ export function TemplateEditorActionsFeature(props: Props) {
                 </Menu>
 
                 <Button
-                    className={classes.centeredButton}
                     leftSection={<PiCheckSquareOffset size={16} />}
                     onClick={formatDocument}
                     variant="default"

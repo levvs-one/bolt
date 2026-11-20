@@ -16,7 +16,7 @@ export function FullscreenToggleButton(props: IProps) {
     const {
         className,
         floating = true,
-        iconSize = 18,
+        iconSize = 20,
         isFullscreen,
         onToggle,
         ...actionIconProps
@@ -25,16 +25,14 @@ export function FullscreenToggleButton(props: IProps) {
     return (
         <ActionIcon
             className={clsx(floating && styles.button, className)}
-            color="gray"
             onClick={onToggle}
-            size="lg"
-            variant="soft"
+            size={36}
             {...actionIconProps}
         >
             {isFullscreen ? (
-                <TbArrowsMinimize size={iconSize} />
+                <TbArrowsMinimize size={iconSize} strokeWidth={1.75} />
             ) : (
-                <TbArrowsMaximize size={iconSize} />
+                <TbArrowsMaximize size={iconSize} strokeWidth={1.75} />
             )}
         </ActionIcon>
     )

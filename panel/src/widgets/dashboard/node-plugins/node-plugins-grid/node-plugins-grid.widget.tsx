@@ -3,14 +3,7 @@ import { modals } from '@mantine/modals'
 import { GetNodesCommand, GetNodePluginsCommand } from '@remnawave/backend-contract'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-    TbAlertTriangle,
-    TbFlame,
-    TbLogin,
-    TbLogout,
-    TbPackage,
-    TbPlugConnectedX
-} from 'react-icons/tb'
+import { TbFlame, TbLogin, TbLogout, TbPackage, TbPlugConnectedX } from 'react-icons/tb'
 
 import {
     QueryKeys,
@@ -137,19 +130,6 @@ export function NodePluginsGridWidget(props: IProps) {
     if (!plugins || plugins.length === 0) {
         return (
             <SectionCard.Root p="xl">
-                <SectionCard.Section>
-                    <BaseOverlayHeader
-                        iconColor="orange"
-                        IconComponent={TbAlertTriangle}
-                        iconVariant="soft"
-                        subtitle={t(
-                            'node-plugins-grid.widget.node-plugins-are-an-advanced-feature-please-review-the-documentation-before-use'
-                        )}
-                        title={t('common.message.warning')}
-                        titleOrder={4}
-                    />
-                </SectionCard.Section>
-
                 <SectionCard.Section>
                     <Center py="xl">
                         <Stack align="center" gap="lg">

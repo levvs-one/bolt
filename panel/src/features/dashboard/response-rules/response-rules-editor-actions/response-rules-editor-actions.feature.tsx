@@ -9,7 +9,7 @@ import {
     Text,
     Textarea
 } from '@mantine/core'
-import { useClipboard, useDisclosure } from '@mantine/hooks'
+import { useClipboard } from '@mantine/hooks'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 import {
@@ -58,7 +58,6 @@ export function ResponseRulesEditorActionsFeature(props: Props) {
 
     const isMobile = useIsMobile()
     const clipboard = useClipboard({ timeout: 500 })
-    const [opened, handlers] = useDisclosure(false)
 
     const { mutate: updateResponseRulesRes, isPending: isUpdating } = useUpdateSubscriptionSettings(
         {
@@ -325,24 +324,11 @@ export function ResponseRulesEditorActionsFeature(props: Props) {
                 {t('common.action.save')}
             </Button>
 
-            <Group gap={0} wrap="nowrap">
-                <Menu
-                    onClose={() => handlers.close()}
-                    onOpen={() => handlers.open()}
-                    shadow="md"
-                    trigger="click-hover"
-                    withinPortal
-                >
+            <Group gap={8} wrap="nowrap">
+                <Menu shadow="md" trigger="click-hover" withinPortal>
                     <Menu.Target>
-                        <ActionIcon
-                            size={36}
-                            style={{
-                                borderTopRightRadius: 0,
-                                borderBottomRightRadius: 0
-                            }}
-                            variant={opened ? 'outline' : 'default'}
-                        >
-                            <TbMenuDeep size={20} />
+                        <ActionIcon size={36}>
+                            <TbMenuDeep size={20} strokeWidth={1.75} />
                         </ActionIcon>
                     </Menu.Target>
 
@@ -393,13 +379,6 @@ export function ResponseRulesEditorActionsFeature(props: Props) {
                 <Button
                     leftSection={<PiCheckSquareOffset size={16} />}
                     onClick={formatDocument}
-                    style={{
-                        borderTopLeftRadius: 0,
-                        borderBottomLeftRadius: 0,
-
-                        borderLeft: 0,
-                        width: '100%'
-                    }}
                     variant="default"
                 >
                     {t('config-editor-actions.feature.format')}

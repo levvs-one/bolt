@@ -1,5 +1,5 @@
 import { ActionIcon, Button, CopyButton, Group, Menu, Text } from '@mantine/core'
-import { useClipboard, useDisclosure } from '@mantine/hooks'
+import { useClipboard } from '@mantine/hooks'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 import { UpdateConfigProfileCommand } from '@remnawave/backend-contract'
@@ -23,7 +23,6 @@ import { useIsMobile } from '@shared/hooks'
 import { useDownloadTemplate } from '@shared/ui/load-templates/use-download-template'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 
-import classes from './config-editor-actions.module.css'
 import { Props } from './interfaces'
 
 export function ConfigEditorActionsFeature(props: Props) {
@@ -41,8 +40,6 @@ export function ConfigEditorActionsFeature(props: Props) {
 
     const isMobile = useIsMobile()
     const clipboard = useClipboard({ timeout: 500 })
-
-    const [opened, handlers] = useDisclosure(false)
 
     const { mutate: updateConfig, isPending: isUpdating } = useUpdateConfigProfile({
         mutationFns: {
@@ -224,22 +221,11 @@ export function ConfigEditorActionsFeature(props: Props) {
                 </Button>
             )}
 
-            <Group gap={0} wrap="nowrap">
-                <Menu
-                    onClose={() => handlers.close()}
-                    onOpen={() => handlers.open()}
-                    radius="sm"
-                    shadow="md"
-                    trigger="click-hover"
-                    withinPortal
-                >
+            <Group gap={8} wrap="nowrap">
+                <Menu radius="sm" shadow="md" trigger="click-hover" withinPortal>
                     <Menu.Target>
-                        <ActionIcon
-                            className={classes.actionIconLeft}
-                            size={36}
-                            variant={opened ? 'outline' : 'default'}
-                        >
-                            <TbMenuDeep size={20} />
+                        <ActionIcon size={36}>
+                            <TbMenuDeep size={20} strokeWidth={1.75} />
                         </ActionIcon>
                     </Menu.Target>
 
@@ -316,7 +302,6 @@ export function ConfigEditorActionsFeature(props: Props) {
                 </Menu>
 
                 <Button
-                    className={classes.centeredButton}
                     leftSection={<PiCheckSquareOffset size={16} />}
                     onClick={formatDocument}
                     variant="default"

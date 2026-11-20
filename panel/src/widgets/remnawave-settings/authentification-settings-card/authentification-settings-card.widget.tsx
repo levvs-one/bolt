@@ -1,5 +1,6 @@
 import {
     Accordion,
+    Box,
     Button,
     Center,
     Code,
@@ -46,6 +47,7 @@ import { handleFormErrors } from '@shared/utils/misc'
 
 const ICON_SIZE = 20
 const ICON_STROKE = 1.75
+const HELP_ICON_SIZE = 36
 
 interface IProps {
     oauth2Settings: NonNullable<GetRemnawaveSettingsCommand.Response['response']['oauth2Settings']>
@@ -302,12 +304,6 @@ export const AuthentificationSettingsCardWidget = (props: IProps) => {
                     </Accordion.Control>
                     <Group gap="xs" justify="flex-end" pr="xs" wrap="nowrap">
                         <HelpActionIconShared
-                            actionIconProps={{
-                                size: 'input-xs'
-                            }}
-                            iconProps={{
-                                size: 20
-                            }}
                             screen={
                                 `AUTH_METHODS_${config.key.toUpperCase()}` as THelpDrawerAvailableScreen
                             }
@@ -388,7 +384,7 @@ export const AuthentificationSettingsCardWidget = (props: IProps) => {
                 />
 
                 <SettingsCardShared.Content>
-                    <Accordion multiple variant="separated">
+                    <Accordion multiple>
                         {/* Password */}
                         <Accordion.Item key="password" value="password">
                             <Center>
@@ -407,15 +403,7 @@ export const AuthentificationSettingsCardWidget = (props: IProps) => {
                                     </Group>
                                 </Accordion.Control>
                                 <Group gap="xs" justify="flex-end" pr="xs" wrap="nowrap">
-                                    <HelpActionIconShared
-                                        actionIconProps={{
-                                            size: 'input-xs'
-                                        }}
-                                        iconProps={{
-                                            size: 20
-                                        }}
-                                        screen="AUTH_METHODS_PASSWORD"
-                                    />
+                                    <HelpActionIconShared screen="AUTH_METHODS_PASSWORD" />
                                     <Switch
                                         color="teal.8"
                                         key={form.key('passwordSettings.enabled')}
@@ -441,7 +429,9 @@ export const AuthentificationSettingsCardWidget = (props: IProps) => {
                                         <Text fw={600}>{t('auth-settings.passkey.title')}</Text>
                                     </Group>
                                 </Accordion.Control>
-                                <Group justify="flex-end" pr="xs" wrap="nowrap">
+                                <Group gap="xs" justify="flex-end" pr="xs" wrap="nowrap">
+                                    {/* У Passkey нет справки: пустое место держит шеврон в одной колонке с остальными. */}
+                                    <Box w={HELP_ICON_SIZE} />
                                     <Switch
                                         color="teal.8"
                                         key={form.key('passkeySettings.enabled')}

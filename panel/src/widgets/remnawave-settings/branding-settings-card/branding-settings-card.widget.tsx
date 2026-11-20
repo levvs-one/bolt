@@ -17,13 +17,13 @@ import {
     UpdateRemnawaveSettingsCommand
 } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
-import { HiQuestionMarkCircle } from 'react-icons/hi'
-import { TbAlertCircle, TbLink, TbStar } from 'react-icons/tb'
+import { TbAlertCircle, TbHelpCircle, TbLink, TbStar } from 'react-icons/tb'
 
 import { queryClient } from '@shared/api'
 import { QueryKeys } from '@shared/api/hooks/keys-factory'
 import { useUpdateRemnawaveSettings } from '@shared/api/hooks/remnawave-settings/remnawave-settings.mutation.hooks'
 import { Logo } from '@shared/ui'
+import { BoltField } from '@shared/ui/bolt-list'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { SettingsCardShared } from '@shared/ui/settings-card'
 import { handleFormErrors } from '@shared/utils/misc'
@@ -122,8 +122,8 @@ export const BrandingSettingsCardWidget = (props: IProps) => {
         return (
             <HoverCard shadow="md" width={350} withArrow>
                 <HoverCard.Target>
-                    <ActionIcon color="gray" size="xs" variant="subtle">
-                        <HiQuestionMarkCircle size={20} />
+                    <ActionIcon size={36}>
+                        <TbHelpCircle size={20} strokeWidth={1.75} />
                     </ActionIcon>
                 </HoverCard.Target>
                 <HoverCard.Dropdown>
@@ -198,30 +198,27 @@ export const BrandingSettingsCardWidget = (props: IProps) => {
                     />
 
                     <SettingsCardShared.Content>
-                        <Stack gap="md">
-                            <TextInput
-                                description={t(
-                                    'branding-settings-card.widget.the-title-that-will-be-displayed-on-login-page'
-                                )}
-                                key={form.key('brandingSettings.title')}
+                        <div>
+                            <BoltField
+                                icon={TbStar}
                                 label={t('branding-settings-card.widget.brand-name')}
-                                leftSection={<TbStar size={16} />}
-                                placeholder="Remnawave"
-                                rightSection={brandingTitleHoverCard()}
-                                {...form.getInputProps('brandingSettings.title')}
-                            />
+                            >
+                                <TextInput
+                                    key={form.key('brandingSettings.title')}
+                                    placeholder="Remnawave"
+                                    rightSection={brandingTitleHoverCard()}
+                                    {...form.getInputProps('brandingSettings.title')}
+                                />
+                            </BoltField>
 
-                            <TextInput
-                                description={t(
-                                    'branding-settings-card.widget.the-url-to-your-brand-logo-image'
-                                )}
-                                key={form.key('brandingSettings.logoUrl')}
-                                label={t('common.field.logo-url')}
-                                leftSection={<TbLink size={16} />}
-                                placeholder="https://example.com/logo.png"
-                                {...form.getInputProps('brandingSettings.logoUrl')}
-                            />
-                        </Stack>
+                            <BoltField icon={TbLink} label={t('common.field.logo-url')}>
+                                <TextInput
+                                    key={form.key('brandingSettings.logoUrl')}
+                                    placeholder="https://example.com/logo.png"
+                                    {...form.getInputProps('brandingSettings.logoUrl')}
+                                />
+                            </BoltField>
+                        </div>
                     </SettingsCardShared.Content>
 
                     <SettingsCardShared.Bottom>

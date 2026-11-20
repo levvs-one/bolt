@@ -1,48 +1,7 @@
-.tokenTable {
-    border: 0;
-    border-radius: var(--mantine-radius-md);
-    overflow: hidden;
-    background: transparent;
-}
-
-.tokenHeaderRow,
-.tokenRow {
-    display: grid;
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr) 44px;
-    gap: 16px;
-    align-items: center;
-    padding: 11px 16px;
-}
-
-@media (max-width: 48em) {
-    .tokenHeaderRow,
-    .tokenRow {
-        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) 44px;
-        gap: 10px;
-    }
-}
-
-.tokenHeaderRow {
-    border-bottom: 1px solid var(--bolt-line);
-}
-
 .tokenColLabel {
-    font-size: 11px;
-    font-family: var(--mantine-font-family-monospace);
+    font-size: 13px;
+    font-weight: 600;
     color: var(--bolt-text);
-}
-
-.tokenRow {
-    border-bottom: 1px solid var(--bolt-line);
-    transition: background-color 120ms ease;
-}
-
-.tokenRow:last-child {
-    border-bottom: none;
-}
-
-.tokenRow:hover {
-    background-color: transparent;
 }
 
 .resourceRow {

@@ -2,7 +2,7 @@ import { ActionIcon, ActionIconProps, Tooltip } from '@mantine/core'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconBaseProps } from 'react-icons/lib'
-import { TbQuestionMark } from 'react-icons/tb'
+import { TbHelpCircle } from 'react-icons/tb'
 
 import { showModal } from '@shared/_modals/show-modal'
 
@@ -33,13 +33,12 @@ export const HelpActionIconShared = memo((props: IProps) => {
     return (
         <Tooltip label={t('help-action-icon.shared.help-article')}>
             <ActionIcon
-                color="lime"
+                aria-label={t('help-action-icon.shared.help-article')}
                 onClick={handleOpenHelpDrawer}
-                size="input-md"
-                variant="soft"
+                size={36}
                 {...actionIconProps}
             >
-                <TbQuestionMark size={24} {...iconProps} />
+                <TbHelpCircle size={20} strokeWidth={1.75} {...iconProps} />
             </ActionIcon>
         </Tooltip>
     )

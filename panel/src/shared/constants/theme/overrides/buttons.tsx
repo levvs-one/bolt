@@ -43,6 +43,7 @@ export default {
         defaultProps: {
             labelPosition: 'left',
             radius: 'xl',
+            size: 'md',
             withThumbIndicator: false
         }
     })

@@ -161,20 +161,13 @@ export const NodeMetricsWidget = () => {
                                             <PiInfo size="0.6rem" />
                                         </ThemeIcon>
                                         <Text fw={600} size="sm">
-                                            Additional Information
+                                            {t('bolt.text.metrics-about')}
                                         </Text>
                                     </Group>
                                     <Stack gap="xs">
-                                        <Text c="dimmed" size="xs">
-                                            • Updates every 30 seconds from /metrics endpoint
-                                        </Text>
-                                        <Text c="dimmed" size="xs">
-                                            • Not all data is visualized on this dashboard
-                                        </Text>
-                                        <Text c="dimmed" size="xs">
-                                            • Inbound/Outbound traffic is the sum of all traffic
-                                            from Panel or Node startup
-                                        </Text>
+                                        <Text size="xs">{t('bolt.text.metrics-refresh')}</Text>
+                                        <Text size="xs">{t('bolt.text.metrics-partial')}</Text>
+                                        <Text size="xs">{t('bolt.text.metrics-traffic')}</Text>
                                     </Stack>
                                 </Stack>
                             </HoverCard.Dropdown>

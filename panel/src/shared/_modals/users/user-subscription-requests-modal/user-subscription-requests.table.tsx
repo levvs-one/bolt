@@ -167,7 +167,6 @@ export const UserSubscriptionRequestsTable = (props: IProps) => {
         <>
             <DataTable<TRecord>
                 noRecordsText={t('common.message.no-data-available')}
-                borderRadius="sm"
                 columns={effectiveColumns}
                 columnResizeMode="expand"
                 defaultColumnProps={{
@@ -186,10 +185,7 @@ export const UserSubscriptionRequestsTable = (props: IProps) => {
                 records={records}
                 sortStatus={sortStatus}
                 storeColumnsKey={CACHE_KEY}
-                striped
-                withColumnBorders
                 withRowBorders
-                withTableBorder
             />
             <DataTableControls
                 columnsToggle={columnsToggle}

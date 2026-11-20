@@ -2,10 +2,10 @@ import type { IProps } from './interfaces/props.interface'
 
 import { ComboboxItem, Group, Select, Text } from '@mantine/core'
 import { forwardRef, useState } from 'react'
-import ReactCountryFlag from 'react-country-flag'
 import { useTranslation } from 'react-i18next'
 
 import { useGetInfraBillingNodes } from '@shared/api/hooks'
+import { CountryFlag } from '@shared/ui/get-country-flag'
 import { LoadingScreen } from '@shared/ui/loading-screen'
 
 interface ItemProps extends ComboboxItem {
@@ -17,15 +17,7 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
     ({ countryCode, name, ...others }: ItemProps, ref) => (
         <div ref={ref} {...others}>
             <Group gap="sm">
-                {countryCode && countryCode !== 'XX' && (
-                    <ReactCountryFlag
-                        countryCode={countryCode}
-                        style={{
-                            fontSize: '1.1em',
-                            borderRadius: '2px'
-                        }}
-                    />
-                )}
+                {countryCode && countryCode !== 'XX' && <CountryFlag countryCode={countryCode} />}
 
                 <Text fw={500} size="sm">
                     {name}
@@ -87,15 +79,7 @@ export const SelectBillingNodeShared = (props: IProps) => {
         selectedBillingNode.countryCode &&
         selectedBillingNode.countryCode !== 'XX'
     ) {
-        leftSection = (
-            <ReactCountryFlag
-                countryCode={selectedBillingNode.countryCode}
-                style={{
-                    fontSize: '1.1em',
-                    borderRadius: '2px'
-                }}
-            />
-        )
+        leftSection = <CountryFlag countryCode={selectedBillingNode.countryCode} />
     }
 
     return (

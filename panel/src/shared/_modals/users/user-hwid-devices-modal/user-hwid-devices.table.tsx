@@ -249,7 +249,6 @@ export const UserHwidDevicesTable = (props: IProps) => {
         <>
             <DataTable<TDevice>
                 noRecordsText={t('common.message.no-data-available')}
-                borderRadius="sm"
                 pinFirstColumn
                 columns={effectiveColumns}
                 defaultColumnProps={{
@@ -265,12 +264,9 @@ export const UserHwidDevicesTable = (props: IProps) => {
                 idAccessor="hwid"
                 onSortStatusChange={setSortStatus}
                 records={records}
-                striped
                 sortStatus={sortStatus}
                 storeColumnsKey={CACHE_KEY}
-                withColumnBorders
                 withRowBorders
-                withTableBorder
                 columnResizeMode="expand"
                 rowVirtualization={{
                     fixedLayout: true

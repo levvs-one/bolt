@@ -46,7 +46,7 @@ export const TargetList = (props: IProps) => {
                     <Text c="dimmed" pl={12} size="10px" truncate>
                         {target.verdict}
                         {target.transits && target.transits.length > 0
-                            ? ` · ${target.transits.map((transit) => transit.name).join(', ')}`
+                            ? `, ${target.transits.map((transit) => transit.name).join(', ')}`
                             : ''}
                     </Text>
                 </UnstyledButton>

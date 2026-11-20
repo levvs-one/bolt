@@ -2239,7 +2239,11 @@
       "variant-hidden": "Скрыто",
       "variant-accordion": "Аккордеон",
       "variant-minimal": "Минимально",
-      "variant-timeline": "Шаги"
+      "variant-timeline": "Шаги",
+      "metrics-about": "О метриках",
+      "metrics-refresh": "Обновляются раз в 30 секунд из /metrics",
+      "metrics-partial": "Здесь показаны не все данные",
+      "metrics-traffic": "Входящий и исходящий трафик считается с запуска панели или ноды"
     }
   }
 }

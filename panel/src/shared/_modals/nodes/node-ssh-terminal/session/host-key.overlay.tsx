@@ -71,7 +71,7 @@ export const HostKeyOverlay = (props: IProps) => {
                 <SectionCard.Section>
                     <Stack gap="xs">
                         <Text c="dimmed" ff="monospace" size="xs" ta="center">
-                            {prompt.target} · {prompt.algo}
+                            {prompt.target} {prompt.algo}
                         </Text>
 
                         <Fingerprint label={t('node-ssh.fingerprint')} value={prompt.fingerprint} />

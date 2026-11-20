@@ -12,6 +12,9 @@ import { sToMs } from '@shared/utils/time-utils'
 
 import { getHwidInspectorLeaderboardColumns } from './get-hwid-inspector-leaderboard-columns'
 
+const TABLE_HEIGHT = 350
+const EMPTY_TABLE_HEIGHT = 120
+
 const PAGE_SIZE = 5
 const PAGE_SIZE_OPTIONS = [5, 10, 25, 50, 100]
 
@@ -45,7 +48,6 @@ export function HwidInspectorLeaderboardWidget() {
     return (
         <DataTable
             noRecordsText={t('common.message.no-data-available')}
-            borderRadius="sm"
             columns={getHwidInspectorLeaderboardColumns(t, async (userId) => {
                 showModal('users_viewUserModal', { userId })
             })}
@@ -56,7 +58,9 @@ export function HwidInspectorLeaderboardWidget() {
                 draggable: false
             }}
             fetching={isLoading}
-            height={350}
+            // Пустой список не растягивается на высоту таблицы с данными.
+            height={usersResponse?.users.length ? TABLE_HEIGHT : undefined}
+            minHeight={EMPTY_TABLE_HEIGHT}
             idAccessor="id"
             onCellClick={({ record, column }) => {
                 if (column.accessor === 'actions') {
@@ -95,10 +99,7 @@ export function HwidInspectorLeaderboardWidget() {
                 </>
             )}
             totalRecords={usersResponse?.total ?? 0}
-            striped
-            withColumnBorders
             withRowBorders
-            withTableBorder
         />
     )
 }

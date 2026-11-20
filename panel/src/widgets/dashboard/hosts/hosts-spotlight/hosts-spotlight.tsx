@@ -56,7 +56,7 @@ export const HostsSpotlightWidget = (props: IProps) => {
             (i) => i.uuid === host.inbound.configProfileInboundUuid
         )
 
-        const meta = [profile?.name, inbound?.tag].filter(Boolean).join('  ·  ')
+        const meta = [profile?.name, inbound?.tag].filter(Boolean).join(' ')
 
         return {
             id: host.uuid,
@@ -72,9 +72,7 @@ export const HostsSpotlightWidget = (props: IProps) => {
                             <Text fw={500} size="sm">
                                 {host.remark}
                             </Text>
-                            <Text c="dimmed" size="xs">
-                                {host.address} · {host.uuid}
-                            </Text>
+                            <Text size="xs">{host.address}</Text>
                             {meta && (
                                 <Text c="dimmed" size="xs" truncate>
                                     {meta}

@@ -249,7 +249,6 @@ export const NodesDataTableWidget = memo((props: IProps) => {
         <>
             <DataTable
                 noRecordsText={t('common.message.no-data-available')}
-                borderRadius="sm"
                 columns={effectiveColumns}
                 defaultColumnProps={{
                     noWrap: true,
@@ -284,10 +283,7 @@ export const NodesDataTableWidget = memo((props: IProps) => {
                 selectedRecords={selectedRecords}
                 sortStatus={sortStatus}
                 storeColumnsKey={NODES_CACHE_KEY}
-                striped
-                withColumnBorders
                 withRowBorders
-                withTableBorder
                 columnResizeMode="expand"
                 rowVirtualization={{
                     fixedLayout: false,

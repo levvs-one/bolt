@@ -484,7 +484,7 @@ export function getHostsTableColumns(
 
     const actionsColumn: DataTableColumn<HostType> = {
         accessor: 'actions',
-        cellsStyle: () => ({ backgroundColor: 'var(--mantine-color-dark-7)' }),
+        cellsStyle: () => ({ backgroundColor: 'var(--bolt-surface)' }),
         draggable: false,
         resizable: false,
         textAlign: 'right',
@@ -493,7 +493,7 @@ export function getHostsTableColumns(
                 <TbEdit size={18} />
             </Group>
         ),
-        titleStyle: { backgroundColor: 'var(--mantine-color-dark-7)' },
+        titleStyle: { backgroundColor: 'var(--bolt-surface)' },
         toggleable: false,
         render: ({ uuid }) => (
             <Group gap={4} justify="flex-end" wrap="nowrap">

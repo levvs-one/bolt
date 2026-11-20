@@ -1,5 +1,6 @@
 import { Group, Text } from '@mantine/core'
-import ReactCountryFlag from 'react-country-flag'
+
+import { CountryFlag } from '@shared/ui/get-country-flag'
 
 import { IProps } from './interface'
 
@@ -17,13 +18,7 @@ export function ConnectedNodeColumnEntity(props: IProps) {
             wrap="nowrap"
         >
             {node?.countryCode && node.countryCode !== 'XX' && (
-                <ReactCountryFlag
-                    countryCode={node.countryCode}
-                    style={{
-                        fontSize: '1.1em',
-                        borderRadius: '2px'
-                    }}
-                />
+                <CountryFlag countryCode={node.countryCode} />
             )}
             <Text ff="monospace" fw={500} size="md">
                 {node?.name || '–'}

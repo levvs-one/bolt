@@ -57,7 +57,7 @@ export const TargetDetail = (props: IProps) => {
                     </TraceLink>
                     {target.dest_asn && (
                         <>
-                            {' · '}
+                            {' '}
                             <TraceLink kind="as" value={target.dest_asn}>
                                 AS{target.dest_asn} {target.dest_as_name ?? ''}
                             </TraceLink>

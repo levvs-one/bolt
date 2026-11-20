@@ -156,7 +156,7 @@ export function ConfigProfileInboundsTree(props: IProps) {
                             style={{ flexShrink: 0 }}
                             variant="filled"
                         >
-                            <TbTag color="var(--mantine-color-dark-8)" size={20} />
+                            <TbTag size={20} />
                         </ActionIcon>
 
                         <Text ff="monospace" fw={600} size="sm" truncate="end">

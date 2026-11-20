@@ -13,7 +13,6 @@ import {
 } from '@mantine/core'
 import { GetNodesCommand } from '@remnawave/backend-contract'
 import { useCallback, useState } from 'react'
-import ReactCountryFlag from 'react-country-flag'
 import { useTranslation } from 'react-i18next'
 import {
     TbAlertTriangle,
@@ -28,6 +27,7 @@ import { z } from 'zod'
 
 import { useNodePluginExecutor } from '@shared/api/hooks'
 import { ActionCardShared } from '@shared/ui/action-card'
+import { CountryFlag } from '@shared/ui/get-country-flag'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { SectionCard } from '@shared/ui/section-card'
 
@@ -345,12 +345,7 @@ export const NodePluginExecutorContent = (props: IProps) => {
 
     const countryFlag = (countryCode: null | string) => {
         if (!countryCode || countryCode === 'XX') return <TbServer2 size={14} />
-        return (
-            <ReactCountryFlag
-                countryCode={countryCode}
-                style={{ fontSize: '1.1em', borderRadius: '2px' }}
-            />
-        )
+        return <CountryFlag countryCode={countryCode} />
     }
 
     return (

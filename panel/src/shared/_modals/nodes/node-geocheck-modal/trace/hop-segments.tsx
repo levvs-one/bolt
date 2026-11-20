@@ -49,7 +49,7 @@ export const HopSegments = (props: IProps) => {
                             '—'
                         ) : (
                             <TraceLink kind="as" value={segment.asn}>
-                                AS{segment.asn} · {segment.asName || '—'}
+                                AS{segment.asn} {segment.asName || '—'}
                             </TraceLink>
                         )}
                     </Text>

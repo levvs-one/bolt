@@ -1,12 +1,12 @@
 import { Badge, Group } from '@mantine/core'
 import { Spotlight } from '@mantine/spotlight'
 import { GetNodesCommand } from '@remnawave/backend-contract'
-import ReactCountryFlag from 'react-country-flag'
 import { useTranslation } from 'react-i18next'
 import { PiUsersDuotone } from 'react-icons/pi'
 import { TbServer, TbServer2 } from 'react-icons/tb'
 
 import { showModal } from '@shared/_modals/show-modal'
+import { CountryFlag } from '@shared/ui/get-country-flag'
 import { EmptyPageLayout } from '@shared/ui/layouts/empty-page'
 
 import { NodeStatusBadgeWidget } from '../node-status-badge'
@@ -37,13 +37,7 @@ export const NodesSpotlightSearchWidget = ({ nodes }: IProps) => {
                 id: node.uuid,
                 leftSection:
                     node.countryCode && node.countryCode !== 'XX' ? (
-                        <ReactCountryFlag
-                            countryCode={node.countryCode}
-                            style={{
-                                fontSize: '1.1em',
-                                borderRadius: '2px'
-                            }}
-                        />
+                        <CountryFlag countryCode={node.countryCode} />
                     ) : (
                         <TbServer color="var(--mantine-color-gray-5)" size={16} />
                     ),

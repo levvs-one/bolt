@@ -227,7 +227,6 @@ export const HostsDataTableWidget = memo((props: IProps) => {
         <>
             <DataTable
                 noRecordsText={t('common.message.no-data-available')}
-                borderRadius="sm"
                 columns={effectiveColumns}
                 defaultColumnProps={{
                     noWrap: true,
@@ -249,10 +248,7 @@ export const HostsDataTableWidget = memo((props: IProps) => {
                 selectedRecords={selectedRecords}
                 sortStatus={sortStatus}
                 storeColumnsKey={HOSTS_CACHE_KEY}
-                striped
-                withColumnBorders
                 withRowBorders
-                withTableBorder
                 columnResizeMode="expand"
                 rowVirtualization={{
                     fixedLayout: false,

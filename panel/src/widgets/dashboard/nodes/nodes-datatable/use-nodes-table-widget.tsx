@@ -8,7 +8,6 @@ import {
 } from '@remnawave/backend-contract'
 import { TFunction } from 'i18next'
 import sortBy from 'lodash/sortBy'
-import ReactCountryFlag from 'react-country-flag'
 import {
     PiCloudArrowUpDuotone,
     PiProhibitDuotone,
@@ -18,6 +17,7 @@ import {
 } from 'react-icons/pi'
 import { TbEdit, TbSearch, TbX } from 'react-icons/tb'
 
+import { CountryFlag } from '@shared/ui/get-country-flag'
 import { NodeIpsCompactView } from '@shared/ui/node-ips'
 import {
     prettifyBytesUtil,
@@ -96,13 +96,7 @@ export function getNodesTableColumns(
             render: ({ name, countryCode }) => (
                 <Group gap={6} wrap="nowrap">
                     {countryCode && countryCode !== 'XX' && (
-                        <ReactCountryFlag
-                            countryCode={countryCode}
-                            style={{
-                                fontSize: '1.1em',
-                                borderRadius: '2px'
-                            }}
-                        />
+                        <CountryFlag countryCode={countryCode} />
                     )}
                     <Text
                         size="sm"
@@ -506,11 +500,11 @@ export function getNodesTableColumns(
             draggable: false,
             resizable: false,
             titleStyle: {
-                backgroundColor: 'var(--mantine-color-dark-7)'
+                backgroundColor: 'var(--bolt-surface)'
             },
             cellsStyle: () => {
                 return {
-                    backgroundColor: 'var(--mantine-color-dark-7)'
+                    backgroundColor: 'var(--bolt-surface)'
                 }
             },
             title: (

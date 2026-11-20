@@ -11,12 +11,12 @@ import {
     Tooltip
 } from '@mantine/core'
 import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
-import ReactCountryFlag from 'react-country-flag'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy, PiCpu } from 'react-icons/pi'
 import { TbCpu } from 'react-icons/tb'
 
 import { useNiceMantineModal } from '@shared/_modals/use-nice-modal'
+import { CountryFlag } from '@shared/ui/get-country-flag'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 
 interface IProps {
@@ -60,13 +60,7 @@ export const ActiveNodesModal = NiceModal.create((props: IProps) => {
                                         }}
                                     >
                                         {node.countryCode && node.countryCode !== 'XX' && (
-                                            <ReactCountryFlag
-                                                countryCode={node.countryCode}
-                                                style={{
-                                                    fontSize: '1.1em',
-                                                    borderRadius: '2px'
-                                                }}
-                                            />
+                                            <CountryFlag countryCode={node.countryCode} />
                                         )}
 
                                         <Text

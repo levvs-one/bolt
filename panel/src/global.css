@@ -204,3 +204,40 @@ th:hover [class*='MRT_TableHeadCellResizeHandle'] {
 [class*='MRT_TablePaper-module_root'] {
     --mrt-base-background-color: var(--bolt-surface);
 }
+
+/* Таблицы mantine-datatable — на поверхности группы, линии только между строками, пустое состояние без кружка. */
+.mantine-datatable {
+    /* Библиотека выбирает -light или -dark по теме, поэтому задаются все три варианта. */
+    --mantine-datatable-background-color: var(--bolt-surface);
+    --mantine-datatable-background-color-light: var(--bolt-surface);
+    --mantine-datatable-background-color-dark: var(--bolt-surface);
+    --mantine-datatable-row-background-color: var(--bolt-surface);
+    --mantine-datatable-row-background-color-light: var(--bolt-surface);
+    --mantine-datatable-row-background-color-dark: var(--bolt-surface);
+    --mantine-datatable-border-color: var(--bolt-line);
+    --mantine-datatable-border-color-light: var(--bolt-line);
+    --mantine-datatable-border-color-dark: var(--bolt-line);
+    --mantine-datatable-color: var(--bolt-text);
+    --mantine-datatable-color-light: var(--bolt-text);
+    --mantine-datatable-color-dark: var(--bolt-text);
+    --mantine-datatable-highlight-on-hover-color: var(--bolt-surface-hover);
+    --mantine-datatable-highlight-on-hover-color-light: var(--bolt-surface-hover);
+    --mantine-datatable-highlight-on-hover-color-dark: var(--bolt-surface-hover);
+    --mantine-datatable-pagination-active-background-color: var(--bolt-selected);
+    --mantine-datatable-pagination-active-background-color-light: var(--bolt-selected);
+    --mantine-datatable-pagination-active-background-color-dark: var(--bolt-selected);
+    --mantine-datatable-pagination-active-text-color: var(--bolt-text);
+    --mantine-datatable-pagination-active-text-color-light: var(--bolt-text);
+    --mantine-datatable-pagination-active-text-color-dark: var(--bolt-text);
+    border-radius: var(--mantine-radius-md);
+}
+
+.mantine-datatable-empty-state-icon,
+.mantine-datatable-header-cell-draggable-action-icon {
+    display: none;
+}
+
+/* Фильтр колонки — голая иконка, без серого кружка. */
+.mantine-datatable-header-cell-filter-action-icon {
+    background: transparent;
+}

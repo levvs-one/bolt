@@ -106,7 +106,7 @@ export const VaultUnlockScreen = (props: IProps) => {
                             <Text c="red" size="xs" ta="center">
                                 {passcodeError}
                                 {didSpendAttempt &&
-                                    ` · ${t('node-ssh.passcode-attempts', { count: attemptsLeft })}`}
+                                    `, ${t('node-ssh.passcode-attempts', { count: attemptsLeft })}`}
                             </Text>
                         )}
 

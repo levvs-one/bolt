@@ -1,6 +1,6 @@
 import type { editor } from 'monaco-editor'
 
-import { Box, Text } from '@mantine/core'
+import { Box, Text, useComputedColorScheme } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import Editor, { EditorProps, OnMount } from '@monaco-editor/react'
 import clsx from 'clsx'
@@ -8,7 +8,11 @@ import { t } from 'i18next'
 import { parse } from 'jsonc-parser'
 import { Fragment, ReactNode, useRef, useState } from 'react'
 
-import { BASE_MONACO_OPTIONS, MONACO_THEME_NAME } from '@shared/constants/monaco-theme'
+import {
+    BASE_MONACO_OPTIONS,
+    MONACO_LIGHT_THEME_NAME,
+    MONACO_THEME_NAME
+} from '@shared/constants/monaco-theme'
 import { describeJsonPath } from '@shared/utils/monaco/json-path'
 import { RepairResult, repairJsonInEditor } from '@shared/utils/monaco/repair-json'
 
@@ -43,6 +47,7 @@ export function CodeEditor(props: Props) {
         ...rest
     } = props
 
+    const colorScheme = useComputedColorScheme('dark')
     const [jsonPath, setJsonPath] = useState<string[]>([])
     const documentTextRef = useRef('')
     const documentValueRef = useRef<unknown>(undefined)
@@ -148,7 +153,7 @@ export function CodeEditor(props: Props) {
                 language={language}
                 loading={<LoaderModalShared mih="100%" />}
                 onMount={handleMount}
-                theme={MONACO_THEME_NAME}
+                theme={colorScheme === 'light' ? MONACO_LIGHT_THEME_NAME : MONACO_THEME_NAME}
                 {...rest}
                 options={{ ...BASE_MONACO_OPTIONS, ...options }}
                 wrapperProps={{

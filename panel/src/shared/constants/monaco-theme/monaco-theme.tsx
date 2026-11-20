@@ -156,3 +156,31 @@ export const monacoTheme = {
         'menu.border': BOLT_TOKENS.dark.line
     }
 }
+
+// Светлая тема — подсветка синтаксиса стандартная vs, фон и выделения в тонах Bolt.
+export const monacoLightTheme = {
+    base: 'vs',
+    inherit: true,
+    rules: [],
+    colors: {
+        'editor.foreground': BOLT_TOKENS.light.text,
+        'editor.background': BOLT_TOKENS.light.surface,
+        'editor.lineHighlightBackground': BOLT_TOKENS.light.surfaceRaised,
+        'minimap.background': BOLT_TOKENS.light.surface,
+        'scrollbar.shadow': '#00000000',
+        'editorLineNumber.activeForeground': BOLT_TOKENS.light.text,
+        'editorWidget.background': BOLT_TOKENS.light.surface,
+        'editorWidget.border': BOLT_TOKENS.light.line,
+        'editorHoverWidget.background': BOLT_TOKENS.light.surface,
+        'editorHoverWidget.border': BOLT_TOKENS.light.line,
+        'editorSuggestWidget.background': BOLT_TOKENS.light.surface,
+        'editorSuggestWidget.border': BOLT_TOKENS.light.line,
+        'editorSuggestWidget.selectedBackground': BOLT_TOKENS.light.surfaceHover,
+        'menu.background': BOLT_TOKENS.light.surface,
+        'menu.foreground': BOLT_TOKENS.light.text,
+        'menu.selectionBackground': BOLT_TOKENS.light.surfaceHover,
+        'menu.selectionForeground': BOLT_TOKENS.light.text,
+        'menu.separatorBackground': BOLT_TOKENS.light.line,
+        'menu.border': BOLT_TOKENS.light.line
+    }
+}

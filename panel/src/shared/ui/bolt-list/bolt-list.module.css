@@ -74,16 +74,28 @@
     cursor: text;
 }
 
+/* Длинная подпись переносится, а не выталкивает поле за край; поле ввода не уже трети строки. */
 .fieldLabel {
-    flex-shrink: 0;
+    flex: 0 1 auto;
+    min-width: 0;
+    padding-block: 6px;
     font-size: 15px;
     font-weight: 600;
-    white-space: nowrap;
+    line-height: 1.3;
 }
 
 .fieldControl {
-    flex: 1;
+    flex: 1 0 33%;
     min-width: 0;
+}
+
+/* Переключатель и флажок занимают свою ширину и стоят у правого края. */
+.field:has(:global(.mantine-Switch-root), :global(.mantine-Checkbox-root)) .fieldLabel {
+    flex: 1;
+}
+
+.field:has(:global(.mantine-Switch-root), :global(.mantine-Checkbox-root)) .fieldControl {
+    flex: none;
 }
 
 .fieldControl :global(.mantine-Input-input) {

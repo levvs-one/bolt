@@ -1,4 +1,4 @@
-import { Button, Group, Stack, Switch } from '@mantine/core'
+import { Button, Group, Switch } from '@mantine/core'
 import { useForm, schemaResolver } from '@mantine/form'
 import { UpdateSubscriptionSettingsCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
@@ -6,6 +6,7 @@ import { PiGear } from 'react-icons/pi'
 
 import { queryClient } from '@shared/api'
 import { QueryKeys, useUpdateSubscriptionSettings } from '@shared/api/hooks'
+import { BoltField } from '@shared/ui/bolt-list'
 import { SettingsCardShared } from '@shared/ui/settings-card'
 import { handleFormErrors } from '@shared/utils/misc'
 
@@ -69,41 +70,32 @@ export const SubscriptionAdditionalOptionsWidget = (props: IProps) => {
                 />
 
                 <SettingsCardShared.Content>
-                    <Stack gap="md">
-                        <Switch
-                            description={t('subscription-settings.widget.serve-json-description')}
-                            key={form.key('serveJsonAtBaseSubscription')}
+                    <div>
+                        <BoltField
                             label={t(
                                 'subscription-settings.widget.serve-json-at-base-subscription'
                             )}
-                            size="sm"
-                            {...form.getInputProps('serveJsonAtBaseSubscription', {
-                                type: 'checkbox'
-                            })}
-                        />
-
-                        <Switch
-                            description={t('subscription-tabs.widget.randomize-hosts-description')}
-                            key={form.key('randomizeHosts')}
-                            label={t('subscription-tabs.widget.randomize-hosts')}
-                            size="sm"
-                            {...form.getInputProps('randomizeHosts', {
-                                type: 'checkbox'
-                            })}
-                        />
-
-                        <Switch
-                            description={t(
-                                'subscription-tabs.widget.show-custom-remark-description-line-2'
-                            )}
-                            key={form.key('isShowCustomRemarks')}
-                            label={t('subscription-tabs.widget.show-custom-remarks')}
-                            size="sm"
-                            {...form.getInputProps('isShowCustomRemarks', {
-                                type: 'checkbox'
-                            })}
-                        />
-                    </Stack>
+                        >
+                            <Switch
+                                key={form.key('serveJsonAtBaseSubscription')}
+                                {...form.getInputProps('serveJsonAtBaseSubscription', {
+                                    type: 'checkbox'
+                                })}
+                            />
+                        </BoltField>
+                        <BoltField label={t('subscription-tabs.widget.randomize-hosts')}>
+                            <Switch
+                                key={form.key('randomizeHosts')}
+                                {...form.getInputProps('randomizeHosts', { type: 'checkbox' })}
+                            />
+                        </BoltField>
+                        <BoltField label={t('subscription-tabs.widget.show-custom-remarks')}>
+                            <Switch
+                                key={form.key('isShowCustomRemarks')}
+                                {...form.getInputProps('isShowCustomRemarks', { type: 'checkbox' })}
+                            />
+                        </BoltField>
+                    </div>
                 </SettingsCardShared.Content>
 
                 <SettingsCardShared.Bottom>

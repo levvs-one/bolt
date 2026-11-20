@@ -1,13 +1,13 @@
-import { Button, Group, NumberInput, px, Stack, Switch, Text, Textarea } from '@mantine/core'
+import { Button, Group, NumberInput, px, Switch, Textarea } from '@mantine/core'
 import { useForm, schemaResolver } from '@mantine/form'
 import { UpdateSubscriptionSettingsCommand } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { PiGear, PiIdentificationBadge } from 'react-icons/pi'
-import { TbDevices2 } from 'react-icons/tb'
 import { Link } from 'react-router'
 
 import { queryClient } from '@shared/api'
 import { QueryKeys, useUpdateSubscriptionSettings } from '@shared/api/hooks'
+import { BoltField } from '@shared/ui/bolt-list'
 import { TemplateInfoPopoverShared } from '@shared/ui/popovers'
 import { SettingsCardShared } from '@shared/ui/settings-card'
 import { handleFormErrors } from '@shared/utils/misc'
@@ -66,53 +66,46 @@ export const SubscriptionHwidSettingsWidget = (props: IProps) => {
                 />
 
                 <SettingsCardShared.Content>
-                    <Stack gap="md">
-                        <Group justify="space-between" wrap="nowrap">
-                            <Group gap="xs" justify="start" wrap="nowrap">
-                                <Text fw={600} size="md">
-                                    {t('subscription-hwid-settings.widget.hwid-limit')}
-                                </Text>
-                            </Group>
+                    <div>
+                        <BoltField label={t('subscription-hwid-settings.widget.hwid-limit')}>
                             <Switch
                                 key={form.key('hwidSettings.enabled')}
-                                size="md"
                                 {...form.getInputProps('hwidSettings.enabled', {
                                     type: 'checkbox'
                                 })}
                             />
-                        </Group>
-
-                        <NumberInput
-                            description={t(
-                                'subscription-hwid-settings.widget.fallback-device-limit-description'
-                            )}
-                            key={form.key('hwidSettings.fallbackDeviceLimit')}
+                        </BoltField>
+                        <BoltField
                             label={t('subscription-hwid-settings.widget.fallback-device-limit')}
-                            leftSection={<TbDevices2 size="16px" />}
-                            max={9999}
-                            min={0}
-                            placeholder="999"
-                            size="sm"
-                            {...form.getInputProps('hwidSettings.fallbackDeviceLimit')}
-                        />
+                        >
+                            <NumberInput
+                                hideControls
+                                key={form.key('hwidSettings.fallbackDeviceLimit')}
+                                max={9999}
+                                min={0}
+                                placeholder="999"
+                                {...form.getInputProps('hwidSettings.fallbackDeviceLimit')}
+                            />
+                        </BoltField>
+                    </div>
 
-                        <Textarea
-                            description={t(
-                                'subscription-hwid-settings.widget.max-devices-announce-description'
-                            )}
-                            key={form.key('hwidSettings.maxDevicesAnnounce')}
-                            label={t('subscription-hwid-settings.widget.max-devices-announce')}
-                            leftSection={<TemplateInfoPopoverShared />}
-                            maxLength={200}
-                            minRows={4}
-                            placeholder={t('subscription-hwid-settings.widget.max-200-characters')}
-                            size="sm"
-                            style={{
-                                placeContent: 'center'
-                            }}
-                            {...form.getInputProps('hwidSettings.maxDevicesAnnounce')}
-                        />
-                    </Stack>
+                    <Textarea
+                        description={t(
+                            'subscription-hwid-settings.widget.max-devices-announce-description'
+                        )}
+                        key={form.key('hwidSettings.maxDevicesAnnounce')}
+                        label={t('subscription-hwid-settings.widget.max-devices-announce')}
+                        leftSection={<TemplateInfoPopoverShared />}
+                        maxLength={200}
+                        minRows={4}
+                        placeholder={t('subscription-hwid-settings.widget.max-200-characters')}
+                        px={12}
+                        size="sm"
+                        style={{
+                            placeContent: 'center'
+                        }}
+                        {...form.getInputProps('hwidSettings.maxDevicesAnnounce')}
+                    />
                 </SettingsCardShared.Content>
 
                 <SettingsCardShared.Bottom>

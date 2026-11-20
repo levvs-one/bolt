@@ -22,7 +22,7 @@ import {
     REALITY_XHTTP_DEFAULTS,
     realityXhttpTags
 } from '@shared/lib/bolt-presets/reality-xhttp.preset'
-import { BoltGroup, BoltRow } from '@shared/ui/bolt-list'
+import { BoltField, BoltGroup, BoltRow } from '@shared/ui/bolt-list'
 import { LoadingScreen } from '@shared/ui/loading-screen'
 import { Page } from '@shared/ui/page'
 import { PageHeaderShared } from '@shared/ui/page-header'
@@ -68,8 +68,8 @@ export function QuickSetupPage() {
     const [selectedNodes, setSelectedNodes] = useState<null | string[]>(null)
     const [selectedSquads, setSelectedSquads] = useState<null | string[]>(null)
     const [createHosts, setCreateHosts] = useState(true)
-    const [steps, setSteps] = useState<Record<TStep, TStepState>>(() =>
-        Object.fromEntries(STEPS.map((step) => [step, 'idle'])) as Record<TStep, TStepState>
+    const [steps, setSteps] = useState<Record<TStep, TStepState>>(
+        () => Object.fromEntries(STEPS.map((step) => [step, 'idle'])) as Record<TStep, TStepState>
     )
     const [isRunning, setIsRunning] = useState(false)
     const [createdProfileUuid, setCreatedProfileUuid] = useState<null | string>(null)
@@ -205,7 +205,10 @@ export function QuickSetupPage() {
                 const body: z.input<typeof UpdateInternalSquadCommand.RequestBodySchema> = {
                     uuid: squad.uuid,
                     inbounds: [
-                        ...new Set([...squad.inbounds.map((inbound) => inbound.uuid), ...inboundUuids])
+                        ...new Set([
+                            ...squad.inbounds.map((inbound) => inbound.uuid),
+                            ...inboundUuids
+                        ])
                     ]
                 }
                 await instance.patch(UpdateInternalSquadCommand.url, body)
@@ -213,24 +216,27 @@ export function QuickSetupPage() {
         })
 
         await Promise.all(
-            [QueryKeys.configProfiles, QueryKeys.nodes, QueryKeys.hosts, QueryKeys.internalSquads].map(
-                (key) => queryClient.invalidateQueries({ queryKey: key._def })
-            )
+            [
+                QueryKeys.configProfiles,
+                QueryKeys.nodes,
+                QueryKeys.hosts,
+                QueryKeys.internalSquads
+            ].map((key) => queryClient.invalidateQueries({ queryKey: key._def }))
         )
         setIsRunning(false)
     }
 
-    const portInput = (value: number, onChange: (next: number) => void, label: string) => (
-        <NumberInput
-            allowDecimal={false}
-            className={classes.port}
-            hideControls
-            label={label}
-            max={MAX_PORT}
-            min={MIN_PORT}
-            onChange={(next) => onChange(Number(next))}
-            value={value}
-        />
+    const portField = (value: number, onChange: (next: number) => void, label: string) => (
+        <BoltField label={label}>
+            <NumberInput
+                allowDecimal={false}
+                hideControls
+                max={MAX_PORT}
+                min={MIN_PORT}
+                onChange={(next) => onChange(Number(next))}
+                value={value}
+            />
+        </BoltField>
     )
 
     return (
@@ -239,23 +245,23 @@ export function QuickSetupPage() {
 
             <div className={classes.layout}>
                 <div className={classes.column}>
-                    <BoltGroup className={classes.form}>
-                        <TextInput
-                            label={t('bolt.quick-setup.profile-name')}
-                            onChange={(event) => setProfileName(event.currentTarget.value)}
-                            value={profileName}
-                        />
-                        <TextInput
-                            label={t('bolt.quick-setup.server-name')}
-                            onChange={(event) => setServerName(event.currentTarget.value)}
-                            placeholder="www.microsoft.com"
-                            value={serverName}
-                        />
-                        <div className={classes.ports}>
-                            {portInput(realityPort, setRealityPort, 'Reality')}
-                            {portInput(xhttpPort, setXhttpPort, 'XHTTP')}
-                            {portInput(hiddenPort, setHiddenPort, t('bolt.quick-setup.hidden'))}
-                        </div>
+                    <BoltGroup>
+                        <BoltField label={t('bolt.quick-setup.profile-name')}>
+                            <TextInput
+                                onChange={(event) => setProfileName(event.currentTarget.value)}
+                                value={profileName}
+                            />
+                        </BoltField>
+                        <BoltField label={t('bolt.quick-setup.server-name')}>
+                            <TextInput
+                                onChange={(event) => setServerName(event.currentTarget.value)}
+                                placeholder="www.microsoft.com"
+                                value={serverName}
+                            />
+                        </BoltField>
+                        {portField(realityPort, setRealityPort, 'Reality')}
+                        {portField(xhttpPort, setXhttpPort, 'XHTTP')}
+                        {portField(hiddenPort, setHiddenPort, t('bolt.quick-setup.hidden'))}
                     </BoltGroup>
 
                     <BoltGroup>
@@ -265,7 +271,9 @@ export function QuickSetupPage() {
                                 <Switch
                                     checked={createHosts}
                                     color="gray"
-                                    onChange={(event) => setCreateHosts(event.currentTarget.checked)}
+                                    onChange={(event) =>
+                                        setCreateHosts(event.currentTarget.checked)
+                                    }
                                 />
                             }
                         />
@@ -281,7 +289,9 @@ export function QuickSetupPage() {
                                         aria-label={node.name}
                                         checked={nodeUuids.includes(node.uuid)}
                                         color="gray"
-                                        onChange={() => setSelectedNodes(toggle(nodeUuids, node.uuid))}
+                                        onChange={() =>
+                                            setSelectedNodes(toggle(nodeUuids, node.uuid))
+                                        }
                                     />
                                 }
                                 value={node.address}

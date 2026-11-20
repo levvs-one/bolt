@@ -1,5 +1,5 @@
 import { CodeHighlight } from '@mantine/code-highlight'
-import { Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Group, Stack, Text } from '@mantine/core'
 import { Trans, useTranslation } from 'react-i18next'
 import { TbBrandDocker, TbClock, TbHourglass, TbTag } from 'react-icons/tb'
 
@@ -15,11 +15,9 @@ export const RequirementsWidget = () => {
 
     return (
         <Stack gap="md">
-            <Group gap="sm" wrap="nowrap">
-                <ThemeIcon color="teal" size="md" variant="soft">
-                    <TbTag size={16} />
-                </ThemeIcon>
-                <Text c="dimmed" size="sm">
+            <Group align="flex-start" gap="sm" wrap="nowrap">
+                <TbTag size={20} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                <Text fw={500} size="sm">
                     <Trans
                         components={{ highlight: HIGHLIGHT_SPAN }}
                         i18nKey="active-sessions-drawer.widget.warning-version"
@@ -29,11 +27,9 @@ export const RequirementsWidget = () => {
             </Group>
 
             <Stack gap="xs">
-                <Group gap="sm" wrap="nowrap">
-                    <ThemeIcon color="violet" size="md" variant="soft">
-                        <TbBrandDocker size={16} />
-                    </ThemeIcon>
-                    <Text c="dimmed" size="sm">
+                <Group align="flex-start" gap="sm" wrap="nowrap">
+                    <TbBrandDocker size={20} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                    <Text fw={500} size="sm">
                         <Trans
                             components={{ highlight: HIGHLIGHT_SPAN }}
                             i18nKey="active-sessions-drawer.widget.warning-docker"
@@ -41,7 +37,7 @@ export const RequirementsWidget = () => {
                     </Text>
                 </Group>
                 <CodeHighlight
-                    background="rgba(22, 27, 35)"
+                    background="var(--bolt-surface-raised)"
                     code={DOCKER_SNIPPET}
                     language="yaml"
                     radius="md"
@@ -51,11 +47,9 @@ export const RequirementsWidget = () => {
                 />
             </Stack>
 
-            <Group gap="sm" wrap="nowrap">
-                <ThemeIcon color="cyan" size="md" variant="soft">
-                    <TbClock size={16} />
-                </ThemeIcon>
-                <Text c="dimmed" size="sm">
+            <Group align="flex-start" gap="sm" wrap="nowrap">
+                <TbClock size={20} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                <Text fw={500} size="sm">
                     <Trans
                         components={{ highlight: HIGHLIGHT_SPAN }}
                         i18nKey="active-sessions-drawer.widget.warning-activity"
@@ -63,11 +57,9 @@ export const RequirementsWidget = () => {
                 </Text>
             </Group>
 
-            <Group gap="sm" wrap="nowrap">
-                <ThemeIcon color="orange" size="md" variant="soft">
-                    <TbHourglass size={16} />
-                </ThemeIcon>
-                <Text c="dimmed" size="sm">
+            <Group align="flex-start" gap="sm" wrap="nowrap">
+                <TbHourglass size={20} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                <Text fw={500} size="sm">
                     {t('active-sessions-drawer.widget.warning-patience')}
                 </Text>
             </Group>

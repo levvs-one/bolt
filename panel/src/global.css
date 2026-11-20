@@ -241,3 +241,9 @@ th:hover [class*='MRT_TableHeadCellResizeHandle'] {
 .mantine-datatable-header-cell-filter-action-icon {
     background: transparent;
 }
+
+/* Кнопка копирования в блоке кода — голая иконка, без плашки. */
+.mantine-CodeHighlight-control {
+    border: 0;
+    background: transparent;
+}

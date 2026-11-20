@@ -1,5 +1,5 @@
 import { CodeHighlight } from '@mantine/code-highlight'
-import { Button, Group, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Button, Group, Stack, Text } from '@mantine/core'
 import { Trans, useTranslation } from 'react-i18next'
 import { TbAlertTriangle, TbBrandDocker, TbClock, TbRadar, TbRadar2 } from 'react-icons/tb'
 
@@ -34,11 +34,9 @@ export function SessionsExplorerIdle({ onlineNodesCount, onStart }: IProps) {
                 </SectionCard.Section>
 
                 <Stack gap="xs">
-                    <Group gap="sm" wrap="nowrap">
-                        <ThemeIcon color="violet" size="md" variant="soft">
-                            <TbBrandDocker size={16} />
-                        </ThemeIcon>
-                        <Text c="dimmed" size="sm">
+                    <Group align="flex-start" gap="sm" wrap="nowrap">
+                        <TbBrandDocker size={20} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                        <Text fw={500} size="sm">
                             <Trans
                                 components={{ highlight: HIGHLIGHT_SPAN }}
                                 i18nKey="active-sessions-drawer.widget.warning-docker"
@@ -46,7 +44,7 @@ export function SessionsExplorerIdle({ onlineNodesCount, onStart }: IProps) {
                         </Text>
                     </Group>
                     <CodeHighlight
-                        background="rgba(22, 27, 35)"
+                        background="var(--bolt-surface-raised)"
                         code={DOCKER_SNIPPET}
                         language="yaml"
                         radius="md"
@@ -56,11 +54,9 @@ export function SessionsExplorerIdle({ onlineNodesCount, onStart }: IProps) {
                     />
                 </Stack>
 
-                <Group gap="sm" wrap="nowrap">
-                    <ThemeIcon color="cyan" size="md" variant="soft">
-                        <TbClock size={16} />
-                    </ThemeIcon>
-                    <Text c="dimmed" size="sm">
+                <Group align="flex-start" gap="sm" wrap="nowrap">
+                    <TbClock size={20} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                    <Text fw={500} size="sm">
                         <Trans
                             components={{ highlight: HIGHLIGHT_SPAN }}
                             i18nKey="active-sessions-drawer.widget.warning-activity"
@@ -68,11 +64,9 @@ export function SessionsExplorerIdle({ onlineNodesCount, onStart }: IProps) {
                     </Text>
                 </Group>
 
-                <Group gap="sm" wrap="nowrap">
-                    <ThemeIcon color="yellow" size="md" variant="soft">
-                        <TbRadar size={16} />
-                    </ThemeIcon>
-                    <Text c="dimmed" size="sm">
+                <Group align="flex-start" gap="sm" wrap="nowrap">
+                    <TbRadar size={20} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                    <Text fw={500} size="sm">
                         {t('sessions-explorer-idle.description-1')}
                     </Text>
                 </Group>

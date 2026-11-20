@@ -13,7 +13,6 @@ import {
     Button
 } from '@mantine/core'
 import { modals } from '@mantine/modals'
-import { githubDarkTheme } from 'json-edit-react'
 import { JsonEditor } from 'json-edit-react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -30,6 +29,7 @@ import { TbJson } from 'react-icons/tb'
 
 import { useNiceMantineModal } from '@shared/_modals/use-nice-modal'
 import { useGetConnectionKeysByUserId, useGetRawSubscription } from '@shared/api/hooks'
+import { useJsonEditorTheme } from '@shared/hooks'
 import { EmptyPageLayout } from '@shared/ui/layouts/empty-page'
 import { LoaderModalShared } from '@shared/ui/loader-modal'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
@@ -45,6 +45,7 @@ interface IProps {
 export const ConnectionKeysDrawer = NiceModal.create((props: IProps) => {
     const { userId, shortUuid } = props
     const { t } = useTranslation()
+    const jsonTheme = useJsonEditorTheme()
 
     const modal = useModal()
     const { modalProps } = useNiceMantineModal({
@@ -197,7 +198,7 @@ export const ConnectionKeysDrawer = NiceModal.create((props: IProps) => {
                         }}
                         maxWidth="100%"
                         rootName=""
-                        theme={githubDarkTheme}
+                        theme={jsonTheme}
                         viewOnly
                         jsonStringify={(data) => JSON.stringify(data)}
                     />

@@ -1,10 +1,11 @@
 import { ActionIcon, Box, Divider, Group, Stack } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { GetTorrentBlockerReportsCommand } from '@remnawave/backend-contract'
-import { githubDarkTheme, JsonEditor } from 'json-edit-react'
+import { JsonEditor } from 'json-edit-react'
 import { useTranslation } from 'react-i18next'
 import { TbExternalLink, TbFlame, TbJson } from 'react-icons/tb'
 
+import { useJsonEditorTheme } from '@shared/hooks'
 import { CopyableFieldShared } from '@shared/ui/copyable-field/copyable-field'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { SettingsCardShared } from '@shared/ui/settings-card'
@@ -18,6 +19,7 @@ export const UserTorrentBlockerReportItem = (props: IProps) => {
     const { report } = props
 
     const { t, i18n } = useTranslation()
+    const jsonTheme = useJsonEditorTheme()
 
     return (
         <SettingsCardShared.Container key={report.id}>
@@ -42,7 +44,7 @@ export const UserTorrentBlockerReportItem = (props: IProps) => {
                                         indent={2}
                                         maxWidth="100%"
                                         rootName=""
-                                        theme={githubDarkTheme}
+                                        theme={jsonTheme}
                                         viewOnly
                                     />
                                 </Box>

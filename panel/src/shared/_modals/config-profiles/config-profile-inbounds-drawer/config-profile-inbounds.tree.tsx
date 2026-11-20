@@ -16,12 +16,13 @@ import {
     GetInternalSquadsCommand
 } from '@remnawave/backend-contract'
 import ColorHash from 'color-hash'
-import { githubDarkTheme, JsonEditor } from 'json-edit-react'
+import { JsonEditor, Theme } from 'json-edit-react'
 import { useMemo } from 'react'
 import { PiCheck, PiCopy, PiTag, PiUsers } from 'react-icons/pi'
 import { TbChevronRight, TbCirclesRelation, TbTag } from 'react-icons/tb'
 
 import { showModal } from '@shared/_modals/show-modal'
+import { useJsonEditorTheme } from '@shared/hooks'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { SectionCard } from '@shared/ui/section-card'
 import { formatInt } from '@shared/utils/misc'
@@ -43,7 +44,7 @@ interface IProps {
     internalSquads: InternalSquad[]
 }
 
-const openRawInboundModal = (inbound: ProfileInbound) => {
+const openRawInboundModal = (inbound: ProfileInbound, jsonTheme: Theme) => {
     modals.open({
         children: (
             <Box>
@@ -53,7 +54,7 @@ const openRawInboundModal = (inbound: ProfileInbound) => {
                     indent={4}
                     maxWidth="100%"
                     rootName=""
-                    theme={githubDarkTheme}
+                    theme={jsonTheme}
                     viewOnly
                 />
             </Box>
@@ -73,6 +74,7 @@ const openRawInboundModal = (inbound: ProfileInbound) => {
 
 export function ConfigProfileInboundsTree(props: IProps) {
     const { inbounds, internalSquads } = props
+    const jsonTheme = useJsonEditorTheme()
 
     const treeData = useMemo<InboundsTreeNode[]>(() => {
         const colorHash = new ColorHash({ lightness: 0.7, saturation: 0.6 })
@@ -150,7 +152,7 @@ export function ConfigProfileInboundsTree(props: IProps) {
                             color={meta.tagColor}
                             onClick={(event) => {
                                 event.stopPropagation()
-                                openRawInboundModal(meta.inbound)
+                                openRawInboundModal(meta.inbound, jsonTheme)
                             }}
                             size="md"
                             style={{ flexShrink: 0 }}

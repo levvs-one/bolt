@@ -2,7 +2,7 @@ import { ActionIcon, Box, CopyButton, Progress, Stack } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { GetUserByIdCommand } from '@remnawave/backend-contract'
 import dayjs from 'dayjs'
-import { githubDarkTheme, JsonEditor } from 'json-edit-react'
+import { JsonEditor } from 'json-edit-react'
 import { ForwardRefComponent, HTMLMotionProps, Variants } from 'motion/react'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -28,7 +28,7 @@ import {
 
 import { showModal } from '@shared/_modals/show-modal'
 import { useGetUserMetadata } from '@shared/api/hooks'
-import { useNow } from '@shared/hooks'
+import { useJsonEditorTheme, useNow } from '@shared/hooks'
 import { BoltGroup, BoltRow } from '@shared/ui/bolt-list'
 import { compactBytesUtil } from '@shared/utils/bytes'
 import { getTimeAgoUtil } from '@shared/utils/time-utils'
@@ -49,6 +49,7 @@ const PERCENT = 100
 
 export const UserIdentificationCard = memo((props: IProps) => {
     const { t, i18n } = useTranslation()
+    const jsonTheme = useJsonEditorTheme()
     const { cardVariants, lastConnectedNode, motionWrapper: MotionWrapper, user } = props
 
     const { data: metadata } = useGetUserMetadata({ route: { userId: user.id } })
@@ -79,7 +80,7 @@ export const UserIdentificationCard = memo((props: IProps) => {
                         indent={4}
                         maxWidth="100%"
                         rootName=""
-                        theme={githubDarkTheme}
+                        theme={jsonTheme}
                         viewOnly
                     />
                 </Box>

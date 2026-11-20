@@ -7,7 +7,7 @@ import {
 import { MRT_Localization_RU } from '@kastov/mantine-react-table-open/locales/ru/index.esm.mjs'
 import { ActionIcon, ActionIconGroup, Box, Tooltip } from '@mantine/core'
 import { modals } from '@mantine/modals'
-import { githubDarkTheme, JsonEditor } from 'json-edit-react'
+import { JsonEditor } from 'json-edit-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiUserCircle } from 'react-icons/pi'
@@ -28,7 +28,7 @@ import {
     useGetTorrentBlockerStats,
     useTruncateTorrentBlockerReports
 } from '@shared/api/hooks'
-import { usePreventTableBackScroll } from '@shared/hooks'
+import { useJsonEditorTheme, usePreventTableBackScroll } from '@shared/hooks'
 import { useIsMobile } from '@shared/hooks'
 import { DEFAULT_PAGINATION_STATE, useMrtTableBinding } from '@shared/lib/mrt-table-store'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
@@ -45,6 +45,7 @@ import { useTbReportsTableColumns } from './use-tb-reports-table-columns'
 
 export function TorrentBlockerReportsTableWidget() {
     const { t, i18n } = useTranslation()
+    const jsonTheme = useJsonEditorTheme()
     const isMobile = useIsMobile()
 
     const { data: nodes } = useGetNodes()
@@ -193,7 +194,7 @@ export function TorrentBlockerReportsTableWidget() {
                                         indent={2}
                                         maxWidth="100%"
                                         rootName=""
-                                        theme={githubDarkTheme}
+                                        theme={jsonTheme}
                                         viewOnly
                                     />
                                 </Box>

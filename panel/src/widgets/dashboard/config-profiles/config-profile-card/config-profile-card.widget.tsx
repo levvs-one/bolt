@@ -2,7 +2,7 @@ import { Badge, Box, CopyButton, Divider, Group, Loader, Menu, Text, Tooltip } f
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
-import { githubDarkTheme, JsonEditor } from 'json-edit-react'
+import { JsonEditor } from 'json-edit-react'
 import { useTranslation } from 'react-i18next'
 import { PiCheck, PiCopy, PiCpu, PiPencil, PiTag, PiTrashDuotone } from 'react-icons/pi'
 import { TbAdjustmentsHorizontal, TbCheck, TbCpu2, TbDownload, TbEye, TbTags } from 'react-icons/tb'
@@ -12,6 +12,7 @@ import { showModal } from '@shared/_modals/show-modal'
 import { useGetComputedConfigProfile } from '@shared/api/hooks/config-profiles/config-profiles.query.hooks'
 import { ROUTES } from '@shared/constants'
 import { WithDndSortable } from '@shared/hocs/with-dnd-sortable'
+import { useJsonEditorTheme } from '@shared/hooks'
 import { EntityCardShared } from '@shared/ui/entity-card'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 import { formatInt } from '@shared/utils/misc'
@@ -31,6 +32,7 @@ export function ConfigProfileCardWidget(props: IProps) {
         isDragOverlay = false
     } = props
     const { t } = useTranslation()
+    const jsonTheme = useJsonEditorTheme()
 
     const navigate = useNavigate()
 
@@ -91,7 +93,7 @@ export function ConfigProfileCardWidget(props: IProps) {
                             indent={4}
                             maxWidth="100%"
                             rootName=""
-                            theme={githubDarkTheme}
+                            theme={jsonTheme}
                             viewOnly
                         />
                     </>
@@ -217,7 +219,7 @@ export function ConfigProfileCardWidget(props: IProps) {
                                                 indent={4}
                                                 maxWidth="100%"
                                                 rootName=""
-                                                theme={githubDarkTheme}
+                                                theme={jsonTheme}
                                                 viewOnly
                                             />
                                         </Box>

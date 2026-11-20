@@ -17,7 +17,7 @@ import {
 } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { GetNodeCommand, UpdateNodeCommand } from '@remnawave/backend-contract'
-import { githubDarkTheme, JsonEditor } from 'json-edit-react'
+import { JsonEditor } from 'json-edit-react'
 import { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiCloudArrowUpDuotone, PiWarningCircle } from 'react-icons/pi'
@@ -36,6 +36,7 @@ import {
 
 import { queryClient } from '@shared/api'
 import { QueryKeys, useDisableNode, useEnableNode, useGetNodeMetadata } from '@shared/api/hooks'
+import { useJsonEditorTheme } from '@shared/hooks'
 import { BoltRow } from '@shared/ui/bolt-list'
 import { XrayLogo } from '@shared/ui/logos'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
@@ -53,6 +54,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
     const { node } = props
 
     const { t } = useTranslation()
+    const jsonTheme = useJsonEditorTheme()
 
     const mutationParams = {
         route: {
@@ -245,7 +247,7 @@ export const NodeDetailsCardWidget = memo((props: IProps) => {
                                                     indent={4}
                                                     maxWidth="100%"
                                                     rootName=""
-                                                    theme={githubDarkTheme}
+                                                    theme={jsonTheme}
                                                     viewOnly
                                                 />
                                             </Box>

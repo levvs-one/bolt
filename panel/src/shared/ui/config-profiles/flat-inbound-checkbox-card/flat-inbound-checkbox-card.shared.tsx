@@ -3,10 +3,11 @@ import type { IProps } from './interfaces/props.interface'
 import { ActionIcon, Badge, Checkbox, Group, Stack, Text } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { GetConfigProfilesCommand } from '@remnawave/backend-contract'
-import { githubDarkTheme, JsonEditor } from 'json-edit-react'
+import { JsonEditor } from 'json-edit-react'
 import { useTranslation } from 'react-i18next'
 import { TbCode } from 'react-icons/tb'
 
+import { useJsonEditorTheme } from '@shared/hooks'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
 
 import classes from './FlatInboundCheckboxCard.module.css'
@@ -15,6 +16,7 @@ export const FlatInboundCheckboxCardShared = (props: IProps) => {
     const { inbound, isSelected, onInboundToggle, profileName } = props
 
     const { t } = useTranslation()
+    const jsonTheme = useJsonEditorTheme()
 
     const handleShowInboundJson = (
         inbound: GetConfigProfilesCommand.Response['response']['configProfiles'][number]['inbounds'][number]
@@ -27,7 +29,7 @@ export const FlatInboundCheckboxCardShared = (props: IProps) => {
                     indent={4}
                     maxWidth="100%"
                     rootName=""
-                    theme={githubDarkTheme}
+                    theme={jsonTheme}
                     viewOnly
                 />
             ),

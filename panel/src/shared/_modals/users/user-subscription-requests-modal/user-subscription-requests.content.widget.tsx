@@ -7,7 +7,6 @@ import {
     ScrollAreaAutosize,
     Stack,
     Text,
-    ThemeIcon,
     Tooltip
 } from '@mantine/core'
 import { useTranslation } from 'react-i18next'
@@ -44,31 +43,21 @@ export const UserSubscriptionRequestsModalContent = (props: IProps) => {
     return (
         <Stack className={classes.drawerContent}>
             <Card style={{ flexShrink: 0 }} withBorder>
-                <Group gap="sm" justify="space-between">
-                    <Group>
-                        <ThemeIcon color="indigo" radius="md" size="xl" variant="soft">
-                            <TbDevices size={24} />
-                        </ThemeIcon>
-                        <Stack gap={0}>
-                            <Box
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    height: 'calc(var(--mantine-font-size-xl) * var(--mantine-line-height))'
-                                }}
-                            >
-                                {isLoading ? (
-                                    <Loader color="cyan" size="sm" type="oval" />
-                                ) : (
-                                    <Text fw={700} size="xl">
-                                        {records?.total ?? 0}
-                                    </Text>
-                                )}
-                            </Box>
-                            <Text c="dimmed" size="xs">
-                                {t('user-subscription-requests-drawer.widget.total-records')}
+                <Group gap="sm" justify="space-between" wrap="nowrap">
+                    <Group gap={12} style={{ flex: 1, minWidth: 0 }} wrap="nowrap">
+                        <TbDevices size={20} strokeWidth={1.75} />
+
+                        <Text fw={600} size="md" style={{ flex: 1 }} truncate>
+                            {t('user-subscription-requests-drawer.widget.total-records')}
+                        </Text>
+
+                        {isLoading ? (
+                            <Loader size="xs" />
+                        ) : (
+                            <Text fw={700} size="md">
+                                {records?.total ?? 0}
                             </Text>
-                        </Stack>
+                        )}
                     </Group>
                     <Group gap="xs">
                         <Tooltip label={t('common.action.refresh')}>

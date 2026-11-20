@@ -2208,7 +2208,8 @@
       "metrics-about": "About metrics",
       "metrics-refresh": "Refreshed every 30 seconds from /metrics",
       "metrics-partial": "Not all data is shown here",
-      "metrics-traffic": "Inbound and outbound traffic counts from panel or node startup"
+      "metrics-traffic": "Inbound and outbound traffic counts from panel or node startup",
+      "platform": "Platform"
     }
   }
 }

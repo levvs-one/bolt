@@ -1,5 +1,5 @@
 import { DataTable, type DataTableSortStatus, useDataTableColumns } from '@kastov/mantine-datatable'
-import { ActionIcon, Anchor, Group, Text, ThemeIcon } from '@mantine/core'
+import { ActionIcon, Anchor, Group, Text } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { GetUserHwidDevicesCommand } from '@remnawave/backend-contract'
 import get from 'lodash/get'
@@ -98,12 +98,10 @@ export const UserHwidDevicesTable = (props: IProps) => {
     const columns = [
         textColumn(
             'platform',
-            'Platform',
+            t('bolt.text.platform'),
             (device) => (
                 <Group gap="xs" wrap="nowrap">
-                    <ThemeIcon color="indigo" size="lg" variant="soft">
-                        {resolvePlatformIcon(device.platform)}
-                    </ThemeIcon>
+                    {resolvePlatformIcon(device.platform)}
                     <Text size="sm">{device.platform || 'Unknown'}</Text>
                 </Group>
             ),
@@ -218,7 +216,7 @@ export const UserHwidDevicesTable = (props: IProps) => {
 
     const columnLabels = useMemo<Record<string, string>>(
         () => ({
-            platform: 'Platform',
+            platform: t('bolt.text.platform'),
             hwid: 'HWID',
             requestIp: t('common.field.ip-address'),
             deviceModel: t('get-hwid-user-devices.feature.model'),

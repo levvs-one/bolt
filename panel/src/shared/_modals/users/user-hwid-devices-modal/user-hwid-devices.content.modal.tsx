@@ -1,14 +1,4 @@
-import {
-    ActionIcon,
-    Box,
-    Card,
-    Group,
-    Loader,
-    Stack,
-    Text,
-    ThemeIcon,
-    Tooltip
-} from '@mantine/core'
+import { ActionIcon, Box, Card, Group, Loader, Stack, Text, Tooltip } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { useTranslation } from 'react-i18next'
 import { TbDevices, TbRefresh, TbTrash } from 'react-icons/tb'
@@ -151,31 +141,21 @@ export const UserHwidDevicesContentModal = (props: IProps) => {
             <Stack className={classes.drawerContent}>
                 <Card withBorder>
                     <Stack gap="md">
-                        <Group gap="sm" justify="space-between">
-                            <Group>
-                                <ThemeIcon color="indigo" radius="md" size="xl" variant="soft">
-                                    <TbDevices size={24} />
-                                </ThemeIcon>
-                                <Stack gap={0}>
-                                    <Box
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            height: 'calc(var(--mantine-font-size-xl) * var(--mantine-line-height))'
-                                        }}
-                                    >
-                                        {isLoading ? (
-                                            <Loader color="cyan" size="sm" type="oval" />
-                                        ) : (
-                                            <Text fw={700} size="xl">
-                                                {devices?.devices.length ?? 0}
-                                            </Text>
-                                        )}
-                                    </Box>
-                                    <Text c="dimmed" size="xs">
-                                        {t('get-hwid-user-devices.feature.devices')}
+                        <Group gap="sm" justify="space-between" wrap="nowrap">
+                            <Group gap={12} style={{ flex: 1, minWidth: 0 }} wrap="nowrap">
+                                <TbDevices size={20} strokeWidth={1.75} />
+
+                                <Text fw={600} size="md" style={{ flex: 1 }} truncate>
+                                    {t('get-hwid-user-devices.feature.devices')}
+                                </Text>
+
+                                {isLoading ? (
+                                    <Loader size="xs" />
+                                ) : (
+                                    <Text fw={700} size="md">
+                                        {devices?.devices.length ?? 0}
                                     </Text>
-                                </Stack>
+                                )}
                             </Group>
                             <Group gap="xs">
                                 <Tooltip label={t('common.action.refresh')}>

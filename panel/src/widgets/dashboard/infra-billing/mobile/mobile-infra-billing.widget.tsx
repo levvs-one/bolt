@@ -10,10 +10,11 @@ import {
     useGetInfraProviders
 } from '@shared/api/hooks'
 import { LoadingScreen } from '@shared/ui'
+import { PageHeaderShared } from '@shared/ui/page-header'
 
+import { StatsWidget } from '../stats-widget/stats.widget'
 import { MobileNodesListWidget } from './mobile-nodes-list.widget'
 import { MobileProvidersListWidget } from './mobile-providers-list.widget'
-import { StatsWidget } from '../stats-widget/stats.widget'
 import { VirtualizedRecordsList } from './virtualized-records-list.widget'
 
 const RECORDS_HEIGHT = 'calc(100vh - 280px)'
@@ -88,118 +89,115 @@ export function MobileInfraBillingWidget() {
     }
 
     return (
-        <Stack gap="xs" pos="relative">
-            <StatsWidget />
+        <>
+            <PageHeaderShared
+                actions={
+                    <Group gap={8}>
+                        <ActionIcon
+                            aria-label={t('common.action.refresh')}
+                            loading={
+                                isInfraProvidersRefetching ||
+                                isInfraBillingNodesRefetching ||
+                                isInfraBillingRecordsRefetching
+                            }
+                            onClick={handleRefetch}
+                            size={36}
+                        >
+                            <TbRefresh size={20} strokeWidth={1.75} />
+                        </ActionIcon>
+                        <ActionIcon
+                            aria-label={t('common.action.create')}
+                            onClick={handleAdd}
+                            size={36}
+                        >
+                            <TbPlus size={20} strokeWidth={1.75} />
+                        </ActionIcon>
+                    </Group>
+                }
+                title={t('constants.infra-billing')}
+            />
 
-            <Tabs
-                color="cyan"
-                keepMountedMode="display-none"
-                onChange={(value) => {
-                    if (value) {
-                        setActiveTab(value as TabValue)
-                    }
-                }}
-                value={activeTab}
-            >
-                <Tabs.List grow mb="md">
-                    <Tabs.Tab leftSection={<TbServer size={16} />} value="nodes">
-                        {t('constants.nodes')}
-                    </Tabs.Tab>
-                    <Tabs.Tab leftSection={<TbCreditCard size={16} />} value="records">
-                        {t('mobile-infra-billing.widget.history')}
-                    </Tabs.Tab>
-                    <Tabs.Tab leftSection={<TbCloud size={16} />} value="providers">
-                        {t('mobile-infra-billing.widget.providers')}
-                    </Tabs.Tab>
-                </Tabs.List>
+            <Stack gap="xs">
+                <StatsWidget />
 
-                <Tabs.Panel value="nodes">
-                    <Transition
-                        duration={200}
-                        keepMounted
-                        mounted={activeTab === 'nodes'}
-                        timingFunction="linear"
-                        transition="fade"
-                    >
-                        {(styles) => (
-                            <MobileNodesListWidget
-                                nodes={infraBillingNodes.billingNodes}
-                                style={styles}
-                            />
-                        )}
-                    </Transition>
-                </Tabs.Panel>
-
-                <Tabs.Panel value="records">
-                    <Transition
-                        duration={200}
-                        keepMounted
-                        mounted={activeTab === 'records'}
-                        timingFunction="linear"
-                        transition="fade"
-                    >
-                        {(styles) => (
-                            <VirtualizedRecordsList
-                                height={RECORDS_HEIGHT}
-                                isLoadingMore={isFetchingNextRecordsPage}
-                                onReachBottom={handleLoadMoreRecords}
-                                records={billingRecords}
-                                refetchRecords={refetchRecords}
-                                style={styles}
-                            />
-                        )}
-                    </Transition>
-                </Tabs.Panel>
-
-                <Tabs.Panel value="providers">
-                    <Transition
-                        duration={200}
-                        keepMounted
-                        mounted={activeTab === 'providers'}
-                        timingFunction="linear"
-                        transition="fade"
-                    >
-                        {(styles) => (
-                            <MobileProvidersListWidget
-                                providers={infraProviders.providers}
-                                style={styles}
-                            />
-                        )}
-                    </Transition>
-                </Tabs.Panel>
-            </Tabs>
-
-            {/* Над нижней панелью вкладок, а не под ней: высота панели — 72 px плюс безопасная зона. */}
-            <Group
-                gap={8}
-                pos="fixed"
-                right={16}
-                style={{
-                    bottom: 'calc(84px + env(safe-area-inset-bottom, 0px))',
-                    zIndex: 100,
-                    padding: 4,
-                    border: '1px solid var(--bolt-line)',
-                    borderRadius: 'var(--mantine-radius-md)',
-                    backgroundColor: 'var(--bolt-surface-raised)'
-                }}
-            >
-                <ActionIcon
+                <Tabs
                     color="cyan"
-                    loading={
-                        isInfraProvidersRefetching ||
-                        isInfraBillingNodesRefetching ||
-                        isInfraBillingRecordsRefetching
-                    }
-                    onClick={handleRefetch}
-                    size={40}
-                    variant="soft"
+                    keepMountedMode="display-none"
+                    onChange={(value) => {
+                        if (value) {
+                            setActiveTab(value as TabValue)
+                        }
+                    }}
+                    value={activeTab}
                 >
-                    <TbRefresh size={22} />
-                </ActionIcon>
-                <ActionIcon color="teal" onClick={handleAdd} size={40} variant="soft">
-                    <TbPlus size={22} />
-                </ActionIcon>
-            </Group>
-        </Stack>
+                    <Tabs.List grow mb="md">
+                        <Tabs.Tab leftSection={<TbServer size={16} />} value="nodes">
+                            {t('constants.nodes')}
+                        </Tabs.Tab>
+                        <Tabs.Tab leftSection={<TbCreditCard size={16} />} value="records">
+                            {t('mobile-infra-billing.widget.history')}
+                        </Tabs.Tab>
+                        <Tabs.Tab leftSection={<TbCloud size={16} />} value="providers">
+                            {t('mobile-infra-billing.widget.providers')}
+                        </Tabs.Tab>
+                    </Tabs.List>
+
+                    <Tabs.Panel value="nodes">
+                        <Transition
+                            duration={200}
+                            keepMounted
+                            mounted={activeTab === 'nodes'}
+                            timingFunction="linear"
+                            transition="fade"
+                        >
+                            {(styles) => (
+                                <MobileNodesListWidget
+                                    nodes={infraBillingNodes.billingNodes}
+                                    style={styles}
+                                />
+                            )}
+                        </Transition>
+                    </Tabs.Panel>
+
+                    <Tabs.Panel value="records">
+                        <Transition
+                            duration={200}
+                            keepMounted
+                            mounted={activeTab === 'records'}
+                            timingFunction="linear"
+                            transition="fade"
+                        >
+                            {(styles) => (
+                                <VirtualizedRecordsList
+                                    height={RECORDS_HEIGHT}
+                                    isLoadingMore={isFetchingNextRecordsPage}
+                                    onReachBottom={handleLoadMoreRecords}
+                                    records={billingRecords}
+                                    refetchRecords={refetchRecords}
+                                    style={styles}
+                                />
+                            )}
+                        </Transition>
+                    </Tabs.Panel>
+
+                    <Tabs.Panel value="providers">
+                        <Transition
+                            duration={200}
+                            keepMounted
+                            mounted={activeTab === 'providers'}
+                            timingFunction="linear"
+                            transition="fade"
+                        >
+                            {(styles) => (
+                                <MobileProvidersListWidget
+                                    providers={infraProviders.providers}
+                                    style={styles}
+                                />
+                            )}
+                        </Transition>
+                    </Tabs.Panel>
+                </Tabs>
+            </Stack>
+        </>
     )
 }

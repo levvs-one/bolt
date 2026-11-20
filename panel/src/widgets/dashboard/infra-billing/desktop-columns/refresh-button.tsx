@@ -13,14 +13,8 @@ export function RefreshButton(props: RefreshButtonProps) {
 
     return (
         <Tooltip label={t('common.action.refresh')} withArrow>
-            <ActionIcon
-                color="cyan"
-                loading={loading}
-                onClick={onClick}
-                size="input-xs"
-                variant="soft"
-            >
-                <TbRefresh size={18} />
+            <ActionIcon loading={loading} onClick={onClick} size={32}>
+                <TbRefresh size={18} strokeWidth={1.75} />
             </ActionIcon>
         </Tooltip>
     )

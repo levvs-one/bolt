@@ -1,4 +1,4 @@
-import { Badge, Group, Stack, Text } from '@mantine/core'
+import { Group, Stack, Text } from '@mantine/core'
 
 import { FadeScrollArea } from './fade-scroll-area'
 
@@ -24,9 +24,9 @@ export function Column(props: ColumnProps) {
                     <Text fw={600} size="sm">
                         {title}
                     </Text>
-                    <Badge color="gray" radius="sm" size="md" variant="soft">
+                    <Text fw={500} size="sm">
                         {count}
-                    </Badge>
+                    </Text>
                 </Group>
 
                 <Group gap="xs" wrap="nowrap">

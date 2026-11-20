@@ -9,8 +9,8 @@ export function AddButton(props: AddButtonProps) {
     const { onClick } = props
 
     return (
-        <ActionIcon color="teal" onClick={onClick} size="input-xs" variant="soft">
-            <TbPlus size={18} />
+        <ActionIcon onClick={onClick} size={32}>
+            <TbPlus size={18} strokeWidth={1.75} />
         </ActionIcon>
     )
 }

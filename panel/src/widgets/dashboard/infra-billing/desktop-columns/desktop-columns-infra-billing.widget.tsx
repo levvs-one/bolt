@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, SimpleGrid, Tooltip } from '@mantine/core'
+import { ActionIcon, SimpleGrid, Text, Tooltip } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { MobileNodesListWidget } from '@widgets/dashboard/infra-billing/mobile/mobile-nodes-list.widget'
 import { MobileProvidersListWidget } from '@widgets/dashboard/infra-billing/mobile/mobile-providers-list.widget'
@@ -134,50 +134,42 @@ export function DesktopColumnsInfraBillingWidget() {
 
     const nodesActions = selectMode ? (
         <>
-            <Badge color="cyan" radius="sm" size="lg" variant="light">
+            <Text fw={700} size="sm">
                 {selectedUuids.size}
-            </Badge>
+            </Text>
 
             <Tooltip label={t('common.action.delete')} withArrow>
                 <ActionIcon
                     color="red"
                     disabled={selectedUuids.size === 0}
                     onClick={handleDeleteSelected}
-                    size="input-xs"
-                    variant="soft"
+                    size={32}
                 >
-                    <TbTrash size={18} />
+                    <TbTrash size={18} strokeWidth={1.75} />
                 </ActionIcon>
             </Tooltip>
 
             <Tooltip label={t('infra-billing-nodes.widget.update-multiple-nodes')} withArrow>
                 <ActionIcon
-                    color="teal"
                     disabled={selectedUuids.size === 0}
                     onClick={handleUpdateSelected}
-                    size="input-xs"
-                    variant="soft"
+                    size={32}
                 >
-                    <TbCalendar size={18} />
+                    <TbCalendar size={18} strokeWidth={1.75} />
                 </ActionIcon>
             </Tooltip>
 
             <Tooltip label={t('common.action.close')} withArrow>
-                <ActionIcon color="gray" onClick={exitSelectMode} size="input-xs" variant="subtle">
-                    <TbX size={18} />
+                <ActionIcon onClick={exitSelectMode} size={32}>
+                    <TbX size={18} strokeWidth={1.75} />
                 </ActionIcon>
             </Tooltip>
         </>
     ) : (
         <>
             <Tooltip label={t('common.action.select')} withArrow>
-                <ActionIcon
-                    color="gray"
-                    onClick={() => setSelectMode(true)}
-                    size="input-xs"
-                    variant="subtle"
-                >
-                    <TbListCheck size={18} />
+                <ActionIcon onClick={() => setSelectMode(true)} size="input-xs" variant="subtle">
+                    <TbListCheck size={18} strokeWidth={1.75} />
                 </ActionIcon>
             </Tooltip>
 
@@ -193,7 +185,7 @@ export function DesktopColumnsInfraBillingWidget() {
                 actions={nodesActions}
                 count={infraBillingNodes.billingNodes.length}
                 height={COLUMN_HEIGHT}
-                icon={<TbServer size={18} />}
+                icon={<TbServer size={18} strokeWidth={1.75} />}
                 title={t('constants.nodes')}
             >
                 <MobileNodesListWidget
@@ -220,7 +212,7 @@ export function DesktopColumnsInfraBillingWidget() {
                 }
                 count={billingRecordsTotal}
                 height={COLUMN_HEIGHT}
-                icon={<TbCreditCard size={18} />}
+                icon={<TbCreditCard size={18} strokeWidth={1.75} />}
                 scrollable={false}
                 title={t('mobile-infra-billing.widget.history')}
             >
@@ -248,7 +240,7 @@ export function DesktopColumnsInfraBillingWidget() {
                 }
                 count={infraProviders.providers.length}
                 height={COLUMN_HEIGHT}
-                icon={<TbCloud size={18} />}
+                icon={<TbCloud size={18} strokeWidth={1.75} />}
                 title={t('mobile-infra-billing.widget.providers')}
             >
                 <MobileProvidersListWidget providers={infraProviders.providers} style={{}} />

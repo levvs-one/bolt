@@ -27,10 +27,6 @@ export function StatsWidget() {
         {
             title: t('common.message.overdue'),
             value: overdueCount,
-            subtitle:
-                overdueCount > 0
-                    ? t('stats.widget.payment-overdue')
-                    : t('stats.widget.all-up-to-date'),
             IconComponent: TbAlertTriangle,
             iconColor: overdueCount > 0 ? 'red' : 'teal',
             iconVariant: 'soft'
@@ -38,7 +34,6 @@ export function StatsWidget() {
         {
             title: t('stats.widget.upcoming-in', { month: currentMonthOnly }),
             value: nodes?.stats.upcomingNodesCount ?? 0,
-            subtitle: t('stats.widget.nodes-pending-payment'),
             IconComponent: TbServer,
             iconColor: 'orange',
             iconVariant: 'soft'
@@ -46,7 +41,6 @@ export function StatsWidget() {
         {
             title: t('stats.widget.payments-in', { month: currentMonthOnly }),
             value: formatCurrency(nodes?.stats.currentMonthPayments ?? 0),
-            subtitle: t('stats.widget.total-payments-made'),
             IconComponent: TbCreditCard,
             iconColor: 'green',
             iconVariant: 'soft'
@@ -54,7 +48,6 @@ export function StatsWidget() {
         {
             title: t('stats.widget.total-spent'),
             value: formatCurrency(nodes?.stats.totalSpent ?? 0),
-            subtitle: t('stats.widget.lifetime-spending'),
             IconComponent: TbTrendingUp,
             iconColor: 'violet',
             iconVariant: 'soft'

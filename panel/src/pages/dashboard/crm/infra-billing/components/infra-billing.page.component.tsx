@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useIsMobile, usePreventTableBackScroll } from '@shared/hooks'
 import { Page } from '@shared/ui/page'
+import { PageHeaderShared } from '@shared/ui/page-header'
 
 export const InfraBillingPageComponent = () => {
     const { t } = useTranslation()
@@ -24,11 +25,15 @@ export const InfraBillingPageComponent = () => {
                 {isMobile ? (
                     <MobileInfraBillingWidget />
                 ) : (
-                    <Stack>
-                        <StatsWidget />
+                    <>
+                        <PageHeaderShared title={t('constants.infra-billing')} />
 
-                        <DesktopColumnsInfraBillingWidget />
-                    </Stack>
+                        <Stack>
+                            <StatsWidget />
+
+                            <DesktopColumnsInfraBillingWidget />
+                        </Stack>
+                    </>
                 )}
             </motion.div>
         </Page>

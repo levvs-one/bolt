@@ -53,7 +53,7 @@ export function FadeScrollArea(props: FadeScrollAreaProps) {
         <ScrollArea
             classNames={{ viewport: viewportClassName }}
             h={height}
-            offsetScrollbars
+            offsetScrollbars="present"
             onScrollPositionChange={updateFade}
             type="auto"
             viewportRef={viewportRef}
